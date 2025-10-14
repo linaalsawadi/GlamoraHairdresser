@@ -14,7 +14,7 @@ using System.Reflection;
 [assembly: System.Reflection.AssemblyCompanyAttribute("GlamoraHairdresser")]
 [assembly: System.Reflection.AssemblyConfigurationAttribute("Debug")]
 [assembly: System.Reflection.AssemblyFileVersionAttribute("1.0.0.0")]
-[assembly: System.Reflection.AssemblyInformationalVersionAttribute("1.0.0+bb28023b4de75a42578c62178ebfc985d1706a55")]
+[assembly: System.Reflection.AssemblyInformationalVersionAttribute("1.0.0+5a8ec53e59eb4cd007ddddbf4f976ca29c2a254f")]
 [assembly: System.Reflection.AssemblyProductAttribute("GlamoraHairdresser")]
 [assembly: System.Reflection.AssemblyTitleAttribute("GlamoraHairdresser")]
 [assembly: System.Reflection.AssemblyVersionAttribute("1.0.0.0")]

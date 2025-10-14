@@ -1,0 +1,14 @@
+# Visual Studio cache folders
+.vs/
+bin/
+obj/
+TestResults/
+*.user
+*.suo
+*.cache
+*.log
+*.dbmdl
+*.bak
+*.tmp
+*.vspscc
+*.vssscc
