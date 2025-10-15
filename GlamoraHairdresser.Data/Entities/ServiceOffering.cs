@@ -8,7 +8,6 @@ namespace GlamoraHairdresser.Data.Entities
 {
     public class ServiceOffering:BaseEntity
     {
-        public int Id { get; set; }
         public int SalonId { get; set; }
         public Salon Salon { get; set; } = default!;
         public string Name { get; set; } = string.Empty;

@@ -6,8 +6,19 @@ using System.Threading.Tasks;
 
 namespace GlamoraHairdresser.Data.Entities
 {
-    public class Appointment: BaseEntity
+    public enum AppointmentStatus : byte
     {
+        Pending = 0,
+        Confirmed = 1,
+        InProgress = 2,
+        Completed = 3,
+        Canceled = 4,
+        NoShow = 5
+    }
+
+    public class Appointment : BaseEntity
+    {
+        // مفاتيح الربط
         public int SalonId { get; set; }
         public Salon Salon { get; set; } = default!;
 
@@ -20,8 +31,21 @@ namespace GlamoraHairdresser.Data.Entities
         public int CustomerId { get; set; }
         public Customer Customer { get; set; } = default!;
 
+        // التوقيتات
         public DateTime StartUtc { get; set; }
         public DateTime EndUtc { get; set; }
+
+        // حالة الحجز
+        public AppointmentStatus Status { get; set; } = AppointmentStatus.Pending;
+
+        // معلومات مالية وتشغيلية
+        public decimal? PriceAtBooking { get; set; }
+        public int? DurationMinutes { get; set; }
+
+        // ملاحظات
         public string? Notes { get; set; }
+
+        // حماية من التعديل المتزامن
+        public byte[]? RowVersion { get; set; }
     }
 }

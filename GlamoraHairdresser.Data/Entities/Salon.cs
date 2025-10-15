@@ -15,5 +15,7 @@ namespace GlamoraHairdresser.Data.Entities
         public ICollection<WorkingHour> WorkingHours { get; set; } = new List<WorkingHour>();
         public ICollection<ServiceOffering> Services { get; set; } = new List<ServiceOffering>();
         public ICollection<Worker> Workers { get; set; } = new List<Worker>();
+
     }
+
 }

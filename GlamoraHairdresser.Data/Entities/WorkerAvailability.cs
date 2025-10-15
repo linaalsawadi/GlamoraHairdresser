@@ -6,9 +6,8 @@ using System.Threading.Tasks;
 
 namespace GlamoraHairdresser.Data.Entities
 {
-    public class WorkerAvailability
+    public class WorkerAvailability:BaseEntity
     {
-        public int Id { get; set; }                  // ✅ المفتاح الأساسي
 
         // 🔸 المفتاح الأجنبي الذي يربط العامل بهذه الفترة الزمنية
         public int WorkerId { get; set; }  // ⬅️ هذا السطر مفقود لديك!
