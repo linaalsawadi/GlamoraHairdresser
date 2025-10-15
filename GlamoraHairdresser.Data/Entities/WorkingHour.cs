@@ -6,12 +6,12 @@ using System.Threading.Tasks;
 
 namespace GlamoraHairdresser.Data.Entities
 {
-    class WorkingHour:BaseEntity
+    public class WorkingHour:BaseEntity
     {
         public int SalonId { get; set; }
         public Salon Salon { get; set; } = default!;
-        public DayOfWeek DayOfWeek { get; set; }
-        public TimeOnly OpenTime { get; set; }
-        public TimeOnly CloseTime { get; set; }
+        public byte DayOfWeek { get; set; }
+        public System.TimeOnly OpenTime { get; set; }
+        public System.TimeOnly CloseTime { get; set; }
     }
 }
