@@ -228,7 +228,7 @@ namespace GlamoraHairdresser.Data
                  .HasOne(es => es.Worker)
                  .WithMany(w => w.Skills)
                  .HasForeignKey(es => es.WorkerId)
-                 .OnDelete(DeleteBehavior.Cascade);
+                 .OnDelete(DeleteBehavior.Restrict);
 
             model.Entity<EmployeeSkill>()
                  .HasOne(es => es.ServiceOffering)
