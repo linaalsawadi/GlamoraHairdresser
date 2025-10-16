@@ -21,6 +21,7 @@
 
   <ItemGroup>
     <ProjectReference Include="..\GlamoraHairdresser.Data\GlamoraHairdresser.Data.csproj" />
+    <ProjectReference Include="..\GlamoraHairdresser.Services\GlamoraHairdresser.Services.csproj" />
   </ItemGroup>
 
 </Project>

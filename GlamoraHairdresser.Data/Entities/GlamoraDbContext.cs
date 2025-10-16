@@ -8,7 +8,7 @@ using System.Threading.Tasks;
 
 namespace GlamoraHairdresser.Data
 {
-    class GlamoraDbContext : DbContext
+    public class GlamoraDbContext : DbContext
     {// ----------- DbSets -----------
         public DbSet<Salon> Salons => Set<Salon>();
         public DbSet<WorkingHour> WorkingHours => Set<WorkingHour>();

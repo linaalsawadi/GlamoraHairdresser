@@ -1809,6 +1809,19 @@
         "runtime": {
           "bin/placeholder/GlamoraHairdresser.Data.dll": {}
         }
+      },
+      "GlamoraHairdresser.Services/1.0.0": {
+        "type": "project",
+        "framework": ".NETCoreApp,Version=v8.0",
+        "dependencies": {
+          "GlamoraHairdresser.Data": "1.0.0"
+        },
+        "compile": {
+          "bin/placeholder/GlamoraHairdresser.Services.dll": {}
+        },
+        "runtime": {
+          "bin/placeholder/GlamoraHairdresser.Services.dll": {}
+        }
       }
     }
   },
@@ -5065,11 +5078,17 @@
       "type": "project",
       "path": "../GlamoraHairdresser.Data/GlamoraHairdresser.Data.csproj",
       "msbuildProject": "../GlamoraHairdresser.Data/GlamoraHairdresser.Data.csproj"
+    },
+    "GlamoraHairdresser.Services/1.0.0": {
+      "type": "project",
+      "path": "../GlamoraHairdresser.Services/GlamoraHairdresser.Services.csproj",
+      "msbuildProject": "../GlamoraHairdresser.Services/GlamoraHairdresser.Services.csproj"
     }
   },
   "projectFileDependencyGroups": {
     "net8.0-windows7.0": [
       "GlamoraHairdresser.Data >= 1.0.0",
+      "GlamoraHairdresser.Services >= 1.0.0",
       "Microsoft.EntityFrameworkCore.Design >= 9.0.9",
       "Microsoft.EntityFrameworkCore.Tools >= 9.0.9"
     ]
@@ -5103,6 +5122,9 @@
           "projectReferences": {
             "C:\\Users\\zaine\\Source\\Repos\\GlamoraHairdresser\\GlamoraHairdresser.Data\\GlamoraHairdresser.Data.csproj": {
               "projectPath": "C:\\Users\\zaine\\Source\\Repos\\GlamoraHairdresser\\GlamoraHairdresser.Data\\GlamoraHairdresser.Data.csproj"
+            },
+            "C:\\Users\\zaine\\Source\\Repos\\GlamoraHairdresser\\GlamoraHairdresser.Services\\GlamoraHairdresser.Services.csproj": {
+              "projectPath": "C:\\Users\\zaine\\Source\\Repos\\GlamoraHairdresser\\GlamoraHairdresser.Services\\GlamoraHairdresser.Services.csproj"
             }
           }
         }
