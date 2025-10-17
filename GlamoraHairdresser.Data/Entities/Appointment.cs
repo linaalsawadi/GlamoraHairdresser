@@ -8,12 +8,11 @@ namespace GlamoraHairdresser.Data.Entities
 {
     public enum AppointmentStatus : byte
     {
-        Pending = 0,
-        Confirmed = 1,
-        InProgress = 2,
-        Completed = 3,
-        Canceled = 4,
-        NoShow = 5
+        Pending = 0,   // بانتظار الموافقة
+        Approved = 1,  // تم قبول الموعد
+        Rejected = 2,  // تم الرفض
+        Cancelled = 3  // تم الإلغاء
+
     }
 
     public class Appointment : BaseEntity
