@@ -28,19 +28,32 @@
         /// </summary>
         private void InitializeComponent()
         {
+            button1 = new Button();
             SuspendLayout();
             // 
-            // Form1
+            // button1
+            // 
+            button1.Location = new Point(287, 207);
+            button1.Name = "button1";
+            button1.Size = new Size(126, 44);
+            button1.TabIndex = 0;
+            button1.Text = "button1";
+            button1.UseVisualStyleBackColor = true;
+            // 
+            // BookingForm
             // 
             AutoScaleDimensions = new SizeF(7F, 15F);
             AutoScaleMode = AutoScaleMode.Font;
-            ClientSize = new Size(800, 450);
-            Name = "Form1";
+            ClientSize = new Size(697, 385);
+            Controls.Add(button1);
+            Name = "BookingForm";
             Text = "Form1";
             Load += Form1_Load;
             ResumeLayout(false);
         }
 
         #endregion
+
+        private Button button1;
     }
 }
