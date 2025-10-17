@@ -5,6 +5,10 @@ using Microsoft.Extensions.DependencyInjection;
 using Microsoft.EntityFrameworkCore;
 using GlamoraHairdresser.Data;
 using GlamoraHairdresser.Services;
+using GlamoraHairdresser.WinForms.Forms.AuthForms;
+using GlamoraHairdresser.Services.Appointments;
+using GlamoraHairdresser.Data.Entities;
+using GlamoraHairdresser.Services.Auth;
 
 namespace GlamoraHairdresser
 {
@@ -19,17 +23,51 @@ namespace GlamoraHairdresser
             var sc = new ServiceCollection();
 
             sc.AddDbContext<GlamoraDbContext>(opt =>
-                opt.UseSqlServer("Server=DEEMAZAINELDEEN\\SQLEXPRESS;Database=GlamoraDb;Trusted_Connection=True;MultipleActiveResultSets=true;TrustServerCertificate=True"));
+                opt.UseSqlServer("Server=DESKTOP-DHABHQ9\\SQLEXPRESS05;Database=GlamoraDb;Trusted_Connection=True;MultipleActiveResultSets=true;TrustServerCertificate=True"));
 
+            sc.AddScoped<IAuthService, AuthService>();
             sc.AddScoped<IAppointmentService, AppointmentService>();
 
-            sc.AddTransient<BookingForm>(); // UI
+            sc.AddTransient<LoginForm>(); // UI
 
             Services = sc.BuildServiceProvider();
             // To customize application configuration such as set high DPI settings or default font,
             // see https://aka.ms/applicationconfiguration.
+
+            // ================================
+            // ???? ??? ?? ???? ??? ????? ??? Admin ????
+            // ================================
+
+            using (var scope = Services.CreateScope())
+            {
+                var db = scope.ServiceProvider.GetRequiredService<GlamoraDbContext>();
+                var auth = scope.ServiceProvider.GetRequiredService<IAuthService>();
+
+                db.Database.Migrate(); // ???? ?????????? ????????
+
+                // ?? ?? ?? ?? Admin ???? ???? ???????
+                if (!db.Admins.Any())
+                {
+                    var admin = new Admin
+                    {
+                        FullName = "System Administrator",
+                        Email = "admin@glamora.com",
+                        PasswordHash = auth.HashPassword("admin123"), // ???? ???? ?????
+                        Permissions = "FullAccess",
+                        CreatedAt = DateTime.UtcNow,
+                    };
+
+                    db.Admins.Add(admin);
+                    db.SaveChanges();
+                }
+            }
+
+            // ================================
+            // ???? ????? ??? ????? ??? Admin ????
+            // ================================
+
             ApplicationConfiguration.Initialize();
-            Application.Run(Services.GetRequiredService<BookingForm>());
+            Application.Run(Services.GetRequiredService<LoginForm>()); // ? ???? LoginForm ?????
         }
     }
 }

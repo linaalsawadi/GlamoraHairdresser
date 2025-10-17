@@ -24,4 +24,11 @@
     <ProjectReference Include="..\GlamoraHairdresser.Services\GlamoraHairdresser.Services.csproj" />
   </ItemGroup>
 
+  <ItemGroup>
+    <Folder Include="Forms\AppointmentForms\" />
+    <Folder Include="Forms\CustomerForms\" />
+    <Folder Include="Forms\WorkerForms\" />
+    <Folder Include="Forms\SalonForms\" />
+  </ItemGroup>
+
 </Project>

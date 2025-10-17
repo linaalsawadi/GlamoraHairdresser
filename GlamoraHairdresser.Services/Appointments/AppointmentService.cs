@@ -1,9 +1,14 @@
-﻿using GlamoraHairdresser.Data;
-using GlamoraHairdresser.Data.Entities;
+﻿using GlamoraHairdresser.Data.Entities;
+using GlamoraHairdresser.Data;
 using GlamoraHairdresser.Services.Interfaces;
+using System;
+using System.Collections.Generic;
+using System.Linq;
+using System.Text;
+using System.Threading.Tasks;
 using Microsoft.EntityFrameworkCore;
 
-namespace GlamoraHairdresser.Services
+namespace GlamoraHairdresser.Services.Appointments
 {
     public class AppointmentService : IAppointmentService
     {
