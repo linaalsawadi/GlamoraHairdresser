@@ -37,7 +37,7 @@
             // SalonBtn
             // 
             SalonBtn.Font = new Font("Segoe UI Semibold", 14.25F, FontStyle.Bold | FontStyle.Italic, GraphicsUnit.Point, 0);
-            SalonBtn.Location = new Point(192, 76);
+            SalonBtn.Location = new Point(227, 144);
             SalonBtn.Name = "SalonBtn";
             SalonBtn.Size = new Size(118, 56);
             SalonBtn.TabIndex = 8;
@@ -48,7 +48,7 @@
             // WorkerBtn
             // 
             WorkerBtn.Font = new Font("Segoe UI Semibold", 14.25F, FontStyle.Bold | FontStyle.Italic, GraphicsUnit.Point, 0);
-            WorkerBtn.Location = new Point(363, 76);
+            WorkerBtn.Location = new Point(398, 144);
             WorkerBtn.Name = "WorkerBtn";
             WorkerBtn.Size = new Size(118, 56);
             WorkerBtn.TabIndex = 9;
@@ -59,7 +59,7 @@
             // ProfitBtn
             // 
             ProfitBtn.Font = new Font("Segoe UI Semibold", 14.25F, FontStyle.Bold | FontStyle.Italic, GraphicsUnit.Point, 0);
-            ProfitBtn.Location = new Point(363, 183);
+            ProfitBtn.Location = new Point(398, 251);
             ProfitBtn.Name = "ProfitBtn";
             ProfitBtn.Size = new Size(118, 56);
             ProfitBtn.TabIndex = 10;
@@ -70,7 +70,7 @@
             // CustomerBtn
             // 
             CustomerBtn.Font = new Font("Segoe UI Semibold", 14.25F, FontStyle.Bold | FontStyle.Italic, GraphicsUnit.Point, 0);
-            CustomerBtn.Location = new Point(192, 183);
+            CustomerBtn.Location = new Point(227, 251);
             CustomerBtn.Name = "CustomerBtn";
             CustomerBtn.Size = new Size(118, 56);
             CustomerBtn.TabIndex = 11;
