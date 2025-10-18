@@ -101,6 +101,7 @@
             RegisterBtn.TabIndex = 7;
             RegisterBtn.Text = "Register";
             RegisterBtn.UseVisualStyleBackColor = true;
+            RegisterBtn.Click += RegisterBtn_Click;
             // 
             // LoginBtn
             // 

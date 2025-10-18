@@ -12,3 +12,6 @@ TestResults/
 *.tmp
 *.vspscc
 *.vssscc
+/GlamoraHairdresser/obj/project.nuget.cache
+/GlamoraHairdresser/obj/project.assets.json
+/GlamoraHairdresser/Forms/AuthForms/RegisterForm.resx
