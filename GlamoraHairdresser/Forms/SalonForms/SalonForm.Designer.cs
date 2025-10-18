@@ -33,11 +33,15 @@
             UpdateBtn = new Button();
             DeleteBtn = new Button();
             ClearBtn = new Button();
-            textBox1 = new TextBox();
-            textBox2 = new TextBox();
-            textBox3 = new TextBox();
-            textBox4 = new TextBox();
-            textBox5 = new TextBox();
+            SalonIdTxtBox = new TextBox();
+            SalonNameTxtBox = new TextBox();
+            AddressTxtBox = new TextBox();
+            SalonPhoneNumTxtBox = new TextBox();
+            IdLbl = new Label();
+            SalonNameLbl = new Label();
+            SalonAddressLbl = new Label();
+            SalonPhoneNumLbl = new Label();
+            SalonLbl = new Label();
             ((System.ComponentModel.ISupportInitialize)dataGridViewSalon).BeginInit();
             SuspendLayout();
             // 
@@ -57,6 +61,7 @@
             AddBtn.TabIndex = 1;
             AddBtn.Text = "Add";
             AddBtn.UseVisualStyleBackColor = true;
+            AddBtn.Click += AddBtn_Click;
             // 
             // UpdateBtn
             // 
@@ -66,6 +71,7 @@
             UpdateBtn.TabIndex = 2;
             UpdateBtn.Text = "Update";
             UpdateBtn.UseVisualStyleBackColor = true;
+            UpdateBtn.Click += UpdateBtn_Click;
             // 
             // DeleteBtn
             // 
@@ -75,6 +81,7 @@
             DeleteBtn.TabIndex = 3;
             DeleteBtn.Text = "Delete";
             DeleteBtn.UseVisualStyleBackColor = true;
+            DeleteBtn.Click += DeleteBtn_Click;
             // 
             // ClearBtn
             // 
@@ -84,52 +91,103 @@
             ClearBtn.TabIndex = 4;
             ClearBtn.Text = "Clear";
             ClearBtn.UseVisualStyleBackColor = true;
+            ClearBtn.Click += ClearBtn_Click;
             // 
-            // textBox1
+            // SalonIdTxtBox
             // 
-            textBox1.Location = new Point(688, 44);
-            textBox1.Name = "textBox1";
-            textBox1.Size = new Size(100, 23);
-            textBox1.TabIndex = 5;
+            SalonIdTxtBox.Location = new Point(653, 148);
+            SalonIdTxtBox.Name = "SalonIdTxtBox";
+            SalonIdTxtBox.Size = new Size(100, 23);
+            SalonIdTxtBox.TabIndex = 5;
             // 
-            // textBox2
+            // SalonNameTxtBox
             // 
-            textBox2.Location = new Point(688, 100);
-            textBox2.Name = "textBox2";
-            textBox2.Size = new Size(100, 23);
-            textBox2.TabIndex = 6;
+            SalonNameTxtBox.Location = new Point(653, 217);
+            SalonNameTxtBox.Name = "SalonNameTxtBox";
+            SalonNameTxtBox.Size = new Size(100, 23);
+            SalonNameTxtBox.TabIndex = 6;
             // 
-            // textBox3
+            // AddressTxtBox
             // 
-            textBox3.Location = new Point(688, 154);
-            textBox3.Name = "textBox3";
-            textBox3.Size = new Size(100, 23);
-            textBox3.TabIndex = 7;
+            AddressTxtBox.Location = new Point(653, 289);
+            AddressTxtBox.Name = "AddressTxtBox";
+            AddressTxtBox.Size = new Size(100, 23);
+            AddressTxtBox.TabIndex = 7;
             // 
-            // textBox4
+            // SalonPhoneNumTxtBox
             // 
-            textBox4.Location = new Point(688, 213);
-            textBox4.Name = "textBox4";
-            textBox4.Size = new Size(100, 23);
-            textBox4.TabIndex = 8;
+            SalonPhoneNumTxtBox.Location = new Point(653, 367);
+            SalonPhoneNumTxtBox.Name = "SalonPhoneNumTxtBox";
+            SalonPhoneNumTxtBox.Size = new Size(100, 23);
+            SalonPhoneNumTxtBox.TabIndex = 8;
             // 
-            // textBox5
+            // IdLbl
             // 
-            textBox5.Location = new Point(688, 274);
-            textBox5.Name = "textBox5";
-            textBox5.Size = new Size(100, 23);
-            textBox5.TabIndex = 9;
+            IdLbl.AutoSize = true;
+            IdLbl.Font = new Font("Segoe UI", 12F, FontStyle.Italic, GraphicsUnit.Point, 0);
+            IdLbl.Location = new Point(693, 124);
+            IdLbl.Name = "IdLbl";
+            IdLbl.Size = new Size(23, 21);
+            IdLbl.TabIndex = 10;
+            IdLbl.Text = "Id";
+            IdLbl.TextAlign = ContentAlignment.MiddleLeft;
+            // 
+            // SalonNameLbl
+            // 
+            SalonNameLbl.AutoSize = true;
+            SalonNameLbl.Font = new Font("Segoe UI", 12F, FontStyle.Italic, GraphicsUnit.Point, 0);
+            SalonNameLbl.Location = new Point(657, 193);
+            SalonNameLbl.Name = "SalonNameLbl";
+            SalonNameLbl.Size = new Size(96, 21);
+            SalonNameLbl.TabIndex = 11;
+            SalonNameLbl.Text = "Salon Name";
+            // 
+            // SalonAddressLbl
+            // 
+            SalonAddressLbl.AutoSize = true;
+            SalonAddressLbl.Font = new Font("Segoe UI", 12F, FontStyle.Italic, GraphicsUnit.Point, 0);
+            SalonAddressLbl.Location = new Point(670, 265);
+            SalonAddressLbl.Name = "SalonAddressLbl";
+            SalonAddressLbl.Size = new Size(64, 21);
+            SalonAddressLbl.TabIndex = 12;
+            SalonAddressLbl.Text = "Address";
+            // 
+            // SalonPhoneNumLbl
+            // 
+            SalonPhoneNumLbl.AutoSize = true;
+            SalonPhoneNumLbl.Font = new Font("Segoe UI", 12F, FontStyle.Italic, GraphicsUnit.Point, 0);
+            SalonPhoneNumLbl.Location = new Point(636, 343);
+            SalonPhoneNumLbl.Name = "SalonPhoneNumLbl";
+            SalonPhoneNumLbl.Size = new Size(136, 21);
+            SalonPhoneNumLbl.TabIndex = 13;
+            SalonPhoneNumLbl.Text = "Salon Phone Num";
+            SalonPhoneNumLbl.TextAlign = ContentAlignment.MiddleCenter;
+            SalonPhoneNumLbl.Click += SalonPhoneNumLbl_Click;
+            // 
+            // SalonLbl
+            // 
+            SalonLbl.AutoSize = true;
+            SalonLbl.Font = new Font("Showcard Gothic", 20.25F, FontStyle.Regular, GraphicsUnit.Point, 0);
+            SalonLbl.Location = new Point(649, 41);
+            SalonLbl.Name = "SalonLbl";
+            SalonLbl.Size = new Size(111, 33);
+            SalonLbl.TabIndex = 14;
+            SalonLbl.Text = "Salons";
             // 
             // SalonForm
             // 
             AutoScaleDimensions = new SizeF(7F, 15F);
             AutoScaleMode = AutoScaleMode.Font;
             ClientSize = new Size(800, 450);
-            Controls.Add(textBox5);
-            Controls.Add(textBox4);
-            Controls.Add(textBox3);
-            Controls.Add(textBox2);
-            Controls.Add(textBox1);
+            Controls.Add(SalonLbl);
+            Controls.Add(SalonPhoneNumLbl);
+            Controls.Add(SalonAddressLbl);
+            Controls.Add(SalonNameLbl);
+            Controls.Add(IdLbl);
+            Controls.Add(SalonPhoneNumTxtBox);
+            Controls.Add(AddressTxtBox);
+            Controls.Add(SalonNameTxtBox);
+            Controls.Add(SalonIdTxtBox);
             Controls.Add(ClearBtn);
             Controls.Add(DeleteBtn);
             Controls.Add(UpdateBtn);
@@ -150,10 +208,18 @@
         private Button UpdateBtn;
         private Button DeleteBtn;
         private Button ClearBtn;
-        private TextBox textBox1;
-        private TextBox textBox2;
-        private TextBox textBox3;
-        private TextBox textBox4;
+        private TextBox SalonIdTxtBox;
+        private TextBox SalonNameTxtBox;
+        private TextBox AddressTxtBox;
+        private TextBox SalonPhoneNumTxtBox;
         private TextBox textBox5;
+        private Label IdLbl;
+        private Label SalonNameLbl;
+        private Label label3;
+        private Label label4;
+        private Label label5;
+        private Label SalonAddressLbl;
+        private Label SalonPhoneNumLbl;
+        private Label SalonLbl;
     }
 }
