@@ -9,11 +9,21 @@ using GlamoraHairdresser.WinForms.Forms.AuthForms;
 using GlamoraHairdresser.Services.Appointments;
 using GlamoraHairdresser.Data.Entities;
 using GlamoraHairdresser.Services.Auth;
+using System.Text;
+using System.Security.Cryptography;
+
 
 namespace GlamoraHairdresser
 {
     internal static class Program
     {
+        public static byte[] HashPassword(string password)
+        {
+            using (var sha = SHA256.Create())
+            {
+                return sha.ComputeHash(Encoding.UTF8.GetBytes(password));
+            }
+        }
         public static ServiceProvider Services { get; private set; } = default!;
 
 
@@ -52,7 +62,7 @@ namespace GlamoraHairdresser
                     {
                         FullName = "System Administrator",
                         Email = "admin@glamora.com",
-                        PasswordHash = auth.HashPassword("admin123"), // ???? ???? ?????
+                        PasswordHash = auth.HashPassword("admin123"), // ???? byte[]
                         Permissions = "FullAccess",
                         CreatedAt = DateTime.UtcNow,
                     };

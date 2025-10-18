@@ -49,7 +49,6 @@
             EmailLabel.Size = new Size(87, 28);
             EmailLabel.TabIndex = 0;
             EmailLabel.Text = "Email";
-            EmailLabel.Click += label1_Click;
             // 
             // PassLabel
             // 

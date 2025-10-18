@@ -7,6 +7,8 @@ namespace GlamoraHairdresser.Data.Entities
         public string FullName { get; set; } = string.Empty;
         public string Email { get; set; } = string.Empty;
         public string PasswordHash { get; set; } = string.Empty;
+        public int IterationCount { get; set; } = 100_000;
+        public byte Prf { get; set; } = 1; // 1 = HMACSHA256
 
         // TPH discriminator
         public string UserType { get; protected set; } = string.Empty;

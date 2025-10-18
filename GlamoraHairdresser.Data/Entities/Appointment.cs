@@ -11,7 +11,7 @@ namespace GlamoraHairdresser.Data.Entities
         Pending = 0,   // بانتظار الموافقة
         Approved = 1,  // تم قبول الموعد
         Rejected = 2,  // تم الرفض
-        Cancelled = 3  // تم الإلغاء
+        Canceled = 3  // تم الإلغاء
 
     }
 

@@ -56,33 +56,42 @@ namespace GlamoraHairdresser.Data
         // ===== Users (TPH) =====
         private static void ConfigureUsers(ModelBuilder model)
         {
-            model.Entity<User>()
-                 .HasDiscriminator<string>("UserType")
-                 .HasValue<Admin>("Admin")
-                 .HasValue<Worker>("Worker")
-                 .HasValue<Customer>("Customer");
+            var e = model.Entity<User>();
 
-            model.Entity<User>()
-                 .HasIndex(u => u.Email)
-                 .IsUnique();
+            // TPH Discriminator
+            e.HasDiscriminator<string>("UserType")
+             .HasValue<Admin>("Admin")
+             .HasValue<Worker>("Worker")
+             .HasValue<Customer>("Customer");
 
-            model.Entity<User>()
-                 .Property(u => u.Email)
-                 .IsRequired()
-                 .HasMaxLength(450);
+            // فهرس فريد على البريد
+            e.HasIndex(u => u.Email).IsUnique();
 
-            model.Entity<User>()
-                 .Property(u => u.PasswordHash)
-                 .IsRequired()
-                 .HasMaxLength(200);
+            // البريد
+            e.Property(u => u.Email)
+             .IsRequired()
+             .HasMaxLength(450);
 
-            // فحص منطقي
-            model.Entity<User>()
-                 .ToTable(t =>
-                 {
-                     t.HasCheckConstraint("CK_UserType_NotEmpty", "[UserType] IN ('Admin','Worker','Customer')");
-                 });
+            // كلمة المرور (PBKDF2 256-bit = 32 بايت)
+            e.Property(u => u.PasswordHash)
+             .IsRequired()
+             .HasMaxLength(255); // أو أكثر من 255 إذا أردت
+
+            // (اختياري) تقييد لقيمة UserType
+            e.ToTable(t =>
+            {
+                t.HasCheckConstraint(
+                    "CK_UserType_NotEmpty",
+                    "[UserType] IN ('Admin','Worker','Customer')"
+                );
+            });
+
+            // (اختياري لكن مُستحسن) حجم واضح لعمود المميّز
+            e.Property<string>("UserType")
+             .HasMaxLength(32)
+             .IsRequired();
         }
+
 
 
         // ===== Salon =====
