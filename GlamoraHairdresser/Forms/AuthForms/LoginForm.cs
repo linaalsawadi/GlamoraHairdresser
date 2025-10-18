@@ -107,6 +107,16 @@ namespace GlamoraHairdresser.WinForms.Forms.AuthForms
             }
         }
 
-        
+        private void RegisterBtn_Click(object sender, EventArgs e)
+        {
+            // إنشاء فورم التسجيل وتمرير الـ AuthService إليه من نفس DI container
+            var registerForm = Program.Services.GetRequiredService<RegisterForm>();
+
+            // إظهار صفحة التسجيل
+            registerForm.Show();
+
+            // إخفاء صفحة تسجيل الدخول
+            this.Hide();
+        }
     }
 }

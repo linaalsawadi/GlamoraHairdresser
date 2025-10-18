@@ -33,12 +33,13 @@ namespace GlamoraHairdresser
             var sc = new ServiceCollection();
 
             sc.AddDbContext<GlamoraDbContext>(opt =>
-                opt.UseSqlServer("Server=DESKTOP-DHABHQ9\\SQLEXPRESS05;Database=GlamoraDb;Trusted_Connection=True;MultipleActiveResultSets=true;TrustServerCertificate=True"));
+                opt.UseSqlServer("Server=DEEMAZAINELDEEN\\SQLEXPRESS;Database=GlamoraDb;Trusted_Connection=True;MultipleActiveResultSets=true;TrustServerCertificate=True"));
 
             sc.AddScoped<IAuthService, AuthService>();
             sc.AddScoped<IAppointmentService, AppointmentService>();
 
-            sc.AddTransient<LoginForm>(); // UI
+            sc.AddTransient<LoginForm>();
+            sc.AddTransient<RegisterForm>();// UI
 
             Services = sc.BuildServiceProvider();
             // To customize application configuration such as set high DPI settings or default font,
