@@ -14,19 +14,14 @@ using System.Security.Cryptography;
 using GlamoraHairdresser.WinForms.Forms.CustomerForms;
 using GlamoraHairdresser.WinForms.Forms.WorkerForms;
 using GlamoraHairdresser.WinForms.Forms.AdminForms;
+using GlamoraHairdresser.WinForms.Forms.SalonForms;
 
 
 namespace GlamoraHairdresser
 {
     internal static class Program
     {
-        public static byte[] HashPassword(string password)
-        {
-            using (var sha = SHA256.Create())
-            {
-                return sha.ComputeHash(Encoding.UTF8.GetBytes(password));
-            }
-        }
+        
         public static ServiceProvider Services { get; private set; } = default!;
 
 
@@ -40,27 +35,23 @@ namespace GlamoraHairdresser
 
             sc.AddScoped<IAuthService, AuthService>();
             sc.AddScoped<IAppointmentService, AppointmentService>();
+            sc.AddDbContext<GlamoraDbContext>();
 
             sc.AddTransient<LoginForm>(); // UI
             sc.AddTransient<AdminDashboard>();
             sc.AddTransient<CustomerDashboard>();
             sc.AddTransient<WorkerDashboard>();
+            sc.AddTransient<SalonForm>();
             Services = sc.BuildServiceProvider();
-            // To customize application configuration such as set high DPI settings or default font,
-            // see https://aka.ms/applicationconfiguration.
 
-            // ================================
-            // ???? ??? ?? ???? ??? ????? ??? Admin ????
-            // ================================
-
+            
             using (var scope = Services.CreateScope())
             {
                 var db = scope.ServiceProvider.GetRequiredService<GlamoraDbContext>();
                 var auth = scope.ServiceProvider.GetRequiredService<IAuthService>();
 
-                db.Database.Migrate(); // ???? ?????????? ????????
+                db.Database.Migrate(); 
 
-                // ?? ?? ?? ?? Admin ???? ???? ???????
                 if (!db.Admins.Any())
                 {
                     var admin = new Admin
@@ -76,10 +67,6 @@ namespace GlamoraHairdresser
                     db.SaveChanges();
                 }
             }
-
-            // ================================
-            // ???? ????? ??? ????? ??? Admin ????
-            // ================================
 
             ApplicationConfiguration.Initialize();
             Application.Run(Services.GetRequiredService<LoginForm>()); // ? ???? LoginForm ?????

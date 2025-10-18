@@ -26,7 +26,6 @@
 
   <ItemGroup>
     <Folder Include="Forms\AppointmentForms\" />
-    <Folder Include="Forms\SalonForms\" />
   </ItemGroup>
 
 </Project>

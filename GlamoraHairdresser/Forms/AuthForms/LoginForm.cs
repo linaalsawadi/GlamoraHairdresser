@@ -19,6 +19,12 @@ namespace GlamoraHairdresser.WinForms.Forms.AuthForms
             _auth = auth;
             PassTxtBox.PasswordChar = '●';
         }
+        public void ClearInputs()
+        {
+            EmailTxtBox.Text = string.Empty;
+            PassTxtBox.Text = string.Empty;
+            EmailTxtBox.Focus();
+        }
 
 
 
@@ -90,24 +96,24 @@ namespace GlamoraHairdresser.WinForms.Forms.AuthForms
                     MessageBox.Show($"✅ Welcome {result.User!.FullName}!",
                         "Login Successful", MessageBoxButtons.OK, MessageBoxIcon.Information);
 
-                    // 👇 نتحقق من نوع المستخدم
+                    // نتحقق من نوع المستخدم
                     string userType = result.User.UserType;
 
-                    // ✅ Admin
+                    // Admin
                     if (userType.Equals("Admin", StringComparison.OrdinalIgnoreCase))
                     {
                         var adminDashboard = Program.Services.GetRequiredService<AdminDashboard>();
                         adminDashboard.Show();
                         this.Hide();
                     }
-                    // 👤 Customer
+                    // Customer
                     else if (userType.Equals("Customer", StringComparison.OrdinalIgnoreCase))
                     {
                         var customerForm = Program.Services.GetRequiredService<CustomerDashboard>();
                         customerForm.Show();
                         this.Hide();
                     }
-                    // 👷 Worker (اختياري لاحقًا)
+                    // Worker 
                     else if (userType.Equals("Worker", StringComparison.OrdinalIgnoreCase))
                     {
                         var workerForm = Program.Services.GetRequiredService<WorkerDashboard>();

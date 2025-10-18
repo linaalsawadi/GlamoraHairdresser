@@ -32,6 +32,8 @@
             WorkerBtn = new Button();
             ProfitBtn = new Button();
             CustomerBtn = new Button();
+            LogoutBtn = new Button();
+            BackBtn = new Button();
             SuspendLayout();
             // 
             // SalonBtn
@@ -78,11 +80,35 @@
             CustomerBtn.UseVisualStyleBackColor = true;
             CustomerBtn.Click += CustomerBtn_Click;
             // 
+            // LogoutBtn
+            // 
+            LogoutBtn.Font = new Font("Segoe UI Semibold", 14.25F, FontStyle.Bold | FontStyle.Italic, GraphicsUnit.Point, 0);
+            LogoutBtn.Location = new Point(136, 418);
+            LogoutBtn.Name = "LogoutBtn";
+            LogoutBtn.Size = new Size(118, 29);
+            LogoutBtn.TabIndex = 12;
+            LogoutBtn.Text = "Logout";
+            LogoutBtn.UseVisualStyleBackColor = true;
+            LogoutBtn.Click += LogoutBtn_Click;
+            // 
+            // BackBtn
+            // 
+            BackBtn.Font = new Font("Segoe UI Semibold", 14.25F, FontStyle.Bold | FontStyle.Italic, GraphicsUnit.Point, 0);
+            BackBtn.Location = new Point(12, 418);
+            BackBtn.Name = "BackBtn";
+            BackBtn.Size = new Size(118, 29);
+            BackBtn.TabIndex = 13;
+            BackBtn.Text = "Back";
+            BackBtn.UseVisualStyleBackColor = true;
+            BackBtn.Click += BackBtn_Click;
+            // 
             // AdminDashboard
             // 
             AutoScaleDimensions = new SizeF(7F, 15F);
             AutoScaleMode = AutoScaleMode.Font;
             ClientSize = new Size(800, 450);
+            Controls.Add(BackBtn);
+            Controls.Add(LogoutBtn);
             Controls.Add(CustomerBtn);
             Controls.Add(ProfitBtn);
             Controls.Add(WorkerBtn);
@@ -97,5 +123,7 @@
         private Button WorkerBtn;
         private Button ProfitBtn;
         private Button CustomerBtn;
+        private Button LogoutBtn;
+        private Button BackBtn;
     }
 }
