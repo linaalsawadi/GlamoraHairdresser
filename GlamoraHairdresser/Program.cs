@@ -11,6 +11,9 @@ using GlamoraHairdresser.Data.Entities;
 using GlamoraHairdresser.Services.Auth;
 using System.Text;
 using System.Security.Cryptography;
+using GlamoraHairdresser.WinForms.Forms.CustomerForms;
+using GlamoraHairdresser.WinForms.Forms.WorkerForms;
+using GlamoraHairdresser.WinForms.Forms.AdminForms;
 
 
 namespace GlamoraHairdresser
@@ -38,9 +41,16 @@ namespace GlamoraHairdresser
             sc.AddScoped<IAuthService, AuthService>();
             sc.AddScoped<IAppointmentService, AppointmentService>();
 
+<<<<<<< HEAD
             sc.AddTransient<LoginForm>();
             sc.AddTransient<RegisterForm>();// UI
 
+=======
+            sc.AddTransient<LoginForm>(); // UI
+            sc.AddTransient<AdminDashboard>();
+            sc.AddTransient<CustomerDashboard>();
+            sc.AddTransient<WorkerDashboard>();
+>>>>>>> 229c6be29150d9e440ea07c799576cd849e3d825
             Services = sc.BuildServiceProvider();
             // To customize application configuration such as set high DPI settings or default font,
             // see https://aka.ms/applicationconfiguration.

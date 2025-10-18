@@ -90,15 +90,37 @@ namespace GlamoraHairdresser.WinForms.Forms.AuthForms
                     MessageBox.Show($"✅ Welcome {result.User!.FullName}!",
                         "Login Successful", MessageBoxButtons.OK, MessageBoxIcon.Information);
 
-                    // يمكنك هنا فتح صفحة أخرى بعد النجاح
-                    // new DashboardForm().Show();
-                    // this.Hide();
+                    // 👇 نتحقق من نوع المستخدم
+                    string userType = result.User.UserType;
+
+                    // ✅ Admin
+                    if (userType.Equals("Admin", StringComparison.OrdinalIgnoreCase))
+                    {
+                        var adminDashboard = Program.Services.GetRequiredService<AdminDashboard>();
+                        adminDashboard.Show();
+                        this.Hide();
+                    }
+                    // 👤 Customer
+                    else if (userType.Equals("Customer", StringComparison.OrdinalIgnoreCase))
+                    {
+                        var customerForm = Program.Services.GetRequiredService<CustomerDashboard>();
+                        customerForm.Show();
+                        this.Hide();
+                    }
+                    // 👷 Worker (اختياري لاحقًا)
+                    else if (userType.Equals("Worker", StringComparison.OrdinalIgnoreCase))
+                    {
+                        var workerForm = Program.Services.GetRequiredService<WorkerDashboard>();
+                        workerForm.Show();
+                        this.Hide();
+                    }
                 }
                 else
                 {
                     MessageBox.Show($"❌ {result.Message}",
                         "Login Failed", MessageBoxButtons.OK, MessageBoxIcon.Error);
                 }
+
             }
             catch (Exception ex)
             {
