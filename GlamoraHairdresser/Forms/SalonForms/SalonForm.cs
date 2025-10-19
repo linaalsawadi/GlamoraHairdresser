@@ -72,7 +72,27 @@ namespace GlamoraHairdresser.WinForms.Forms.SalonForms
         private void SalonForm_Load(object sender, EventArgs e)
         {
             LoadData();
+            // ✅ عند تحميل الصفحة، اربط الحدث لتنسيق الوقت المحلي
+            dataGridViewSalon.CellFormatting += DataGridViewSalon_CellFormatting;
+
         }
+        private void DataGridViewSalon_CellFormatting(object? sender, DataGridViewCellFormattingEventArgs e)
+        {
+            var grid = (DataGridView)sender!;
+            if (grid.Columns[e.ColumnIndex].DataPropertyName == "CreatedAt" && e.Value is DateTime dt)
+            {
+                // عالج Kind غير المحدد باعتباره UTC ثم حوّله للمحلي
+                if (dt.Kind == DateTimeKind.Unspecified)
+                    dt = DateTime.SpecifyKind(dt, DateTimeKind.Utc);
+
+                var local = dt.ToLocalTime();
+
+                // أعد القيمة كنص (string) لتوافق عمود TextBox
+                e.Value = local.ToString("yyyy-MM-dd HH:mm");
+                e.FormattingApplied = true;
+            }
+        }
+
         private void DataGridViewSalon_SelectionChanged(object? sender, EventArgs e) => FillFormFromSelection();
 
         private void FillFormFromSelection()
