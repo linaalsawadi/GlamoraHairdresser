@@ -1,5 +1,6 @@
 ﻿using GlamoraHairdresser.WinForms.Forms.AuthForms;
 using GlamoraHairdresser.WinForms.Forms.SalonForms;
+using GlamoraHairdresser.WinForms.Forms.WorkerForms;
 using Microsoft.Extensions.DependencyInjection;
 using System;
 using System.Collections.Generic;
@@ -25,13 +26,20 @@ namespace GlamoraHairdresser.WinForms.Forms.AdminForms
 
         private void SalonBtn_Click(object sender, EventArgs e)
         {
-            var salonForm = Program.Services.GetRequiredService<SalonForm>();
-            salonForm.Show();
+            using var scope = Program.Services.CreateScope();
+            var db = scope.ServiceProvider.GetRequiredService<GlamoraHairdresser.Data.GlamoraDbContext>();
+
+            var salonForm = new SalonForm(db);
+            salonForm.ShowDialog();
         }
 
         private void WorkerBtn_Click(object sender, EventArgs e)
         {
+            using var scope = Program.Services.CreateScope();
+            var db = scope.ServiceProvider.GetRequiredService<GlamoraHairdresser.Data.GlamoraDbContext>();
 
+            var workerForm = new WorkerDashboard(db);
+            workerForm.ShowDialog();
         }
 
         private void CustomerBtn_Click(object sender, EventArgs e)

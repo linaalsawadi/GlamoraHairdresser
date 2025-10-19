@@ -107,6 +107,8 @@ namespace GlamoraHairdresser.WinForms.Forms.SalonForms
             LoadData();
             // ✅ عند تحميل الصفحة، اربط الحدث لتنسيق الوقت المحلي
             dataGridViewSalon.CellFormatting += DataGridViewSalon_CellFormatting;
+            if (_bs.Count > 0)
+                FillFormFromSelection();
 
         }
         private void DataGridViewSalon_CellFormatting(object? sender, DataGridViewCellFormattingEventArgs e)
@@ -269,6 +271,6 @@ namespace GlamoraHairdresser.WinForms.Forms.SalonForms
         {
             ClearInputs(); // فقط تنظيف الحقول النصية دون أي تعامل مع قاعدة البيانات
 
-        }
+        }       
     }
 }
