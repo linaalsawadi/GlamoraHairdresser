@@ -21,31 +21,37 @@ namespace GlamoraHairdresser.WinForms.Forms.SalonForms
 
         private void LoadData()
         {
+            // 1) تحميل وربط البيانات
             _db.ChangeTracker.Clear();
             _db.Salons.Load();
+
             _bs.DataSource = _db.Salons.Local.ToBindingList();
+            dataGridViewSalon.AutoGenerateColumns = true;
             dataGridViewSalon.DataSource = _bs;
 
-            // ترتيب الأعمدة بعد الربط
+            // 2) تنسيق الشبكة
+            dataGridViewSalon.AutoSizeColumnsMode = DataGridViewAutoSizeColumnsMode.Fill;
+            dataGridViewSalon.SelectionMode = DataGridViewSelectionMode.FullRowSelect;
+            dataGridViewSalon.MultiSelect = false;
+            dataGridViewSalon.AllowUserToAddRows = false;
+
+            // 3) ترتيب/إخفاء الأعمدة بعد الربط
             var g = dataGridViewSalon;
 
-            // اجعل Id أول عمود
+            // Id أول عمود + للقراءة فقط
             if (g.Columns.Contains("Id"))
             {
                 g.Columns["Id"].DisplayIndex = 0;
-                g.Columns["Id"].ReadOnly = true;   // لا يُعدَّل
+                g.Columns["Id"].ReadOnly = true;
                 g.Columns["Id"].Width = 60;
             }
 
-            // أخفِ أعمدة الـ navigation التي لا تُعرض في الجدول
+            // إخفاء أعمدة الـnavigation (عدّل القائمة لما يناسب كيانك)
             string[] navCols = { "Services", "Workers", "WorkingHours" };
             foreach (var colName in navCols)
-            {
-                if (g.Columns.Contains(colName))
-                    g.Columns[colName].Visible = false;
-            }
+                if (g.Columns.Contains(colName)) g.Columns[colName].Visible = false;
 
-            // (اختياري) أعِد ترتيب بقية الأعمدة كما تحب
+            // ترتيب باقي الأعمدة
             int i = 1;
             void setIdx(string name)
             {
@@ -56,10 +62,37 @@ namespace GlamoraHairdresser.WinForms.Forms.SalonForms
             setIdx("PhoneNumber");
             setIdx("CreatedAt");
 
-            // (اختياري) تنسيق CreatedAt
+            // تنسيق التاريخ (إن كنت لا تستخدم CellFormatting لإظهار التوقيت المحلي)
             if (g.Columns.Contains("CreatedAt"))
                 g.Columns["CreatedAt"].DefaultCellStyle.Format = "yyyy-MM-dd HH:mm";
+
+            // 4) ربط الـTextBox-ات بالـBindingSource لتعبئة الحقول تلقائيًا
+            BindTextBoxes();   // ← تأكد أن هذه الدالة موجودة كما أرسلتها لك
+
+            // 5) اختيار أول صف (اختياري)
+            if (g.Rows.Count > 0)
+                g.Rows[0].Selected = true;
         }
+
+        private void BindTextBoxes()
+        {
+            // اجعل حقل Id للقراءة فقط
+            SalonIdTxtBox.ReadOnly = true;
+            SalonIdTxtBox.BackColor = Color.LightGray;
+
+            // امسح أي ربط قديم
+            SalonIdTxtBox.DataBindings.Clear();
+            SalonNameTxtBox.DataBindings.Clear();
+            AddressTxtBox.DataBindings.Clear();
+            SalonPhoneNumTxtBox.DataBindings.Clear();
+
+            // اربط كل TextBox بالـ BindingSource
+            SalonIdTxtBox.DataBindings.Add("Text", _bs, "Id", true, DataSourceUpdateMode.Never, 0);
+            SalonNameTxtBox.DataBindings.Add("Text", _bs, "Name", true, DataSourceUpdateMode.Never, "");
+            AddressTxtBox.DataBindings.Add("Text", _bs, "Address", true, DataSourceUpdateMode.Never, "");
+            SalonPhoneNumTxtBox.DataBindings.Add("Text", _bs, "PhoneNumber", true, DataSourceUpdateMode.Never, "");
+        }
+
 
         public SalonForm(GlamoraDbContext db)
         {
