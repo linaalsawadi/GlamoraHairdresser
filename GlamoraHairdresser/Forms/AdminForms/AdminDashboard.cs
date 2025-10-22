@@ -65,10 +65,19 @@ namespace GlamoraHairdresser.WinForms.Forms.AdminForms
             this.Close();
 
         }
-        
+
         private void BackBtn_Click(object sender, EventArgs e)
         {
 
+        }
+
+        private void ServiceBtn_Click(object sender, EventArgs e)
+        {
+            using var scope = Program.Services.CreateScope();
+            var db = scope.ServiceProvider.GetRequiredService<GlamoraHairdresser.Data.GlamoraDbContext>();
+
+            var workerForm = new WorkerDashboard(db);
+            workerForm.ShowDialog();
         }
     }
 }

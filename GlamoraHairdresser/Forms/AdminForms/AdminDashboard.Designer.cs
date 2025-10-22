@@ -34,6 +34,7 @@
             CustomerBtn = new Button();
             LogoutBtn = new Button();
             BackBtn = new Button();
+            ServiceBtn = new Button();
             SuspendLayout();
             // 
             // SalonBtn
@@ -50,7 +51,7 @@
             // WorkerBtn
             // 
             WorkerBtn.Font = new Font("Segoe UI Semibold", 14.25F, FontStyle.Bold | FontStyle.Italic, GraphicsUnit.Point, 0);
-            WorkerBtn.Location = new Point(398, 144);
+            WorkerBtn.Location = new Point(532, 144);
             WorkerBtn.Name = "WorkerBtn";
             WorkerBtn.Size = new Size(118, 56);
             WorkerBtn.TabIndex = 9;
@@ -61,7 +62,7 @@
             // ProfitBtn
             // 
             ProfitBtn.Font = new Font("Segoe UI Semibold", 14.25F, FontStyle.Bold | FontStyle.Italic, GraphicsUnit.Point, 0);
-            ProfitBtn.Location = new Point(398, 251);
+            ProfitBtn.Location = new Point(384, 251);
             ProfitBtn.Name = "ProfitBtn";
             ProfitBtn.Size = new Size(118, 56);
             ProfitBtn.TabIndex = 10;
@@ -102,11 +103,23 @@
             BackBtn.UseVisualStyleBackColor = true;
             BackBtn.Click += BackBtn_Click;
             // 
+            // ServiceBtn
+            // 
+            ServiceBtn.Font = new Font("Segoe UI Semibold", 14.25F, FontStyle.Bold | FontStyle.Italic, GraphicsUnit.Point, 0);
+            ServiceBtn.Location = new Point(384, 144);
+            ServiceBtn.Name = "ServiceBtn";
+            ServiceBtn.Size = new Size(118, 56);
+            ServiceBtn.TabIndex = 14;
+            ServiceBtn.Text = "Services";
+            ServiceBtn.UseVisualStyleBackColor = true;
+            ServiceBtn.Click += ServiceBtn_Click;
+            // 
             // AdminDashboard
             // 
             AutoScaleDimensions = new SizeF(7F, 15F);
             AutoScaleMode = AutoScaleMode.Font;
             ClientSize = new Size(800, 450);
+            Controls.Add(ServiceBtn);
             Controls.Add(BackBtn);
             Controls.Add(LogoutBtn);
             Controls.Add(CustomerBtn);
@@ -125,5 +138,6 @@
         private Button CustomerBtn;
         private Button LogoutBtn;
         private Button BackBtn;
+        private Button ServiceBtn;
     }
 }
