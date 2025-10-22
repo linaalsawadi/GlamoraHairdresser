@@ -1,5 +1,6 @@
 ﻿using GlamoraHairdresser.WinForms.Forms.AuthForms;
 using GlamoraHairdresser.WinForms.Forms.SalonForms;
+using GlamoraHairdresser.WinForms.Forms.Services;
 using GlamoraHairdresser.WinForms.Forms.WorkerForms;
 using Microsoft.Extensions.DependencyInjection;
 using System;
@@ -76,8 +77,8 @@ namespace GlamoraHairdresser.WinForms.Forms.AdminForms
             using var scope = Program.Services.CreateScope();
             var db = scope.ServiceProvider.GetRequiredService<GlamoraHairdresser.Data.GlamoraDbContext>();
 
-            var workerForm = new WorkerDashboard(db);
-            workerForm.ShowDialog();
+            var servicesForm = new ServicesDashboard(db);
+            servicesForm.ShowDialog();
         }
     }
 }

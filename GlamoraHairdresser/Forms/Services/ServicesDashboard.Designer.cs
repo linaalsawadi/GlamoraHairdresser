@@ -80,9 +80,10 @@
             // 
             // DeleteBtn
             // 
-            DeleteBtn.Location = new Point(289, 405);
+            DeleteBtn.Font = new Font("Showcard Gothic", 12F, FontStyle.Regular, GraphicsUnit.Point, 0);
+            DeleteBtn.Location = new Point(160, 368);
             DeleteBtn.Name = "DeleteBtn";
-            DeleteBtn.Size = new Size(75, 23);
+            DeleteBtn.Size = new Size(79, 33);
             DeleteBtn.TabIndex = 4;
             DeleteBtn.Text = "Delete";
             DeleteBtn.UseVisualStyleBackColor = true;
