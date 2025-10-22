@@ -38,68 +38,75 @@
             // 
             // SalonBtn
             // 
-            SalonBtn.Font = new Font("Segoe UI Semibold", 14.25F, FontStyle.Bold | FontStyle.Italic, GraphicsUnit.Point, 0);
-            SalonBtn.Location = new Point(227, 144);
+            SalonBtn.BackColor = SystemColors.Info;
+            SalonBtn.Font = new Font("Showcard Gothic", 36F, FontStyle.Bold | FontStyle.Italic, GraphicsUnit.Point, 0);
+            SalonBtn.Location = new Point(238, 52);
             SalonBtn.Name = "SalonBtn";
-            SalonBtn.Size = new Size(118, 56);
+            SalonBtn.Size = new Size(318, 68);
             SalonBtn.TabIndex = 8;
             SalonBtn.Text = "Salon";
-            SalonBtn.UseVisualStyleBackColor = true;
+            SalonBtn.UseVisualStyleBackColor = false;
             SalonBtn.Click += SalonBtn_Click;
             // 
             // WorkerBtn
             // 
-            WorkerBtn.Font = new Font("Segoe UI Semibold", 14.25F, FontStyle.Bold | FontStyle.Italic, GraphicsUnit.Point, 0);
-            WorkerBtn.Location = new Point(532, 144);
+            WorkerBtn.BackColor = Color.DarkOrange;
+            WorkerBtn.Font = new Font("Showcard Gothic", 36F, FontStyle.Bold | FontStyle.Italic, GraphicsUnit.Point, 0);
+            WorkerBtn.Location = new Point(238, 200);
             WorkerBtn.Name = "WorkerBtn";
-            WorkerBtn.Size = new Size(118, 56);
+            WorkerBtn.Size = new Size(318, 68);
             WorkerBtn.TabIndex = 9;
             WorkerBtn.Text = "Worker";
-            WorkerBtn.UseVisualStyleBackColor = true;
+            WorkerBtn.UseVisualStyleBackColor = false;
             WorkerBtn.Click += WorkerBtn_Click;
             // 
             // ProfitBtn
             // 
-            ProfitBtn.Font = new Font("Segoe UI Semibold", 14.25F, FontStyle.Bold | FontStyle.Italic, GraphicsUnit.Point, 0);
-            ProfitBtn.Location = new Point(384, 251);
+            ProfitBtn.BackColor = Color.IndianRed;
+            ProfitBtn.Font = new Font("Showcard Gothic", 36F, FontStyle.Bold | FontStyle.Italic, GraphicsUnit.Point, 0);
+            ProfitBtn.Location = new Point(238, 350);
             ProfitBtn.Name = "ProfitBtn";
-            ProfitBtn.Size = new Size(118, 56);
+            ProfitBtn.Size = new Size(318, 68);
             ProfitBtn.TabIndex = 10;
             ProfitBtn.Text = "Profit";
-            ProfitBtn.UseVisualStyleBackColor = true;
+            ProfitBtn.UseVisualStyleBackColor = false;
             ProfitBtn.Click += ProfitBtn_Click;
             // 
             // CustomerBtn
             // 
-            CustomerBtn.Font = new Font("Segoe UI Semibold", 14.25F, FontStyle.Bold | FontStyle.Italic, GraphicsUnit.Point, 0);
-            CustomerBtn.Location = new Point(227, 251);
+            CustomerBtn.BackColor = Color.Crimson;
+            CustomerBtn.Font = new Font("Showcard Gothic", 36F, FontStyle.Bold | FontStyle.Italic, GraphicsUnit.Point, 0);
+            CustomerBtn.Location = new Point(238, 274);
             CustomerBtn.Name = "CustomerBtn";
-            CustomerBtn.Size = new Size(118, 56);
+            CustomerBtn.Size = new Size(318, 68);
             CustomerBtn.TabIndex = 11;
             CustomerBtn.Text = "Customer";
-            CustomerBtn.UseVisualStyleBackColor = true;
+            CustomerBtn.UseVisualStyleBackColor = false;
             CustomerBtn.Click += CustomerBtn_Click;
             // 
             // LogoutBtn
             // 
+            LogoutBtn.BackColor = SystemColors.ActiveCaptionText;
             LogoutBtn.Font = new Font("Segoe UI Semibold", 14.25F, FontStyle.Bold | FontStyle.Italic, GraphicsUnit.Point, 0);
+            LogoutBtn.ForeColor = SystemColors.ButtonHighlight;
             LogoutBtn.Location = new Point(12, 400);
             LogoutBtn.Name = "LogoutBtn";
             LogoutBtn.Size = new Size(118, 38);
             LogoutBtn.TabIndex = 12;
             LogoutBtn.Text = "Logout";
-            LogoutBtn.UseVisualStyleBackColor = true;
+            LogoutBtn.UseVisualStyleBackColor = false;
             LogoutBtn.Click += LogoutBtn_Click;
             // 
             // ServiceBtn
             // 
-            ServiceBtn.Font = new Font("Segoe UI Semibold", 14.25F, FontStyle.Bold | FontStyle.Italic, GraphicsUnit.Point, 0);
-            ServiceBtn.Location = new Point(384, 144);
+            ServiceBtn.BackColor = Color.FromArgb(255, 192, 128);
+            ServiceBtn.Font = new Font("Showcard Gothic", 36F, FontStyle.Bold | FontStyle.Italic, GraphicsUnit.Point, 0);
+            ServiceBtn.Location = new Point(238, 126);
             ServiceBtn.Name = "ServiceBtn";
-            ServiceBtn.Size = new Size(118, 56);
+            ServiceBtn.Size = new Size(318, 68);
             ServiceBtn.TabIndex = 14;
             ServiceBtn.Text = "Services";
-            ServiceBtn.UseVisualStyleBackColor = true;
+            ServiceBtn.UseVisualStyleBackColor = false;
             ServiceBtn.Click += ServiceBtn_Click;
             // 
             // AdminDashboard

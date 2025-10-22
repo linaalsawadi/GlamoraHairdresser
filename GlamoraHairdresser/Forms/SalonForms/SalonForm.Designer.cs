@@ -55,6 +55,7 @@
             // 
             // AddBtn
             // 
+            AddBtn.Font = new Font("Showcard Gothic", 12F, FontStyle.Regular, GraphicsUnit.Point, 0);
             AddBtn.Location = new Point(21, 396);
             AddBtn.Name = "AddBtn";
             AddBtn.Size = new Size(82, 42);
@@ -65,6 +66,7 @@
             // 
             // UpdateBtn
             // 
+            UpdateBtn.Font = new Font("Showcard Gothic", 12F, FontStyle.Regular, GraphicsUnit.Point, 0);
             UpdateBtn.Location = new Point(184, 396);
             UpdateBtn.Name = "UpdateBtn";
             UpdateBtn.Size = new Size(82, 42);
@@ -75,6 +77,7 @@
             // 
             // DeleteBtn
             // 
+            DeleteBtn.Font = new Font("Showcard Gothic", 12F, FontStyle.Regular, GraphicsUnit.Point, 0);
             DeleteBtn.Location = new Point(338, 396);
             DeleteBtn.Name = "DeleteBtn";
             DeleteBtn.Size = new Size(82, 42);
@@ -85,6 +88,7 @@
             // 
             // ClearBtn
             // 
+            ClearBtn.Font = new Font("Showcard Gothic", 12F, FontStyle.Regular, GraphicsUnit.Point, 0);
             ClearBtn.Location = new Point(499, 396);
             ClearBtn.Name = "ClearBtn";
             ClearBtn.Size = new Size(82, 42);
@@ -95,39 +99,39 @@
             // 
             // SalonIdTxtBox
             // 
-            SalonIdTxtBox.Location = new Point(653, 148);
+            SalonIdTxtBox.Location = new Point(636, 148);
             SalonIdTxtBox.Name = "SalonIdTxtBox";
-            SalonIdTxtBox.Size = new Size(100, 23);
+            SalonIdTxtBox.Size = new Size(136, 23);
             SalonIdTxtBox.TabIndex = 5;
             // 
             // SalonNameTxtBox
             // 
-            SalonNameTxtBox.Location = new Point(653, 217);
+            SalonNameTxtBox.Location = new Point(636, 217);
             SalonNameTxtBox.Name = "SalonNameTxtBox";
-            SalonNameTxtBox.Size = new Size(100, 23);
+            SalonNameTxtBox.Size = new Size(136, 23);
             SalonNameTxtBox.TabIndex = 6;
             // 
             // AddressTxtBox
             // 
-            AddressTxtBox.Location = new Point(653, 289);
+            AddressTxtBox.Location = new Point(636, 289);
             AddressTxtBox.Name = "AddressTxtBox";
-            AddressTxtBox.Size = new Size(100, 23);
+            AddressTxtBox.Size = new Size(136, 23);
             AddressTxtBox.TabIndex = 7;
             // 
             // SalonPhoneNumTxtBox
             // 
-            SalonPhoneNumTxtBox.Location = new Point(653, 367);
+            SalonPhoneNumTxtBox.Location = new Point(636, 367);
             SalonPhoneNumTxtBox.Name = "SalonPhoneNumTxtBox";
-            SalonPhoneNumTxtBox.Size = new Size(100, 23);
+            SalonPhoneNumTxtBox.Size = new Size(136, 23);
             SalonPhoneNumTxtBox.TabIndex = 8;
             // 
             // IdLbl
             // 
             IdLbl.AutoSize = true;
-            IdLbl.Font = new Font("Segoe UI", 12F, FontStyle.Italic, GraphicsUnit.Point, 0);
+            IdLbl.Font = new Font("Showcard Gothic", 12F, FontStyle.Italic, GraphicsUnit.Point, 0);
             IdLbl.Location = new Point(693, 124);
             IdLbl.Name = "IdLbl";
-            IdLbl.Size = new Size(23, 21);
+            IdLbl.Size = new Size(27, 20);
             IdLbl.TabIndex = 10;
             IdLbl.Text = "Id";
             IdLbl.TextAlign = ContentAlignment.MiddleLeft;
@@ -135,30 +139,30 @@
             // SalonNameLbl
             // 
             SalonNameLbl.AutoSize = true;
-            SalonNameLbl.Font = new Font("Segoe UI", 12F, FontStyle.Italic, GraphicsUnit.Point, 0);
-            SalonNameLbl.Location = new Point(657, 193);
+            SalonNameLbl.Font = new Font("Showcard Gothic", 12F, FontStyle.Italic, GraphicsUnit.Point, 0);
+            SalonNameLbl.Location = new Point(650, 193);
             SalonNameLbl.Name = "SalonNameLbl";
-            SalonNameLbl.Size = new Size(96, 21);
+            SalonNameLbl.Size = new Size(107, 20);
             SalonNameLbl.TabIndex = 11;
             SalonNameLbl.Text = "Salon Name";
             // 
             // SalonAddressLbl
             // 
             SalonAddressLbl.AutoSize = true;
-            SalonAddressLbl.Font = new Font("Segoe UI", 12F, FontStyle.Italic, GraphicsUnit.Point, 0);
-            SalonAddressLbl.Location = new Point(670, 265);
+            SalonAddressLbl.Font = new Font("Showcard Gothic", 12F, FontStyle.Italic, GraphicsUnit.Point, 0);
+            SalonAddressLbl.Location = new Point(666, 265);
             SalonAddressLbl.Name = "SalonAddressLbl";
-            SalonAddressLbl.Size = new Size(64, 21);
+            SalonAddressLbl.Size = new Size(81, 20);
             SalonAddressLbl.TabIndex = 12;
             SalonAddressLbl.Text = "Address";
             // 
             // SalonPhoneNumLbl
             // 
             SalonPhoneNumLbl.AutoSize = true;
-            SalonPhoneNumLbl.Font = new Font("Segoe UI", 12F, FontStyle.Italic, GraphicsUnit.Point, 0);
-            SalonPhoneNumLbl.Location = new Point(636, 343);
+            SalonPhoneNumLbl.Font = new Font("Showcard Gothic", 12F, FontStyle.Italic, GraphicsUnit.Point, 0);
+            SalonPhoneNumLbl.Location = new Point(625, 343);
             SalonPhoneNumLbl.Name = "SalonPhoneNumLbl";
-            SalonPhoneNumLbl.Size = new Size(136, 21);
+            SalonPhoneNumLbl.Size = new Size(157, 20);
             SalonPhoneNumLbl.TabIndex = 13;
             SalonPhoneNumLbl.Text = "Salon Phone Num";
             SalonPhoneNumLbl.TextAlign = ContentAlignment.MiddleCenter;
@@ -167,10 +171,10 @@
             // SalonLbl
             // 
             SalonLbl.AutoSize = true;
-            SalonLbl.Font = new Font("Showcard Gothic", 20.25F, FontStyle.Regular, GraphicsUnit.Point, 0);
-            SalonLbl.Location = new Point(649, 41);
+            SalonLbl.Font = new Font("Showcard Gothic", 36F, FontStyle.Regular, GraphicsUnit.Point, 0);
+            SalonLbl.Location = new Point(594, 21);
             SalonLbl.Name = "SalonLbl";
-            SalonLbl.Size = new Size(111, 33);
+            SalonLbl.Size = new Size(194, 60);
             SalonLbl.TabIndex = 14;
             SalonLbl.Text = "Salons";
             // 

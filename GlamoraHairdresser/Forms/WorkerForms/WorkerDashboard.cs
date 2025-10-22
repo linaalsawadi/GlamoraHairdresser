@@ -23,54 +23,20 @@ namespace GlamoraHairdresser.WinForms.Forms.WorkerForms
             Skillsclb.CheckOnClick = true;
             Skillsclb.DataSource = null;
 
-            // عند تغيّر اختيار الصف في الجدول: عبّئ الحقول
+            // تغيّر اختيار الصف في الجدول → عبّئ الحقول
             DataGridViewWorker.SelectionChanged += (_, __) => FillFormFromSelection();
 
+            // تغيّر نص اسم/رقم الصالون → حمّل خدماته
             WorkerSalonTxtBox.TextChanged += (_, __) =>
             {
                 if (TryResolveSalonId(out var sid)) LoadSkillsForSalon(sid);
-                else LoadDefaultSkillsFallback();
+                else Skillsclb.Items.Clear();
             };
         }
 
-        // قائمة افتراضية باللغة الإنجليزية
-        private static readonly string[] DefaultSkills =
-        {
-            "Men Haircut","Women Haircut","Beard Trim","Fade Cut","Hair Styling",
-            "Blow Dry","Curly / Iron Styling","Bride Hairstyle","Hair Coloring",
-            "Highlights","Bleaching","Toner","Hair Keratin","Hair Protein Treatment",
-            "Anti-Frizz Treatment","Hot Oil Treatment","Hair Mask","Scalp Massage",
-            "Skin Cleansing","Deep Facial","Facial Mask","Steam Facial","Waxing / Hair Removal",
-            "Eyebrow Shaping","Eyelash Extension","Eyebrow Tinting","Manicure","Pedicure",
-            "Nail Trimming","Gel Nails","Acrylic Nails","Shellac Polish","Nail Art","Hand Massage",
-            "Makeup Application","Bridal Makeup","Body Massage","Body Scrub","Spa Treatment",
-            "Customer Service","Salon Cleaning","Reception Work","Product Knowledge","Team Work"
-        };
+        // ----------------- Helpers -----------------
 
-        // زرع خدمات الصالون الافتراضية إن لم تكن موجودة
-        private void EnsureSalonServicesSeeded(int salonId)
-        {
-            var existing = _db.ServiceOfferings
-                              .Where(s => s.SalonId == salonId)
-                              .Select(s => s.Name)
-                              .ToHashSet(StringComparer.OrdinalIgnoreCase);
-
-            var toInsert = DefaultSkills.Where(n => !existing.Contains(n)).ToList();
-            if (toInsert.Count == 0) return;
-
-            foreach (var name in toInsert)
-            {
-                _db.ServiceOfferings.Add(new ServiceOffering
-                {
-                    SalonId = salonId,
-                    Name = name,
-                    DurationMinutes = 30,
-                    Price = 0
-                });
-            }
-            _db.SaveChanges();
-        }
-
+        /// يحاول استخراج SalonId إما من رقم أو اسم (غير حساس لحالة الأحرف)
         private bool TryResolveSalonId(out int salonId)
         {
             salonId = 0;
@@ -80,11 +46,13 @@ namespace GlamoraHairdresser.WinForms.Forms.WorkerForms
             // رقم؟
             if (int.TryParse(raw, out var parsed))
             {
-                salonId = _db.Salons.Where(s => s.Id == parsed).Select(s => s.Id).FirstOrDefault();
+                salonId = _db.Salons.Where(s => s.Id == parsed)
+                                    .Select(s => s.Id)
+                                    .FirstOrDefault();
                 return salonId > 0;
             }
 
-            // اسم (غير حساس لحالة الأحرف)
+            // اسم؟
             salonId = _db.Salons
                 .Where(s => s.Name.ToLower() == raw.ToLower())
                 .Select(s => s.Id)
@@ -93,12 +61,14 @@ namespace GlamoraHairdresser.WinForms.Forms.WorkerForms
             return salonId > 0;
         }
 
+        /// تحميل خدمات الصالون في CheckedListBox (لا إنشاء خدمات هنا)
         private void LoadSkillsForSalon(int salonId)
         {
-            if (salonId <= 0) { LoadDefaultSkillsFallback(); return; }
-
-            // تأكّد من زرع الخدمات
-            EnsureSalonServicesSeeded(salonId);
+            if (salonId <= 0)
+            {
+                Skillsclb.Items.Clear();
+                return;
+            }
 
             var allServices = _db.ServiceOfferings.AsNoTracking()
                 .Where(s => s.SalonId == salonId)
@@ -112,21 +82,7 @@ namespace GlamoraHairdresser.WinForms.Forms.WorkerForms
             Skillsclb.ValueMember = "Id";
 
             foreach (var svc in allServices)
-                Skillsclb.Items.Add(svc); // بدون تعليم مبدئي في وضع "عامل جديد"
-
-            Skillsclb.EndUpdate();
-        }
-
-        private void LoadDefaultSkillsFallback()
-        {
-            // نعرض المهارات الافتراضية كنصوص إلى أن يُحدَّد صالون
-            Skillsclb.BeginUpdate();
-            Skillsclb.Items.Clear();
-            Skillsclb.DisplayMember = null;
-            Skillsclb.ValueMember = null;
-
-            foreach (var name in DefaultSkills.OrderBy(x => x))
-                Skillsclb.Items.Add(name);
+                Skillsclb.Items.Add(svc);
 
             Skillsclb.EndUpdate();
         }
@@ -148,7 +104,8 @@ namespace GlamoraHairdresser.WinForms.Forms.WorkerForms
                 g.Columns["Id"].Width = 60;
             }
 
-            string[] hide = { "Appointments", "Availabilities", "EmployeeSkills", "UserType", "PasswordHash", "Salt", "Permissions" };
+            string[] hide = { "Appointments", "Availabilities", "EmployeeSkills",
+                              "UserType", "PasswordHash", "Salt", "Permissions" };
             foreach (var c in hide) if (g.Columns.Contains(c)) g.Columns[c].Visible = false;
 
             int i = 1;
@@ -180,26 +137,27 @@ namespace GlamoraHairdresser.WinForms.Forms.WorkerForms
                 return;
             }
 
-            if (!_db.ServiceOfferings.Any(s => s.SalonId == w.SalonId))
-                EnsureSalonServicesSeeded(w.SalonId);
-
+            // حمّل كل خدمات الصالون
             var allServices = _db.ServiceOfferings.AsNoTracking()
                                 .Where(s => s.SalonId == w.SalonId)
                                 .OrderBy(s => s.Name)
                                 .Select(s => new { s.Id, s.Name })
                                 .ToList();
 
+            // لو لا توجد خدمات بعد: أفرغ القائمة
             if (allServices.Count == 0)
             {
                 Skillsclb.Items.Clear();
                 return;
             }
 
+            // الخدمات التي يملكها العامل
             var ownedIds = _db.EmployeeSkills
                               .Where(es => es.WorkerId == w.Id)
                               .Select(es => es.ServiceOfferingId)
                               .ToHashSet();
 
+            // املأ القائمة وعلّم المملوكة
             Skillsclb.BeginUpdate();
             Skillsclb.Items.Clear();
             Skillsclb.DisplayMember = "Name";
@@ -225,7 +183,7 @@ namespace GlamoraHairdresser.WinForms.Forms.WorkerForms
             WorkerNameTxtBox.Focus();
         }
 
-        // التحقق: يعيد salonId صالحًا (يدعم إدخال الاسم أو المعرف)
+        // التحقق: يعيد salonId صالحًا (اسم أو رقم)
         private bool ValidateInputs(out string message, out int salonId)
         {
             message = "";
@@ -244,6 +202,7 @@ namespace GlamoraHairdresser.WinForms.Forms.WorkerForms
             if (string.IsNullOrEmpty(raw))
             { message = "Salon Name is required."; return false; }
 
+            // رقم؟
             if (int.TryParse(raw, out var parsedId))
             {
                 var byId = _db.Salons.Where(s => s.Id == parsedId).Select(s => s.Id).FirstOrDefault();
@@ -252,6 +211,7 @@ namespace GlamoraHairdresser.WinForms.Forms.WorkerForms
                 return true;
             }
 
+            // اسم
             var byName = _db.Salons
                 .Where(s => s.Name.ToLower() == raw.ToLower())
                 .Select(s => s.Id)
@@ -264,7 +224,7 @@ namespace GlamoraHairdresser.WinForms.Forms.WorkerForms
             return true;
         }
 
-        // حفظ تعليمات المهارات للعامل الحالي (العناصر يجب أن تكون {Id, Name})
+        /// يحفظ تعليمات المهارات للعامل الحالي (يتوقع عناصر {Id, Name})
         private void SaveSkillsSelection(int workerId)
         {
             var selectedIds = Skillsclb.CheckedItems
@@ -301,7 +261,7 @@ namespace GlamoraHairdresser.WinForms.Forms.WorkerForms
             _db.SaveChanges();
         }
 
-        // ========= أزرار الواجهة =========
+        // ----------------- أزرار الواجهة -----------------
 
         private void AddBtn_Click(object sender, EventArgs e)
         {
@@ -312,9 +272,9 @@ namespace GlamoraHairdresser.WinForms.Forms.WorkerForms
                 return;
             }
 
-            // 2) منع تكرار البريد (عدّلي الجدول حسب متطلباتك)
+            // 2) منع تكرار البريد (عدّلي حسب نموذج بياناتك)
             var email = WorkerEmailTxtBox.Text.Trim();
-            if (_db.Users.Any(u => u.Email == email))
+            if (_db.Users.Any(u => u.Email == email)) // أو _db.Workers.Any(w => w.Email == email)
             {
                 MessageBox.Show("Email already exists.", "Duplicate", MessageBoxButtons.OK, MessageBoxIcon.Warning);
                 return;
@@ -335,58 +295,30 @@ namespace GlamoraHairdresser.WinForms.Forms.WorkerForms
             {
                 _db.SaveChanges(); // للحصول على Id
 
-                // 4) ضمان وجود خدمات الصالون
-                EnsureSalonServicesSeeded(worker.SalonId);
-
-                // 5) تجهيز أسماء الخدمات المحددة (يدعم عناصر نصية أو {Id, Name})
-                var checkedNames = Skillsclb.CheckedItems
+                // 4) ربط المهارات المختارة (IDs فقط؛ لا ننشئ خدمات جديدة هنا)
+                var selectedIds = Skillsclb.CheckedItems
                     .Cast<object>()
                     .Select(o =>
                     {
-                        if (o is string s) return s;
-                        var p = o.GetType().GetProperty("Name");
-                        return p != null ? (string)p.GetValue(o)! : o.ToString()!;
+                        var p = o.GetType().GetProperty("Id");
+                        return p != null ? (int)p.GetValue(o)! : 0;
                     })
-                    .Where(s => !string.IsNullOrWhiteSpace(s))
-                    .Select(s => s.Trim())
-                    .Distinct(StringComparer.OrdinalIgnoreCase)
+                    .Where(id => id > 0)
+                    .Distinct()
                     .ToList();
 
-                // 6) الخدمات الموجودة
-                var existingSvcs = _db.ServiceOfferings
-                    .Where(s => s.SalonId == worker.SalonId && checkedNames.Contains(s.Name))
-                    .ToList();
-
-                // 7) أضف أي خدمة ناقصة
-                var existingNames = existingSvcs.Select(s => s.Name).ToHashSet(StringComparer.OrdinalIgnoreCase);
-                var missing = checkedNames.Where(n => !existingNames.Contains(n)).ToList();
-                foreach (var name in missing)
-                {
-                    var svc = new ServiceOffering
-                    {
-                        SalonId = worker.SalonId,
-                        Name = name,
-                        DurationMinutes = 30,
-                        Price = 0
-                    };
-                    _db.ServiceOfferings.Add(svc);
-                    existingSvcs.Add(svc);
-                }
-                if (missing.Count > 0) _db.SaveChanges();
-
-                // 8) روابط المهارات
-                foreach (var svc in existingSvcs)
+                foreach (var sid in selectedIds)
                 {
                     _db.EmployeeSkills.Add(new EmployeeSkill
                     {
                         WorkerId = worker.Id,
-                        ServiceOfferingId = svc.Id,
+                        ServiceOfferingId = sid,
                         AssignedDate = DateTime.UtcNow
                     });
                 }
-                _db.SaveChanges();
+                if (selectedIds.Count > 0) _db.SaveChanges();
 
-                // 9) تحديث الواجهة
+                // 5) تحديث الواجهة
                 LoadData();
                 var idx = _db.Workers.Local.ToList().FindIndex(x => x.Id == worker.Id);
                 if (idx >= 0 && idx < DataGridViewWorker.Rows.Count)
@@ -394,8 +326,8 @@ namespace GlamoraHairdresser.WinForms.Forms.WorkerForms
 
                 FillFormFromSelection();
 
-                MessageBox.Show("Worker and skills added.", "OK",
-                    MessageBoxButtons.OK, MessageBoxIcon.Information);
+                MessageBox.Show("Worker added" + (selectedIds.Count > 0 ? " with skills." : "."),
+                    "OK", MessageBoxButtons.OK, MessageBoxIcon.Information);
             }
             catch (DbUpdateException ex)
             {
@@ -432,12 +364,10 @@ namespace GlamoraHairdresser.WinForms.Forms.WorkerForms
             current.Email = email;
             current.SalonId = salonId;
 
-            EnsureSalonServicesSeeded(current.SalonId);
-
             try
             {
                 _db.SaveChanges();
-                SaveSkillsSelection(current.Id);
+                SaveSkillsSelection(current.Id);   // يحفظ المهارات الحالية
                 _bs.ResetBindings(false);
                 FillFormFromSelection();
 

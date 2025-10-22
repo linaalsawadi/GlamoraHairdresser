@@ -7,10 +7,23 @@
         /// </summary>
         private System.ComponentModel.IContainer components = null;
 
+        private System.Windows.Forms.ComboBox SalonCombo;
+        private System.Windows.Forms.ComboBox ServiceNameCmb;
+        private System.Windows.Forms.TextBox PriceTxt;
+        private System.Windows.Forms.TextBox DurationTxt;
+        private System.Windows.Forms.DataGridView ServicesGrid;
+        private System.Windows.Forms.Button AddBtn;
+        private System.Windows.Forms.Button UpdateBtn;
+        private System.Windows.Forms.Button DeleteBtn;
+        private System.Windows.Forms.Button CleanBtn;
+        private System.Windows.Forms.Label lblSalon;
+        private System.Windows.Forms.Label lblService;
+        private System.Windows.Forms.Label lblPrice;
+        private System.Windows.Forms.Label lblDuration;
+
         /// <summary>
         /// Clean up any resources being used.
         /// </summary>
-        /// <param name="disposing">true if managed resources should be disposed; otherwise, false.</param>
         protected override void Dispose(bool disposing)
         {
             if (disposing && (components != null))
@@ -22,144 +35,181 @@
 
         #region Windows Form Designer generated code
 
-        /// <summary>
-        /// Required method for Designer support - do not modify
-        /// the contents of this method with the code editor.
-        /// </summary>
         private void InitializeComponent()
         {
-            ServiceNameCmb = new ComboBox();
             SalonCombo = new ComboBox();
+            ServiceNameCmb = new ComboBox();
+            PriceTxt = new TextBox();
+            DurationTxt = new TextBox();
+            ServicesGrid = new DataGridView();
             AddBtn = new Button();
             UpdateBtn = new Button();
             DeleteBtn = new Button();
-            button4 = new Button();
-            ServicesGrid = new DataGridView();
-            PriceTxt = new TextBox();
-            DurationTxt = new TextBox();
-            PriceLbl = new Label();
-            DurationLbl = new Label();
+            CleanBtn = new Button();
+            lblSalon = new Label();
+            lblService = new Label();
+            lblPrice = new Label();
+            lblDuration = new Label();
+            ServicesLbl = new Label();
             ((System.ComponentModel.ISupportInitialize)ServicesGrid).BeginInit();
             SuspendLayout();
             // 
-            // ServiceNameCmb
-            // 
-            ServiceNameCmb.FormattingEnabled = true;
-            ServiceNameCmb.Location = new Point(478, 83);
-            ServiceNameCmb.Name = "ServiceNameCmb";
-            ServiceNameCmb.Size = new Size(121, 23);
-            ServiceNameCmb.TabIndex = 0;
-            // 
             // SalonCombo
             // 
-            SalonCombo.FormattingEnabled = true;
-            SalonCombo.Location = new Point(336, 83);
+            SalonCombo.DropDownStyle = ComboBoxStyle.DropDownList;
+            SalonCombo.Location = new Point(697, 197);
             SalonCombo.Name = "SalonCombo";
-            SalonCombo.Size = new Size(121, 23);
-            SalonCombo.TabIndex = 1;
+            SalonCombo.Size = new Size(300, 23);
+            SalonCombo.TabIndex = 4;
+            // 
+            // ServiceNameCmb
+            // 
+            ServiceNameCmb.AutoCompleteMode = AutoCompleteMode.SuggestAppend;
+            ServiceNameCmb.AutoCompleteSource = AutoCompleteSource.ListItems;
+            ServiceNameCmb.Location = new Point(697, 259);
+            ServiceNameCmb.Name = "ServiceNameCmb";
+            ServiceNameCmb.Size = new Size(300, 23);
+            ServiceNameCmb.TabIndex = 5;
+            // 
+            // PriceTxt
+            // 
+            PriceTxt.Location = new Point(697, 325);
+            PriceTxt.Name = "PriceTxt";
+            PriceTxt.PlaceholderText = "e.g. 250";
+            PriceTxt.Size = new Size(300, 23);
+            PriceTxt.TabIndex = 6;
+            // 
+            // DurationTxt
+            // 
+            DurationTxt.Location = new Point(697, 395);
+            DurationTxt.Name = "DurationTxt";
+            DurationTxt.PlaceholderText = "e.g. 30";
+            DurationTxt.Size = new Size(300, 23);
+            DurationTxt.TabIndex = 7;
+            // 
+            // ServicesGrid
+            // 
+            ServicesGrid.AllowUserToAddRows = false;
+            ServicesGrid.AllowUserToDeleteRows = false;
+            ServicesGrid.AutoSizeColumnsMode = DataGridViewAutoSizeColumnsMode.Fill;
+            ServicesGrid.Location = new Point(1, 0);
+            ServicesGrid.MultiSelect = false;
+            ServicesGrid.Name = "ServicesGrid";
+            ServicesGrid.ReadOnly = true;
+            ServicesGrid.RowHeadersVisible = false;
+            ServicesGrid.SelectionMode = DataGridViewSelectionMode.FullRowSelect;
+            ServicesGrid.Size = new Size(520, 649);
+            ServicesGrid.TabIndex = 12;
             // 
             // AddBtn
             // 
-            AddBtn.Font = new Font("Showcard Gothic", 12F, FontStyle.Regular, GraphicsUnit.Point, 0);
-            AddBtn.Location = new Point(24, 398);
+            AddBtn.Location = new Point(530, 530);
             AddBtn.Name = "AddBtn";
-            AddBtn.Size = new Size(87, 33);
-            AddBtn.TabIndex = 2;
+            AddBtn.Size = new Size(90, 49);
+            AddBtn.TabIndex = 8;
             AddBtn.Text = "Add";
             AddBtn.UseVisualStyleBackColor = true;
             // 
             // UpdateBtn
             // 
-            UpdateBtn.Font = new Font("Showcard Gothic", 12F, FontStyle.Regular, GraphicsUnit.Point, 0);
-            UpdateBtn.Location = new Point(160, 398);
+            UpdateBtn.Location = new Point(652, 530);
             UpdateBtn.Name = "UpdateBtn";
-            UpdateBtn.Size = new Size(87, 33);
-            UpdateBtn.TabIndex = 3;
+            UpdateBtn.Size = new Size(90, 49);
+            UpdateBtn.TabIndex = 9;
             UpdateBtn.Text = "Update";
             UpdateBtn.UseVisualStyleBackColor = true;
             // 
             // DeleteBtn
             // 
-            DeleteBtn.Font = new Font("Showcard Gothic", 12F, FontStyle.Regular, GraphicsUnit.Point, 0);
-            DeleteBtn.Location = new Point(298, 398);
+            DeleteBtn.Location = new Point(775, 530);
             DeleteBtn.Name = "DeleteBtn";
-            DeleteBtn.Size = new Size(87, 33);
-            DeleteBtn.TabIndex = 4;
+            DeleteBtn.Size = new Size(90, 49);
+            DeleteBtn.TabIndex = 10;
             DeleteBtn.Text = "Delete";
             DeleteBtn.UseVisualStyleBackColor = true;
             // 
-            // button4
+            // CleanBtn
             // 
-            button4.Location = new Point(436, 398);
-            button4.Name = "button4";
-            button4.Size = new Size(75, 30);
-            button4.TabIndex = 5;
-            button4.Text = "button4";
-            button4.UseVisualStyleBackColor = true;
+            CleanBtn.Location = new Point(897, 530);
+            CleanBtn.Name = "CleanBtn";
+            CleanBtn.Size = new Size(100, 49);
+            CleanBtn.TabIndex = 11;
+            CleanBtn.Text = "Clear";
+            CleanBtn.UseVisualStyleBackColor = true;
             // 
-            // ServicesGrid
+            // lblSalon
             // 
-            ServicesGrid.ColumnHeadersHeightSizeMode = DataGridViewColumnHeadersHeightSizeMode.AutoSize;
-            ServicesGrid.Location = new Point(12, 12);
-            ServicesGrid.Name = "ServicesGrid";
-            ServicesGrid.Size = new Size(307, 367);
-            ServicesGrid.TabIndex = 6;
+            lblSalon.AutoSize = true;
+            lblSalon.Font = new Font("Showcard Gothic", 12F, FontStyle.Regular, GraphicsUnit.Point, 0);
+            lblSalon.Location = new Point(527, 200);
+            lblSalon.Name = "lblSalon";
+            lblSalon.Size = new Size(64, 20);
+            lblSalon.TabIndex = 0;
+            lblSalon.Text = "Salon:";
             // 
-            // PriceTxt
+            // lblService
             // 
-            PriceTxt.Location = new Point(336, 208);
-            PriceTxt.Multiline = true;
-            PriceTxt.Name = "PriceTxt";
-            PriceTxt.Size = new Size(121, 71);
-            PriceTxt.TabIndex = 7;
+            lblService.AutoSize = true;
+            lblService.Font = new Font("Showcard Gothic", 12F, FontStyle.Regular, GraphicsUnit.Point, 0);
+            lblService.Location = new Point(527, 262);
+            lblService.Name = "lblService";
+            lblService.Size = new Size(79, 20);
+            lblService.TabIndex = 1;
+            lblService.Text = "Service:";
             // 
-            // DurationTxt
+            // lblPrice
             // 
-            DurationTxt.Location = new Point(478, 208);
-            DurationTxt.Multiline = true;
-            DurationTxt.Name = "DurationTxt";
-            DurationTxt.Size = new Size(121, 71);
-            DurationTxt.TabIndex = 8;
+            lblPrice.AutoSize = true;
+            lblPrice.Font = new Font("Showcard Gothic", 12F, FontStyle.Regular, GraphicsUnit.Point, 0);
+            lblPrice.Location = new Point(530, 328);
+            lblPrice.Name = "lblPrice";
+            lblPrice.Size = new Size(61, 20);
+            lblPrice.TabIndex = 2;
+            lblPrice.Text = "Price:";
             // 
-            // PriceLbl
+            // lblDuration
             // 
-            PriceLbl.AutoSize = true;
-            PriceLbl.Font = new Font("Showcard Gothic", 12F, FontStyle.Regular, GraphicsUnit.Point, 0);
-            PriceLbl.Location = new Point(366, 185);
-            PriceLbl.Name = "PriceLbl";
-            PriceLbl.Size = new Size(56, 20);
-            PriceLbl.TabIndex = 9;
-            PriceLbl.Text = "Price";
+            lblDuration.AutoSize = true;
+            lblDuration.Font = new Font("Showcard Gothic", 12F, FontStyle.Regular, GraphicsUnit.Point, 0);
+            lblDuration.Location = new Point(530, 398);
+            lblDuration.Name = "lblDuration";
+            lblDuration.Size = new Size(153, 20);
+            lblDuration.TabIndex = 3;
+            lblDuration.Text = "Duration (mins):";
             // 
-            // DurationLbl
+            // ServicesLbl
             // 
-            DurationLbl.AutoSize = true;
-            DurationLbl.Font = new Font("Showcard Gothic", 12F, FontStyle.Regular, GraphicsUnit.Point, 0);
-            DurationLbl.Location = new Point(494, 185);
-            DurationLbl.Name = "DurationLbl";
-            DurationLbl.Size = new Size(92, 20);
-            DurationLbl.TabIndex = 10;
-            DurationLbl.Text = "Duration";
+            ServicesLbl.AutoSize = true;
+            ServicesLbl.Font = new Font("Showcard Gothic", 48F, FontStyle.Regular, GraphicsUnit.Point, 0);
+            ServicesLbl.Location = new Point(607, 25);
+            ServicesLbl.Name = "ServicesLbl";
+            ServicesLbl.Size = new Size(319, 79);
+            ServicesLbl.TabIndex = 13;
+            ServicesLbl.Text = "Services";
             // 
             // ServicesDashboard
             // 
             AutoScaleDimensions = new SizeF(7F, 15F);
             AutoScaleMode = AutoScaleMode.Font;
-            ClientSize = new Size(800, 450);
-            Controls.Add(DurationLbl);
-            Controls.Add(PriceLbl);
-            Controls.Add(DurationTxt);
-            Controls.Add(PriceTxt);
-            Controls.Add(ServicesGrid);
-            Controls.Add(button4);
-            Controls.Add(DeleteBtn);
-            Controls.Add(UpdateBtn);
-            Controls.Add(AddBtn);
+            ClientSize = new Size(1000, 650);
+            Controls.Add(ServicesLbl);
+            Controls.Add(lblSalon);
+            Controls.Add(lblService);
+            Controls.Add(lblPrice);
+            Controls.Add(lblDuration);
             Controls.Add(SalonCombo);
             Controls.Add(ServiceNameCmb);
+            Controls.Add(PriceTxt);
+            Controls.Add(DurationTxt);
+            Controls.Add(AddBtn);
+            Controls.Add(UpdateBtn);
+            Controls.Add(DeleteBtn);
+            Controls.Add(CleanBtn);
+            Controls.Add(ServicesGrid);
+            MinimumSize = new Size(900, 600);
             Name = "ServicesDashboard";
-            Text = "ServicesDashboard";
-            Load += ServicesDashboard_Load;
+            StartPosition = FormStartPosition.CenterScreen;
+            Text = "Services Dashboard";
             ((System.ComponentModel.ISupportInitialize)ServicesGrid).EndInit();
             ResumeLayout(false);
             PerformLayout();
@@ -167,16 +217,6 @@
 
         #endregion
 
-        private ComboBox ServiceNameCmb;
-        private ComboBox SalonCombo;
-        private Button AddBtn;
-        private Button UpdateBtn;
-        private Button DeleteBtn;
-        private Button button4;
-        private DataGridView ServicesGrid;
-        private TextBox PriceTxt;
-        private TextBox DurationTxt;
-        private Label PriceLbl;
-        private Label DurationLbl;
+        private Label ServicesLbl;
     }
 }

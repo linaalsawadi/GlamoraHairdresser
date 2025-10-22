@@ -50,20 +50,20 @@
             // WorkerLbl
             // 
             WorkerLbl.AutoSize = true;
-            WorkerLbl.Font = new Font("Showcard Gothic", 20.25F, FontStyle.Regular, GraphicsUnit.Point, 0);
-            WorkerLbl.Location = new Point(625, 9);
+            WorkerLbl.Font = new Font("Showcard Gothic", 27.75F, FontStyle.Regular, GraphicsUnit.Point, 0);
+            WorkerLbl.Location = new Point(591, 6);
             WorkerLbl.Name = "WorkerLbl";
-            WorkerLbl.Size = new Size(147, 33);
+            WorkerLbl.Size = new Size(201, 46);
             WorkerLbl.TabIndex = 28;
             WorkerLbl.Text = "Workers";
             // 
             // WorkerSalonLbl
             // 
             WorkerSalonLbl.AutoSize = true;
-            WorkerSalonLbl.Font = new Font("Segoe UI", 12F, FontStyle.Italic, GraphicsUnit.Point, 0);
-            WorkerSalonLbl.Location = new Point(652, 372);
+            WorkerSalonLbl.Font = new Font("Showcard Gothic", 12F, FontStyle.Italic, GraphicsUnit.Point, 0);
+            WorkerSalonLbl.Location = new Point(645, 389);
             WorkerSalonLbl.Name = "WorkerSalonLbl";
-            WorkerSalonLbl.Size = new Size(96, 21);
+            WorkerSalonLbl.Size = new Size(107, 20);
             WorkerSalonLbl.TabIndex = 27;
             WorkerSalonLbl.Text = "Salon Name";
             WorkerSalonLbl.TextAlign = ContentAlignment.MiddleCenter;
@@ -71,64 +71,65 @@
             // WorkerEmailLbl
             // 
             WorkerEmailLbl.AutoSize = true;
-            WorkerEmailLbl.Font = new Font("Segoe UI", 12F, FontStyle.Italic, GraphicsUnit.Point, 0);
-            WorkerEmailLbl.Location = new Point(650, 154);
+            WorkerEmailLbl.Font = new Font("Showcard Gothic", 12F, FontStyle.Italic, GraphicsUnit.Point, 0);
+            WorkerEmailLbl.Location = new Point(631, 171);
             WorkerEmailLbl.Name = "WorkerEmailLbl";
-            WorkerEmailLbl.Size = new Size(105, 21);
+            WorkerEmailLbl.Size = new Size(132, 20);
             WorkerEmailLbl.TabIndex = 26;
             WorkerEmailLbl.Text = "Worker Email";
             // 
             // WorkerNameLbl
             // 
             WorkerNameLbl.AutoSize = true;
-            WorkerNameLbl.Font = new Font("Segoe UI", 12F, FontStyle.Italic, GraphicsUnit.Point, 0);
-            WorkerNameLbl.Location = new Point(650, 103);
+            WorkerNameLbl.Font = new Font("Showcard Gothic", 12F, FontStyle.Italic, GraphicsUnit.Point, 0);
+            WorkerNameLbl.Location = new Point(632, 121);
             WorkerNameLbl.Name = "WorkerNameLbl";
-            WorkerNameLbl.Size = new Size(109, 21);
+            WorkerNameLbl.Size = new Size(129, 20);
             WorkerNameLbl.TabIndex = 25;
             WorkerNameLbl.Text = "Worker Name";
             // 
             // IdLbl
             // 
             IdLbl.AutoSize = true;
-            IdLbl.Font = new Font("Segoe UI", 12F, FontStyle.Italic, GraphicsUnit.Point, 0);
-            IdLbl.Location = new Point(692, 52);
+            IdLbl.Font = new Font("Showcard Gothic", 12F, FontStyle.Italic, GraphicsUnit.Point, 0);
+            IdLbl.Location = new Point(690, 69);
             IdLbl.Name = "IdLbl";
-            IdLbl.Size = new Size(23, 21);
+            IdLbl.Size = new Size(27, 20);
             IdLbl.TabIndex = 24;
             IdLbl.Text = "Id";
             IdLbl.TextAlign = ContentAlignment.MiddleLeft;
             // 
             // WorkerSalonTxtBox
             // 
-            WorkerSalonTxtBox.Location = new Point(625, 396);
+            WorkerSalonTxtBox.Location = new Point(623, 413);
             WorkerSalonTxtBox.Name = "WorkerSalonTxtBox";
             WorkerSalonTxtBox.Size = new Size(147, 23);
             WorkerSalonTxtBox.TabIndex = 23;
             // 
             // WorkerEmailTxtBox
             // 
-            WorkerEmailTxtBox.Location = new Point(625, 178);
+            WorkerEmailTxtBox.Location = new Point(623, 195);
             WorkerEmailTxtBox.Name = "WorkerEmailTxtBox";
             WorkerEmailTxtBox.Size = new Size(147, 23);
             WorkerEmailTxtBox.TabIndex = 22;
             // 
             // WorkerNameTxtBox
             // 
-            WorkerNameTxtBox.Location = new Point(625, 127);
+            WorkerNameTxtBox.Location = new Point(623, 144);
             WorkerNameTxtBox.Name = "WorkerNameTxtBox";
             WorkerNameTxtBox.Size = new Size(147, 23);
             WorkerNameTxtBox.TabIndex = 21;
             // 
             // WorkerIdTxtBox
             // 
-            WorkerIdTxtBox.Location = new Point(625, 76);
+            WorkerIdTxtBox.Location = new Point(623, 93);
             WorkerIdTxtBox.Name = "WorkerIdTxtBox";
             WorkerIdTxtBox.Size = new Size(147, 23);
             WorkerIdTxtBox.TabIndex = 20;
             // 
             // ClearBtn
             // 
+            ClearBtn.Font = new Font("Showcard Gothic", 12F, FontStyle.Regular, GraphicsUnit.Point, 0);
             ClearBtn.Location = new Point(503, 396);
             ClearBtn.Name = "ClearBtn";
             ClearBtn.Size = new Size(82, 42);
@@ -139,6 +140,7 @@
             // 
             // DeleteBtn
             // 
+            DeleteBtn.Font = new Font("Showcard Gothic", 12F, FontStyle.Regular, GraphicsUnit.Point, 0);
             DeleteBtn.Location = new Point(342, 396);
             DeleteBtn.Name = "DeleteBtn";
             DeleteBtn.Size = new Size(82, 42);
@@ -149,6 +151,7 @@
             // 
             // UpdateBtn
             // 
+            UpdateBtn.Font = new Font("Showcard Gothic", 12F, FontStyle.Regular, GraphicsUnit.Point, 0);
             UpdateBtn.Location = new Point(188, 396);
             UpdateBtn.Name = "UpdateBtn";
             UpdateBtn.Size = new Size(82, 42);
@@ -159,6 +162,7 @@
             // 
             // AddBtn
             // 
+            AddBtn.Font = new Font("Showcard Gothic", 12F, FontStyle.Regular, GraphicsUnit.Point, 0);
             AddBtn.Location = new Point(25, 396);
             AddBtn.Name = "AddBtn";
             AddBtn.Size = new Size(82, 42);
@@ -178,10 +182,10 @@
             // WorkerSkillsLbl
             // 
             WorkerSkillsLbl.AutoSize = true;
-            WorkerSkillsLbl.Font = new Font("Segoe UI", 12F, FontStyle.Italic, GraphicsUnit.Point, 0);
-            WorkerSkillsLbl.Location = new Point(652, 210);
+            WorkerSkillsLbl.Font = new Font("Showcard Gothic", 12F, FontStyle.Italic, GraphicsUnit.Point, 0);
+            WorkerSkillsLbl.Location = new Point(628, 227);
             WorkerSkillsLbl.Name = "WorkerSkillsLbl";
-            WorkerSkillsLbl.Size = new Size(100, 21);
+            WorkerSkillsLbl.Size = new Size(136, 20);
             WorkerSkillsLbl.TabIndex = 30;
             WorkerSkillsLbl.Text = "Worker Skills";
             WorkerSkillsLbl.TextAlign = ContentAlignment.MiddleCenter;
@@ -190,7 +194,7 @@
             // 
             Skillsclb.CheckOnClick = true;
             Skillsclb.FormattingEnabled = true;
-            Skillsclb.Location = new Point(625, 234);
+            Skillsclb.Location = new Point(623, 251);
             Skillsclb.Name = "Skillsclb";
             Skillsclb.Size = new Size(147, 130);
             Skillsclb.TabIndex = 32;

@@ -2,13 +2,7 @@
 using GlamoraHairdresser.Data.Entities;
 using Microsoft.EntityFrameworkCore;
 using System;
-using System.Collections.Generic;
-using System.ComponentModel;
-using System.Data;
-using System.Drawing;
 using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
 using System.Windows.Forms;
 
 namespace GlamoraHairdresser.WinForms.Forms.Services
@@ -18,28 +12,33 @@ namespace GlamoraHairdresser.WinForms.Forms.Services
         private readonly GlamoraDbContext _db;
         private int _selectedSalonId;
 
-        public ServicesDashboard(GlamoraDbContext db)
+        public ServicesDashboard(GlamoraHairdresser.Data.GlamoraDbContext db)
         {
             InitializeComponent();
             _db = db;
 
-            // ComboBox لأسماء الخدمات يكون قابل للكتابة + إكمال تلقائي
+            // اضمن أن هذه العناصر موجودة في المصمّم بنفس الأسماء:
+            // SalonCombo (ComboBox) / ServiceNameCmb (ComboBox) / ServicesGrid (DataGridView)
+            // PriceTxt, DurationTxt (TextBox) / AddBtn, UpdateBtn, DeleteBtn, CleanBtn (Button)
+
             ServiceNameCmb.DropDownStyle = ComboBoxStyle.DropDown;
             ServiceNameCmb.AutoCompleteMode = AutoCompleteMode.SuggestAppend;
             ServiceNameCmb.AutoCompleteSource = AutoCompleteSource.ListItems;
 
-            // أحداث
+            Load += ServicesDashboard_Load;
             SalonCombo.SelectedIndexChanged += SalonCombo_SelectedIndexChanged;
+            ServicesGrid.SelectionChanged += ServicesGrid_SelectionChanged;
+
             AddBtn.Click += AddBtn_Click;
             UpdateBtn.Click += UpdateBtn_Click;
             DeleteBtn.Click += DeleteBtn_Click;
-            ServicesGrid.SelectionChanged += ServicesGrid_SelectionChanged;
+            CleanBtn.Click += (_, __) => ClearServiceInputs();
         }
 
         private void ServicesDashboard_Load(object sender, EventArgs e)
         {
             LoadSalons();
-            LoadServiceCatalogNames();   // يملأ الـCombo بأسماء الخدمات المميّزة
+            LoadServiceCatalogNames();
             if (SalonCombo.Items.Count > 0) SalonCombo.SelectedIndex = 0;
         }
 
@@ -50,14 +49,15 @@ namespace GlamoraHairdresser.WinForms.Forms.Services
                                    .Select(s => new { s.Id, s.Name })
                                    .ToList();
 
-            SalonCombo.DataSource = salons;
             SalonCombo.DisplayMember = "Name";
             SalonCombo.ValueMember = "Id";
+            SalonCombo.DataSource = salons;
         }
+
+        // كتالوج عالمي لأسماء الخدمات (Distinct)
         private void LoadServiceCatalogNames()
         {
-            var names = _db.ServiceOfferings
-                           .AsNoTracking()
+            var names = _db.ServiceOfferings.AsNoTracking()
                            .Select(s => s.Name)
                            .Distinct()
                            .OrderBy(n => n)
@@ -96,7 +96,6 @@ namespace GlamoraHairdresser.WinForms.Forms.Services
             ServicesGrid.AutoGenerateColumns = true;
             ServicesGrid.DataSource = list;
 
-            // تنسيقات اختيارية
             if (ServicesGrid.Columns.Contains("Id"))
                 ServicesGrid.Columns["Id"].Visible = false;
             if (ServicesGrid.Columns.Contains("Name"))
@@ -107,25 +106,19 @@ namespace GlamoraHairdresser.WinForms.Forms.Services
                 ServicesGrid.Columns["DurationMinutes"].HeaderText = "Duration (min)";
         }
 
-        // ========== أزرار CRUD ==========
+        // ------- CRUD -------
+
         private void AddBtn_Click(object sender, EventArgs e)
         {
-            if (_selectedSalonId <= 0)
-            {
-                MessageBox.Show("Select a salon first.", "Validation",
-                    MessageBoxButtons.OK, MessageBoxIcon.Warning);
-                return;
-            }
+            if (!ValidateInputs(out var msg)) { MessageBox.Show(msg, "Validation", MessageBoxButtons.OK, MessageBoxIcon.Warning); return; }
 
-            var name = (ServiceNameCmb.Text ?? "").Trim();
-            if (string.IsNullOrEmpty(name))
-            {
-                MessageBox.Show("Service name is required.", "Validation",
-                    MessageBoxButtons.OK, MessageBoxIcon.Warning);
-                return;
-            }
+            var name = ServiceNameCmb.Text.Trim();
+            var price = decimal.TryParse(PriceTxt.Text, out var p) ? p : 0;
+            var duration = int.TryParse(DurationTxt.Text, out var d) ? d : 30;
 
-            if (_db.ServiceOfferings.Any(s => s.SalonId == _selectedSalonId && s.Name.ToLower() == name.ToLower()))
+            bool exists = _db.ServiceOfferings.Any(s => s.SalonId == _selectedSalonId &&
+                                                        s.Name.ToLower() == name.ToLower());
+            if (exists)
             {
                 MessageBox.Show("This service already exists for the selected salon.", "Duplicate",
                     MessageBoxButtons.OK, MessageBoxIcon.Information);
@@ -136,29 +129,28 @@ namespace GlamoraHairdresser.WinForms.Forms.Services
             {
                 SalonId = _selectedSalonId,
                 Name = name,
-                Price = decimal.TryParse(PriceTxt.Text, out var p) ? p : 0,
-                DurationMinutes = int.TryParse(DurationTxt.Text, out var d) ? d : 30
+                Price = price,
+                DurationMinutes = duration
             };
 
             _db.ServiceOfferings.Add(svc);
             _db.SaveChanges();
 
-            // ✅ بعد الإضافة: حدّث الكتالوج ليظهر الاسم الجديد في الـComboBox
-            LoadServiceCatalogNames();
-            // وحدث خدمات الصالون المعروض
             LoadServicesForSalon(_selectedSalonId);
-
-            // اختياري: ضع المؤشر على الاسم المضاف
+            LoadServiceCatalogNames();
             ServiceNameCmb.Text = name;
+
+            MessageBox.Show("Service added.", "OK", MessageBoxButtons.OK, MessageBoxIcon.Information);
         }
 
         private void UpdateBtn_Click(object sender, EventArgs e)
         {
             if (ServicesGrid.CurrentRow == null)
             {
-                MessageBox.Show("Select a service row to update.");
+                MessageBox.Show("Select a service row to update.", "Update", MessageBoxButtons.OK, MessageBoxIcon.Warning);
                 return;
             }
+            if (!ValidateInputs(out var msg)) { MessageBox.Show(msg, "Validation", MessageBoxButtons.OK, MessageBoxIcon.Warning); return; }
 
             var idObj = ServicesGrid.CurrentRow.Cells["Id"]?.Value;
             if (idObj == null) return;
@@ -167,41 +159,36 @@ namespace GlamoraHairdresser.WinForms.Forms.Services
             var svc = _db.ServiceOfferings.Find(id);
             if (svc == null) return;
 
-            var newName = (ServiceNameCmb.Text ?? "").Trim();
-            if (string.IsNullOrEmpty(newName))
-            {
-                MessageBox.Show("Service name is required.", "Validation",
-                    MessageBoxButtons.OK, MessageBoxIcon.Warning);
-                return;
-            }
+            var newName = ServiceNameCmb.Text.Trim();
+            var newPrice = decimal.TryParse(PriceTxt.Text, out var p) ? p : svc.Price;
+            var newDuration = int.TryParse(DurationTxt.Text, out var d) ? d : svc.DurationMinutes;
 
-            // منع تكرار الاسم داخل نفس الصالون
-            bool duplicate = _db.ServiceOfferings
-                .Any(s => s.SalonId == _selectedSalonId &&
-                          s.Id != id &&
-                          s.Name.ToLower() == newName.ToLower());
+            bool duplicate = _db.ServiceOfferings.Any(s => s.SalonId == _selectedSalonId &&
+                                                           s.Id != id &&
+                                                           s.Name.ToLower() == newName.ToLower());
             if (duplicate)
             {
-                MessageBox.Show("Another service with the same name exists in this salon.");
+                MessageBox.Show("Another service with the same name exists in this salon.",
+                    "Duplicate", MessageBoxButtons.OK, MessageBoxIcon.Warning);
                 return;
             }
 
             svc.Name = newName;
-            svc.Price = decimal.TryParse(PriceTxt.Text, out var p) ? p : svc.Price;
-            svc.DurationMinutes = int.TryParse(DurationTxt.Text, out var d) ? d : svc.DurationMinutes;
+            svc.Price = newPrice;
+            svc.DurationMinutes = newDuration;
 
             _db.SaveChanges();
-
-            // حدّث الكتالوج (لو الاسم الجديد غير موجود سابقًا)
-            LoadServiceCatalogNames();
             LoadServicesForSalon(_selectedSalonId);
+            LoadServiceCatalogNames();
+
+            MessageBox.Show("Service updated.", "OK", MessageBoxButtons.OK, MessageBoxIcon.Information);
         }
 
         private void DeleteBtn_Click(object sender, EventArgs e)
         {
             if (ServicesGrid.CurrentRow == null)
             {
-                MessageBox.Show("Select a service row to delete.");
+                MessageBox.Show("Select a service row to delete.", "Delete", MessageBoxButtons.OK, MessageBoxIcon.Warning);
                 return;
             }
 
@@ -212,7 +199,6 @@ namespace GlamoraHairdresser.WinForms.Forms.Services
             var svc = _db.ServiceOfferings.Find(id);
             if (svc == null) return;
 
-            // تحذير: لو عندك FK من EmployeeSkills قد تحتاج حذف/Cascade
             var confirm = MessageBox.Show($"Delete service '{svc.Name}'?",
                 "Confirm", MessageBoxButtons.YesNo, MessageBoxIcon.Question);
             if (confirm != DialogResult.Yes) return;
@@ -227,9 +213,12 @@ namespace GlamoraHairdresser.WinForms.Forms.Services
             LoadServicesForSalon(_selectedSalonId);
             LoadServiceCatalogNames();
             ClearServiceInputs();
+
+            MessageBox.Show("Service deleted.", "OK", MessageBoxButtons.OK, MessageBoxIcon.Information);
         }
 
-        // ========== مزامنة الحقول عند اختيار صف ==========
+        // ------- Grid → Inputs -------
+
         private void ServicesGrid_SelectionChanged(object sender, EventArgs e)
         {
             if (ServicesGrid.CurrentRow?.DataBoundItem == null) return;
@@ -243,16 +232,41 @@ namespace GlamoraHairdresser.WinForms.Forms.Services
             DurationTxt.Text = duration;
         }
 
+        // ------- Helpers -------
+
         private void ClearServiceInputs()
         {
             ServiceNameCmb.Text = "";
             PriceTxt.Text = "";
             DurationTxt.Text = "";
+            ServicesGrid.ClearSelection();
         }
 
-        private void AddBtn_Click_1(object sender, EventArgs e)
+        private bool ValidateInputs(out string message)
         {
+            message = "";
+            if (_selectedSalonId <= 0) { message = "Please select a salon."; return false; }
 
+            var name = (ServiceNameCmb.Text ?? "").Trim();
+            if (string.IsNullOrEmpty(name))
+            {
+                message = "Service name is required.";
+                return false;
+            }
+
+            if (!string.IsNullOrWhiteSpace(PriceTxt.Text) && !decimal.TryParse(PriceTxt.Text, out _))
+            {
+                message = "Invalid price format.";
+                return false;
+            }
+
+            if (!string.IsNullOrWhiteSpace(DurationTxt.Text) && !int.TryParse(DurationTxt.Text, out _))
+            {
+                message = "Invalid duration (minutes).";
+                return false;
+            }
+
+            return true;
         }
     }
 }
