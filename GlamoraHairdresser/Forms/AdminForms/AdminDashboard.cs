@@ -67,11 +67,6 @@ namespace GlamoraHairdresser.WinForms.Forms.AdminForms
 
         }
 
-        private void BackBtn_Click(object sender, EventArgs e)
-        {
-
-        }
-
         private void ServiceBtn_Click(object sender, EventArgs e)
         {
             using var scope = Program.Services.CreateScope();

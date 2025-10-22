@@ -81,18 +81,18 @@
             // DeleteBtn
             // 
             DeleteBtn.Font = new Font("Showcard Gothic", 12F, FontStyle.Regular, GraphicsUnit.Point, 0);
-            DeleteBtn.Location = new Point(160, 368);
+            DeleteBtn.Location = new Point(298, 398);
             DeleteBtn.Name = "DeleteBtn";
-            DeleteBtn.Size = new Size(79, 33);
+            DeleteBtn.Size = new Size(87, 33);
             DeleteBtn.TabIndex = 4;
             DeleteBtn.Text = "Delete";
             DeleteBtn.UseVisualStyleBackColor = true;
             // 
             // button4
             // 
-            button4.Location = new Point(414, 405);
+            button4.Location = new Point(436, 398);
             button4.Name = "button4";
-            button4.Size = new Size(75, 23);
+            button4.Size = new Size(75, 30);
             button4.TabIndex = 5;
             button4.Text = "button4";
             button4.UseVisualStyleBackColor = true;
