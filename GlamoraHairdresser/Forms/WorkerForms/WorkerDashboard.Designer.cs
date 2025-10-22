@@ -194,7 +194,6 @@
             Skillsclb.Name = "Skillsclb";
             Skillsclb.Size = new Size(147, 130);
             Skillsclb.TabIndex = 32;
-            Skillsclb.SelectedIndexChanged += Skillsclb_SelectedIndexChanged;
             // 
             // WorkerDashboard
             // 
