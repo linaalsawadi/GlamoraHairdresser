@@ -1,20 +1,21 @@
-using System;
-using System.Windows.Forms;
-using GlamoraHairdresser.Services.Interfaces;
-using Microsoft.Extensions.DependencyInjection;
-using Microsoft.EntityFrameworkCore;
 using GlamoraHairdresser.Data;
-using GlamoraHairdresser.Services;
-using GlamoraHairdresser.WinForms.Forms.AuthForms;
-using GlamoraHairdresser.Services.Appointments;
 using GlamoraHairdresser.Data.Entities;
+using GlamoraHairdresser.Services;
+using GlamoraHairdresser.Services.Appointments;
 using GlamoraHairdresser.Services.Auth;
-using System.Text;
-using System.Security.Cryptography;
-using GlamoraHairdresser.WinForms.Forms.CustomerForms;
-using GlamoraHairdresser.WinForms.Forms.WorkerForms;
+using GlamoraHairdresser.Services.Interfaces;
 using GlamoraHairdresser.WinForms.Forms.AdminForms;
+using GlamoraHairdresser.WinForms.Forms.ApointmentForm;
+using GlamoraHairdresser.WinForms.Forms.AuthForms;
+using GlamoraHairdresser.WinForms.Forms.CustomerForms;
 using GlamoraHairdresser.WinForms.Forms.SalonForms;
+using GlamoraHairdresser.WinForms.Forms.WorkerForms;
+using Microsoft.EntityFrameworkCore;
+using Microsoft.Extensions.DependencyInjection;
+using System;
+using System.Security.Cryptography;
+using System.Text;
+using System.Windows.Forms;
 
 
 namespace GlamoraHairdresser
@@ -46,6 +47,8 @@ namespace GlamoraHairdresser
             sc.AddTransient<CustomerDashboard>();
             sc.AddTransient<WorkerDashboard>();
             sc.AddTransient<SalonForm>();
+            sc.AddTransient<MakeAppointment>();
+            sc.AddTransient<MyAppointment>();
 
             Services = sc.BuildServiceProvider();
 
