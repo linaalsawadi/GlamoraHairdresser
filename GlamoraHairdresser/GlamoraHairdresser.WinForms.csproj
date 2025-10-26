@@ -10,8 +10,14 @@
 
   <ItemGroup>
     <Compile Remove="Forms\AppointmentForms\**" />
+    <Compile Remove="Forms\SalonForms\**" />
+    <Compile Remove="Forms\Services\**" />
     <EmbeddedResource Remove="Forms\AppointmentForms\**" />
+    <EmbeddedResource Remove="Forms\SalonForms\**" />
+    <EmbeddedResource Remove="Forms\Services\**" />
     <None Remove="Forms\AppointmentForms\**" />
+    <None Remove="Forms\SalonForms\**" />
+    <None Remove="Forms\Services\**" />
   </ItemGroup>
 
   <ItemGroup>
@@ -29,12 +35,6 @@
   <ItemGroup>
     <ProjectReference Include="..\GlamoraHairdresser.Data\GlamoraHairdresser.Data.csproj" />
     <ProjectReference Include="..\GlamoraHairdresser.Services\GlamoraHairdresser.Services.csproj" />
-  </ItemGroup>
-
-  <ItemGroup>
-    <Folder Include="Forms\SalonForms\" />
-    <Folder Include="Forms\Services\" />
-    <Folder Include="Forms\WorkerForms\" />
   </ItemGroup>
 
 </Project>
