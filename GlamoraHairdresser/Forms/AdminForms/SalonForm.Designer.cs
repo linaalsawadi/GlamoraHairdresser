@@ -42,6 +42,7 @@
             SalonAddressLbl = new Label();
             SalonPhoneNumLbl = new Label();
             SalonLbl = new Label();
+            WorkingHoursBtn = new Button();
             ((System.ComponentModel.ISupportInitialize)dataGridViewSalon).BeginInit();
             SuspendLayout();
             // 
@@ -99,28 +100,28 @@
             // 
             // SalonIdTxtBox
             // 
-            SalonIdTxtBox.Location = new Point(636, 148);
+            SalonIdTxtBox.Location = new Point(616, 105);
             SalonIdTxtBox.Name = "SalonIdTxtBox";
             SalonIdTxtBox.Size = new Size(136, 23);
             SalonIdTxtBox.TabIndex = 5;
             // 
             // SalonNameTxtBox
             // 
-            SalonNameTxtBox.Location = new Point(636, 217);
+            SalonNameTxtBox.Location = new Point(616, 174);
             SalonNameTxtBox.Name = "SalonNameTxtBox";
             SalonNameTxtBox.Size = new Size(136, 23);
             SalonNameTxtBox.TabIndex = 6;
             // 
             // AddressTxtBox
             // 
-            AddressTxtBox.Location = new Point(636, 289);
+            AddressTxtBox.Location = new Point(616, 246);
             AddressTxtBox.Name = "AddressTxtBox";
             AddressTxtBox.Size = new Size(136, 23);
             AddressTxtBox.TabIndex = 7;
             // 
             // SalonPhoneNumTxtBox
             // 
-            SalonPhoneNumTxtBox.Location = new Point(636, 367);
+            SalonPhoneNumTxtBox.Location = new Point(616, 324);
             SalonPhoneNumTxtBox.Name = "SalonPhoneNumTxtBox";
             SalonPhoneNumTxtBox.Size = new Size(136, 23);
             SalonPhoneNumTxtBox.TabIndex = 8;
@@ -129,7 +130,7 @@
             // 
             IdLbl.AutoSize = true;
             IdLbl.Font = new Font("Showcard Gothic", 12F, FontStyle.Italic, GraphicsUnit.Point, 0);
-            IdLbl.Location = new Point(693, 124);
+            IdLbl.Location = new Point(673, 81);
             IdLbl.Name = "IdLbl";
             IdLbl.Size = new Size(27, 20);
             IdLbl.TabIndex = 10;
@@ -140,7 +141,7 @@
             // 
             SalonNameLbl.AutoSize = true;
             SalonNameLbl.Font = new Font("Showcard Gothic", 12F, FontStyle.Italic, GraphicsUnit.Point, 0);
-            SalonNameLbl.Location = new Point(650, 193);
+            SalonNameLbl.Location = new Point(630, 150);
             SalonNameLbl.Name = "SalonNameLbl";
             SalonNameLbl.Size = new Size(107, 20);
             SalonNameLbl.TabIndex = 11;
@@ -150,7 +151,7 @@
             // 
             SalonAddressLbl.AutoSize = true;
             SalonAddressLbl.Font = new Font("Showcard Gothic", 12F, FontStyle.Italic, GraphicsUnit.Point, 0);
-            SalonAddressLbl.Location = new Point(666, 265);
+            SalonAddressLbl.Location = new Point(646, 222);
             SalonAddressLbl.Name = "SalonAddressLbl";
             SalonAddressLbl.Size = new Size(81, 20);
             SalonAddressLbl.TabIndex = 12;
@@ -160,7 +161,7 @@
             // 
             SalonPhoneNumLbl.AutoSize = true;
             SalonPhoneNumLbl.Font = new Font("Showcard Gothic", 12F, FontStyle.Italic, GraphicsUnit.Point, 0);
-            SalonPhoneNumLbl.Location = new Point(625, 343);
+            SalonPhoneNumLbl.Location = new Point(605, 300);
             SalonPhoneNumLbl.Name = "SalonPhoneNumLbl";
             SalonPhoneNumLbl.Size = new Size(157, 20);
             SalonPhoneNumLbl.TabIndex = 13;
@@ -178,11 +179,23 @@
             SalonLbl.TabIndex = 14;
             SalonLbl.Text = "Salons";
             // 
+            // WorkingHoursBtn
+            // 
+            WorkingHoursBtn.Font = new Font("Showcard Gothic", 12F, FontStyle.Regular, GraphicsUnit.Point, 0);
+            WorkingHoursBtn.Location = new Point(614, 390);
+            WorkingHoursBtn.Name = "WorkingHoursBtn";
+            WorkingHoursBtn.Size = new Size(138, 54);
+            WorkingHoursBtn.TabIndex = 15;
+            WorkingHoursBtn.Text = "Working Hours";
+            WorkingHoursBtn.UseVisualStyleBackColor = true;
+            WorkingHoursBtn.Click += WorkingHoursBtn_Click;
+            // 
             // SalonForm
             // 
             AutoScaleDimensions = new SizeF(7F, 15F);
             AutoScaleMode = AutoScaleMode.Font;
             ClientSize = new Size(800, 450);
+            Controls.Add(WorkingHoursBtn);
             Controls.Add(SalonLbl);
             Controls.Add(SalonPhoneNumLbl);
             Controls.Add(SalonAddressLbl);
@@ -225,5 +238,6 @@
         private Label SalonAddressLbl;
         private Label SalonPhoneNumLbl;
         private Label SalonLbl;
+        private Button WorkingHoursBtn;
     }
 }

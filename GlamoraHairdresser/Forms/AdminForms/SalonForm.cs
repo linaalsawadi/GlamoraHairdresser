@@ -271,6 +271,11 @@ namespace GlamoraHairdresser.WinForms.Forms.SalonForms
         {
             ClearInputs(); // فقط تنظيف الحقول النصية دون أي تعامل مع قاعدة البيانات
 
-        }       
+        }
+
+        private void WorkingHoursBtn_Click(object sender, EventArgs e)
+        {
+
+        }
     }
 }
