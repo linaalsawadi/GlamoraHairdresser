@@ -1,6 +1,8 @@
 ﻿using GlamoraHairdresser.Data;
 using GlamoraHairdresser.Data.Entities;
+using GlamoraHairdresser.WinForms.Forms.AdminForms;
 using Microsoft.EntityFrameworkCore;
+using Microsoft.Extensions.DependencyInjection;
 using System;
 using System.Collections.Generic;
 using System.ComponentModel;
@@ -18,7 +20,15 @@ namespace GlamoraHairdresser.WinForms.Forms.SalonForms
     {
         private readonly GlamoraDbContext _db;
         private readonly BindingSource _bs = new();
+        private readonly AdminHoursForm _adminHoursForm;
 
+        public SalonForm(GlamoraDbContext db)
+        {
+            InitializeComponent();
+            _db = db;
+            this.Load += SalonForm_Load;
+
+        }
         private void LoadData()
         {
             // 1) تحميل وربط البيانات
@@ -91,15 +101,6 @@ namespace GlamoraHairdresser.WinForms.Forms.SalonForms
             SalonNameTxtBox.DataBindings.Add("Text", _bs, "Name", true, DataSourceUpdateMode.Never, "");
             AddressTxtBox.DataBindings.Add("Text", _bs, "Address", true, DataSourceUpdateMode.Never, "");
             SalonPhoneNumTxtBox.DataBindings.Add("Text", _bs, "PhoneNumber", true, DataSourceUpdateMode.Never, "");
-        }
-
-
-        public SalonForm(GlamoraDbContext db)
-        {
-            InitializeComponent();
-            _db = db;
-            this.Load += SalonForm_Load;
-
         }
 
         private void SalonForm_Load(object sender, EventArgs e)
@@ -176,7 +177,6 @@ namespace GlamoraHairdresser.WinForms.Forms.SalonForms
 
         private void AddBtn_Click(object? sender, EventArgs e)
         {
-
             if (!ValidateInputs(out var msg))
             {
                 MessageBox.Show(msg, "Validation", MessageBoxButtons.OK, MessageBoxIcon.Warning);
@@ -192,19 +192,40 @@ namespace GlamoraHairdresser.WinForms.Forms.SalonForms
             };
 
             _db.Salons.Add(s);
+
             try
             {
-                _db.SaveChanges();
-                LoadData(); // إعادة تحميل لعرض الصف الجديد
-                            // تحديد الصف المضاف
+                _db.SaveChanges(); // أولاً نحفظ الصالون لنعرف الـ ID الخاص به
+
+                // ✅ الآن نضيف ساعات العمل الافتراضية له
+                var defaultHours = new List<WorkingHour>();
+                for (int day = 0; day < 7; day++)
+                {
+                    defaultHours.Add(new WorkingHour
+                    {
+                        SalonId = s.Id,
+                        DayOfWeek = day,
+                        IsOpen = true, // يمكنك جعله false إذا أردت إغلاقه افتراضياً
+                        OpenTime = new TimeOnly(9, 0),
+                        CloseTime = new TimeOnly(17, 0)
+                    });
+                }
+
+                _db.WorkingHours.AddRange(defaultHours);
+                _db.SaveChanges(); // نحفظ التغييرات
+
+                // ✅ نحدّث الجدول في الواجهة
+                LoadData();
+
                 var index = _db.Salons.Local.ToList().FindIndex(x => x.Id == s.Id);
-                if (index >= 0) dataGridViewSalon.Rows[index].Selected = true;
-                MessageBox.Show("Added.", "OK", MessageBoxButtons.OK, MessageBoxIcon.Information);
+                if (index >= 0)
+                    dataGridViewSalon.Rows[index].Selected = true;
+
+                MessageBox.Show("Salon added with default working hours.", "Success", MessageBoxButtons.OK, MessageBoxIcon.Information);
             }
             catch (DbUpdateException ex)
             {
-                MessageBox.Show(ex.InnerException?.Message ?? ex.Message, "DB Error",
-                    MessageBoxButtons.OK, MessageBoxIcon.Error);
+                MessageBox.Show(ex.InnerException?.Message ?? ex.Message, "DB Error", MessageBoxButtons.OK, MessageBoxIcon.Error);
             }
         }
 
@@ -275,6 +296,11 @@ namespace GlamoraHairdresser.WinForms.Forms.SalonForms
 
         private void WorkingHoursBtn_Click(object sender, EventArgs e)
         {
+            using var scope = Program.Services.CreateScope();
+            var db = scope.ServiceProvider.GetRequiredService<GlamoraHairdresser.Data.GlamoraDbContext>();
+
+            var _adminHoursForm = new AdminHoursForm(db);
+            _adminHoursForm.ShowDialog();
 
         }
     }

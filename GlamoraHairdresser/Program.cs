@@ -4,6 +4,8 @@ using GlamoraHairdresser.Services;
 using GlamoraHairdresser.Services.Appointments;
 using GlamoraHairdresser.Services.Auth;
 using GlamoraHairdresser.Services.Interfaces;
+using GlamoraHairdresser.Services.SalonHours;
+using GlamoraHairdresser.Services.WorkerHours;
 using GlamoraHairdresser.WinForms.Forms.AdminForms;
 using GlamoraHairdresser.WinForms.Forms.ApointmentForm;
 using GlamoraHairdresser.WinForms.Forms.AuthForms;
@@ -36,6 +38,9 @@ namespace GlamoraHairdresser
 
             sc.AddScoped<IAuthService, AuthService>();
             sc.AddScoped<IAppointmentService, AppointmentService>();
+            sc.AddScoped<IWorkerHoursService, WorkerHoursService>();
+            sc.AddScoped<ISalonHoursService, SalonHoursService>();
+
             sc.AddDbContext<GlamoraDbContext>();
 
             sc.AddTransient<LoginForm>();
@@ -49,6 +54,8 @@ namespace GlamoraHairdresser
             sc.AddTransient<SalonForm>();
             sc.AddTransient<MakeAppointment>();
             sc.AddTransient<MyAppointment>();
+            sc.AddTransient<AdminHoursForm>();
+
 
             Services = sc.BuildServiceProvider();
 

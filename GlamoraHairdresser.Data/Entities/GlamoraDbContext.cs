@@ -22,6 +22,11 @@ namespace GlamoraHairdresser.Data
         public DbSet<EmployeeSkill> EmployeeSkills => Set<EmployeeSkill>();
         public DbSet<WorkerAvailability> WorkerAvailabilities => Set<WorkerAvailability>();
         public DbSet<Appointment> Appointments => Set<Appointment>();
+        public DbSet<SpecialWorkingHour> SpecialWorkingHours => Set<SpecialWorkingHour>();
+        public DbSet<WorkerWorkingHour> WorkerWorkingHours => Set<WorkerWorkingHour>();
+        public DbSet<WorkerSpecialWorkingHour> WorkerSpecialWorkingHours => Set<WorkerSpecialWorkingHour>();
+
+
 
         // ----------- Ctors -----------
         public GlamoraDbContext() { }
@@ -51,6 +56,9 @@ namespace GlamoraHairdresser.Data
             ConfigureEmployeeSkill(model);
             ConfigureWorkerAvailability(model);
             ConfigureAppointment(model);
+            ConfigureSpecialWorkingHour(model);
+            ConfigureWorkerWorkingHours(model);
+            ConfigureWorkerSpecialWorkingHours(model);
         }
 
         // ===== Users (TPH) =====
@@ -307,6 +315,90 @@ namespace GlamoraHairdresser.Data
             // CHECK: وقت البداية < وقت النهاية
             model.Entity<WorkerAvailability>()
                  .ToTable(t => t.HasCheckConstraint("CK_Avail_Time", "[Start] < [End]"));
+        }
+        private static void ConfigureSpecialWorkingHour(ModelBuilder model)
+        {
+            model.Entity<SpecialWorkingHour>().ToTable("SpecialWorkingHours");
+
+            model.Entity<SpecialWorkingHour>()
+                 .HasKey(s => s.Id);
+
+            model.Entity<SpecialWorkingHour>()
+                 .HasOne(s => s.Salon)
+                 .WithMany()
+                 .HasForeignKey(s => s.SalonId)
+                 .OnDelete(DeleteBehavior.Cascade);
+
+            model.Entity<SpecialWorkingHour>()
+                 .Property(s => s.Date)
+                 .HasColumnType("date")
+                 .IsRequired();
+
+            model.Entity<SpecialWorkingHour>()
+                 .Property(s => s.OpenTime)
+                 .HasColumnType("time(0)");
+
+            model.Entity<SpecialWorkingHour>()
+                 .Property(s => s.CloseTime)
+                 .HasColumnType("time(0)");
+
+            model.Entity<SpecialWorkingHour>()
+                 .HasIndex(s => new { s.SalonId, s.Date })
+                 .IsUnique(); // لكل صالون يوم واحد استثنائي
+
+            model.Entity<SpecialWorkingHour>()
+                 .ToTable(t =>
+                 {
+                     // إذا ليس عطلة، يجب أن يكون Open < Close
+                     t.HasCheckConstraint(
+                         "CK_SWH_Time",
+                         "([IsClosed] = 1) OR ([OpenTime] IS NOT NULL AND [CloseTime] IS NOT NULL AND [OpenTime] < [CloseTime])"
+                     );
+                 });
+        }
+
+        private static void ConfigureWorkerWorkingHours(ModelBuilder model)
+        {
+            model.Entity<WorkerWorkingHour>().ToTable("WorkerWorkingHours");
+            model.Entity<WorkerWorkingHour>().HasKey(w => w.Id);
+
+            model.Entity<WorkerWorkingHour>()
+                .HasOne(w => w.Worker)
+                .WithMany()
+                .HasForeignKey(w => w.WorkerId)
+                .OnDelete(DeleteBehavior.Cascade);
+
+            model.Entity<WorkerWorkingHour>()
+                .HasIndex(w => new { w.WorkerId, w.DayOfWeek })
+                .IsUnique();
+
+            model.Entity<WorkerWorkingHour>()
+                .ToTable(t => t.HasCheckConstraint(
+                    "CK_WorkerWorkingHour_Times",
+                    "[OpenTime] < [CloseTime]"
+                ));
+        }
+
+        private static void ConfigureWorkerSpecialWorkingHours(ModelBuilder model)
+        {
+            model.Entity<WorkerSpecialWorkingHour>().ToTable("WorkerSpecialWorkingHours");
+            model.Entity<WorkerSpecialWorkingHour>().HasKey(w => w.Id);
+
+            model.Entity<WorkerSpecialWorkingHour>()
+                .HasOne(w => w.Worker)
+                .WithMany()
+                .HasForeignKey(w => w.WorkerId)
+                .OnDelete(DeleteBehavior.Cascade);
+
+            model.Entity<WorkerSpecialWorkingHour>()
+                .HasIndex(w => new { w.WorkerId, w.Date })
+                .IsUnique();
+
+            model.Entity<WorkerSpecialWorkingHour>()
+                .ToTable(t => t.HasCheckConstraint(
+                    "CK_WorkerSpecialWorkingHour_Times",
+                    "([IsOffDay] = 1) OR ([OpenTime] < [CloseTime])"
+                ));
         }
 
 
