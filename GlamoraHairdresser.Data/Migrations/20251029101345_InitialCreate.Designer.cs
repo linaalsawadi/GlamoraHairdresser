@@ -12,8 +12,8 @@ using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 namespace GlamoraHairdresser.Data.Migrations
 {
     [DbContext(typeof(GlamoraDbContext))]
-    [Migration("20251027150125_WorkingHours")]
-    partial class WorkingHours
+    [Migration("20251029101345_InitialCreate")]
+    partial class InitialCreate
     {
         /// <inheritdoc />
         protected override void BuildTargetModel(ModelBuilder modelBuilder)
@@ -430,7 +430,7 @@ namespace GlamoraHairdresser.Data.Migrations
 
                     b.ToTable("WorkingHours", null, t =>
                         {
-                            t.HasCheckConstraint("CK_WorkingHour_Day", "[DayOfWeek] BETWEEN 1 AND 7");
+                            t.HasCheckConstraint("CK_WorkingHour_Day", "[DayOfWeek] BETWEEN 0 AND 6");
 
                             t.HasCheckConstraint("CK_WorkingHour_Time", "[OpenTime] < [CloseTime]");
                         });

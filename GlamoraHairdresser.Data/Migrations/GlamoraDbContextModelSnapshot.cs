@@ -427,7 +427,7 @@ namespace GlamoraHairdresser.Data.Migrations
 
                     b.ToTable("WorkingHours", null, t =>
                         {
-                            t.HasCheckConstraint("CK_WorkingHour_Day", "[DayOfWeek] BETWEEN 1 AND 7");
+                            t.HasCheckConstraint("CK_WorkingHour_Day", "[DayOfWeek] BETWEEN 0 AND 6");
 
                             t.HasCheckConstraint("CK_WorkingHour_Time", "[OpenTime] < [CloseTime]");
                         });

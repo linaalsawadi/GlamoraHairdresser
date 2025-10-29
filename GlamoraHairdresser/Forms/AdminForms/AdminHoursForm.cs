@@ -44,51 +44,50 @@ namespace GlamoraHairdresser.WinForms.Forms.AdminForms
             var hours = await _db.WorkingHours
                 .Where(h => h.SalonId == salonId)
                 .AsNoTracking()
+                .OrderBy(h => h.DayOfWeek)
                 .ToListAsync();
 
-            for (int i = 1; i <= 7; i++)
+            // تعبئة الجدول بالأيام (0-6)
+            string[] days = { "Sunday", "Monday", "Tuesday", "Wednesday", "Thursday", "Friday", "Saturday" };
+
+            for (int i = 0; i < 7; i++)
             {
                 var existing = hours.FirstOrDefault(h => h.DayOfWeek == i);
                 HoursGrid.Rows.Add(
-                    i,
-                    GetDayName(i),
-                    existing != null,
-                    existing?.OpenTime.ToString("HH:mm") ?? "",
-                    existing?.CloseTime.ToString("HH:mm") ?? ""
+                    i,                                    // Day (0–6)
+                    days[i],                              // Day Name
+                    existing?.IsOpen ?? false,            // Is Open
+                    existing?.OpenTime.ToString("HH:mm") ?? "09:00",
+                    existing?.CloseTime.ToString("HH:mm") ?? "17:00"
                 );
             }
-        }
-
-        private string GetDayName(int day)
-        {
-            return day switch
-            {
-                1 => "Monday",
-                2 => "Tuesday",
-                3 => "Wednesday",
-                4 => "Thursday",
-                5 => "Friday",
-                6 => "Saturday",
-                7 => "Sunday",
-                _ => "Unknown"
-            };
         }
 
         private async void SaveBtn_Click(object sender, EventArgs e)
         {
             if (SalonComboBox.SelectedValue is not int salonId)
+            {
+                MessageBox.Show("⚠️ Please select a salon first.", "Warning", MessageBoxButtons.OK, MessageBoxIcon.Warning);
                 return;
+            }
 
             foreach (DataGridViewRow row in HoursGrid.Rows)
             {
+                if (row.IsNewRow) continue;
                 if (row.Cells["Day"].Value == null) continue;
 
                 int day = Convert.ToInt32(row.Cells["Day"].Value);
                 bool isOpen = Convert.ToBoolean(row.Cells["IsOpen"].Value);
-                string openStr = row.Cells["OpenTime"].Value?.ToString();
-                string closeStr = row.Cells["CloseTime"].Value?.ToString();
+                string openStr = row.Cells["OpenTime"].Value?.ToString() ?? "09:00";
+                string closeStr = row.Cells["CloseTime"].Value?.ToString() ?? "17:00";
 
-                var existing = await _db.WorkingHours.FirstOrDefaultAsync(h => h.SalonId == salonId && h.DayOfWeek == day);
+                if (!TimeOnly.TryParse(openStr, out var open))
+                    open = new TimeOnly(9, 0);
+                if (!TimeOnly.TryParse(closeStr, out var close))
+                    close = new TimeOnly(17, 0);
+
+                var existing = await _db.WorkingHours
+                    .FirstOrDefaultAsync(h => h.SalonId == salonId && h.DayOfWeek == day);
 
                 if (!isOpen)
                 {
@@ -97,35 +96,39 @@ namespace GlamoraHairdresser.WinForms.Forms.AdminForms
                     continue;
                 }
 
-                if (!TimeOnly.TryParse(openStr, out var open) || !TimeOnly.TryParse(closeStr, out var close))
-                    continue;
-
                 if (existing == null)
                 {
-                    _db.WorkingHours.Add(new WorkingHour
+                    // ➕ إضافة سجل جديد
+                    var newHour = new WorkingHour
                     {
                         SalonId = salonId,
                         DayOfWeek = day,
                         IsOpen = isOpen,
                         OpenTime = open,
-                        CloseTime = close
-                    });
+                        CloseTime = close,
+                        CreatedAt = DateTime.UtcNow
+                    };
+                    _db.WorkingHours.Add(newHour);
                 }
                 else
                 {
+                    // ✏️ تحديث السجل الحالي
                     existing.IsOpen = isOpen;
                     existing.OpenTime = open;
                     existing.CloseTime = close;
                 }
             }
 
-            await _db.SaveChangesAsync();
-            MessageBox.Show("Saved successfully!", "OK", MessageBoxButtons.OK, MessageBoxIcon.Information);
-        }
-
-        private void HoursGrid_CellContentClick(object sender, DataGridViewCellEventArgs e)
-        {
-
+            try
+            {
+                await _db.SaveChangesAsync();
+                MessageBox.Show("✅ Working hours saved successfully!", "Success", MessageBoxButtons.OK, MessageBoxIcon.Information);
+                await LoadSalonHoursAsync(salonId); // تحديث مباشر بعد الحفظ
+            }
+            catch (Exception ex)
+            {
+                MessageBox.Show($"❌ Error while saving: {ex.Message}", "Error", MessageBoxButtons.OK, MessageBoxIcon.Error);
+            }
         }
     }
 }

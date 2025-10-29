@@ -11,12 +11,12 @@
         {
             SalonComboBox = new ComboBox();
             HoursGrid = new DataGridView();
-            SaveBtn = new Button();
             Day = new DataGridViewTextBoxColumn();
             DayName = new DataGridViewTextBoxColumn();
             IsOpen = new DataGridViewCheckBoxColumn();
             OpenTime = new DataGridViewTextBoxColumn();
             CloseTime = new DataGridViewTextBoxColumn();
+            SaveBtn = new Button();
             ((System.ComponentModel.ISupportInitialize)HoursGrid).BeginInit();
             SuspendLayout();
             // 
@@ -35,15 +35,7 @@
             HoursGrid.Name = "HoursGrid";
             HoursGrid.Size = new Size(546, 250);
             HoursGrid.TabIndex = 1;
-            // 
-            // SaveBtn
-            // 
-            SaveBtn.Location = new Point(250, 350);
-            SaveBtn.Name = "SaveBtn";
-            SaveBtn.Size = new Size(75, 23);
-            SaveBtn.TabIndex = 2;
-            SaveBtn.Text = "💾 Save Changes";
-            SaveBtn.Click += SaveBtn_Click;
+            HoursGrid.CellContentClick += HoursGrid_CellContentClick_1;
             // 
             // Day
             // 
@@ -69,6 +61,15 @@
             // 
             CloseTime.HeaderText = "Close Time";
             CloseTime.Name = "CloseTime";
+            // 
+            // SaveBtn
+            // 
+            SaveBtn.Location = new Point(250, 350);
+            SaveBtn.Name = "SaveBtn";
+            SaveBtn.Size = new Size(75, 23);
+            SaveBtn.TabIndex = 2;
+            SaveBtn.Text = "💾 Save Changes";
+            SaveBtn.Click += SaveBtn_Click;
             // 
             // AdminHoursForm
             // 
