@@ -1,6 +1,8 @@
 ﻿using GlamoraHairdresser.Data;
 using GlamoraHairdresser.Data.Entities;
+using GlamoraHairdresser.WinForms.Forms.AdminForms;
 using Microsoft.EntityFrameworkCore;
+using Microsoft.Extensions.DependencyInjection;
 using System;
 using System.Linq;
 using System.Windows.Forms;
@@ -423,6 +425,15 @@ namespace GlamoraHairdresser.WinForms.Forms.WorkerForms
             LoadData();
             if (_bs.Count > 0) _bs.Position = 0;
             FillFormFromSelection();
+        }
+
+        private void WorkerWorkingHoursBtn_Click(object sender, EventArgs e)
+        {
+            using var scope = Program.Services.CreateScope();
+            var db = scope.ServiceProvider.GetRequiredService<GlamoraHairdresser.Data.GlamoraDbContext>();
+
+            var _adminWorkerHoursForm = new AdminWorkerHoursForm(db);
+            _adminWorkerHoursForm.ShowDialog();
         }
     }
 }

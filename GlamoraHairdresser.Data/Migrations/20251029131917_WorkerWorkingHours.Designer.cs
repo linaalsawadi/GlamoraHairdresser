@@ -4,6 +4,7 @@ using GlamoraHairdresser.Data;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore.Infrastructure;
 using Microsoft.EntityFrameworkCore.Metadata;
+using Microsoft.EntityFrameworkCore.Migrations;
 using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 
 #nullable disable
@@ -11,9 +12,11 @@ using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 namespace GlamoraHairdresser.Data.Migrations
 {
     [DbContext(typeof(GlamoraDbContext))]
-    partial class GlamoraDbContextModelSnapshot : ModelSnapshot
+    [Migration("20251029131917_WorkerWorkingHours")]
+    partial class WorkerWorkingHours
     {
-        protected override void BuildModel(ModelBuilder modelBuilder)
+        /// <inheritdoc />
+        protected override void BuildTargetModel(ModelBuilder modelBuilder)
         {
 #pragma warning disable 612, 618
             modelBuilder
@@ -393,9 +396,7 @@ namespace GlamoraHairdresser.Data.Migrations
 
                     b.ToTable("WorkerWorkingHours", null, t =>
                         {
-                            t.HasCheckConstraint("CK_WorkerWorkingHour_Day", "[DayOfWeek] BETWEEN 0 AND 6");
-
-                            t.HasCheckConstraint("CK_WorkerWorkingHour_Times", "([IsOpen] = 0 AND [OpenTime] = [CloseTime]) OR ([IsOpen] = 1 AND [OpenTime] < [CloseTime])");
+                            t.HasCheckConstraint("CK_WorkerWorkingHour_Times", "[OpenTime] < [CloseTime]");
                         });
                 });
 

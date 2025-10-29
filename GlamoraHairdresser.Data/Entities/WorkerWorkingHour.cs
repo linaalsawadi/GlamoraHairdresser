@@ -14,6 +14,7 @@ namespace GlamoraHairdresser.Data.Entities
         public Worker Worker { get; set; } = default!;
 
         public int DayOfWeek { get; set; } // 1 = Monday ... 7 = Sunday
+        public bool IsOpen { get; set; } = true;
         public TimeOnly OpenTime { get; set; }
         public TimeOnly CloseTime { get; set; }
     }

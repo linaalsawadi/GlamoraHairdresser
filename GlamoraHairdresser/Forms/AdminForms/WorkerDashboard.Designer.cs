@@ -44,6 +44,7 @@
             DataGridViewWorker = new DataGridView();
             WorkerSkillsLbl = new Label();
             Skillsclb = new CheckedListBox();
+            WorkerWorkingHoursBtn = new Button();
             ((System.ComponentModel.ISupportInitialize)DataGridViewWorker).BeginInit();
             SuspendLayout();
             // 
@@ -51,7 +52,7 @@
             // 
             WorkerLbl.AutoSize = true;
             WorkerLbl.Font = new Font("Showcard Gothic", 27.75F, FontStyle.Regular, GraphicsUnit.Point, 0);
-            WorkerLbl.Location = new Point(591, 6);
+            WorkerLbl.Location = new Point(591, -2);
             WorkerLbl.Name = "WorkerLbl";
             WorkerLbl.Size = new Size(201, 46);
             WorkerLbl.TabIndex = 28;
@@ -61,7 +62,7 @@
             // 
             WorkerSalonLbl.AutoSize = true;
             WorkerSalonLbl.Font = new Font("Showcard Gothic", 12F, FontStyle.Italic, GraphicsUnit.Point, 0);
-            WorkerSalonLbl.Location = new Point(645, 389);
+            WorkerSalonLbl.Location = new Point(635, 354);
             WorkerSalonLbl.Name = "WorkerSalonLbl";
             WorkerSalonLbl.Size = new Size(107, 20);
             WorkerSalonLbl.TabIndex = 27;
@@ -72,7 +73,7 @@
             // 
             WorkerEmailLbl.AutoSize = true;
             WorkerEmailLbl.Font = new Font("Showcard Gothic", 12F, FontStyle.Italic, GraphicsUnit.Point, 0);
-            WorkerEmailLbl.Location = new Point(631, 171);
+            WorkerEmailLbl.Location = new Point(625, 149);
             WorkerEmailLbl.Name = "WorkerEmailLbl";
             WorkerEmailLbl.Size = new Size(132, 20);
             WorkerEmailLbl.TabIndex = 26;
@@ -82,7 +83,7 @@
             // 
             WorkerNameLbl.AutoSize = true;
             WorkerNameLbl.Font = new Font("Showcard Gothic", 12F, FontStyle.Italic, GraphicsUnit.Point, 0);
-            WorkerNameLbl.Location = new Point(632, 121);
+            WorkerNameLbl.Location = new Point(628, 100);
             WorkerNameLbl.Name = "WorkerNameLbl";
             WorkerNameLbl.Size = new Size(129, 20);
             WorkerNameLbl.TabIndex = 25;
@@ -92,7 +93,7 @@
             // 
             IdLbl.AutoSize = true;
             IdLbl.Font = new Font("Showcard Gothic", 12F, FontStyle.Italic, GraphicsUnit.Point, 0);
-            IdLbl.Location = new Point(690, 69);
+            IdLbl.Location = new Point(677, 51);
             IdLbl.Name = "IdLbl";
             IdLbl.Size = new Size(27, 20);
             IdLbl.TabIndex = 24;
@@ -101,28 +102,28 @@
             // 
             // WorkerSalonTxtBox
             // 
-            WorkerSalonTxtBox.Location = new Point(623, 413);
+            WorkerSalonTxtBox.Location = new Point(621, 380);
             WorkerSalonTxtBox.Name = "WorkerSalonTxtBox";
             WorkerSalonTxtBox.Size = new Size(147, 23);
             WorkerSalonTxtBox.TabIndex = 23;
             // 
             // WorkerEmailTxtBox
             // 
-            WorkerEmailTxtBox.Location = new Point(623, 195);
+            WorkerEmailTxtBox.Location = new Point(621, 172);
             WorkerEmailTxtBox.Name = "WorkerEmailTxtBox";
             WorkerEmailTxtBox.Size = new Size(147, 23);
             WorkerEmailTxtBox.TabIndex = 22;
             // 
             // WorkerNameTxtBox
             // 
-            WorkerNameTxtBox.Location = new Point(623, 144);
+            WorkerNameTxtBox.Location = new Point(621, 123);
             WorkerNameTxtBox.Name = "WorkerNameTxtBox";
             WorkerNameTxtBox.Size = new Size(147, 23);
             WorkerNameTxtBox.TabIndex = 21;
             // 
             // WorkerIdTxtBox
             // 
-            WorkerIdTxtBox.Location = new Point(623, 93);
+            WorkerIdTxtBox.Location = new Point(621, 74);
             WorkerIdTxtBox.Name = "WorkerIdTxtBox";
             WorkerIdTxtBox.Size = new Size(147, 23);
             WorkerIdTxtBox.TabIndex = 20;
@@ -130,7 +131,7 @@
             // ClearBtn
             // 
             ClearBtn.Font = new Font("Showcard Gothic", 12F, FontStyle.Regular, GraphicsUnit.Point, 0);
-            ClearBtn.Location = new Point(503, 396);
+            ClearBtn.Location = new Point(363, 396);
             ClearBtn.Name = "ClearBtn";
             ClearBtn.Size = new Size(82, 42);
             ClearBtn.TabIndex = 19;
@@ -141,7 +142,7 @@
             // DeleteBtn
             // 
             DeleteBtn.Font = new Font("Showcard Gothic", 12F, FontStyle.Regular, GraphicsUnit.Point, 0);
-            DeleteBtn.Location = new Point(342, 396);
+            DeleteBtn.Location = new Point(246, 396);
             DeleteBtn.Name = "DeleteBtn";
             DeleteBtn.Size = new Size(82, 42);
             DeleteBtn.TabIndex = 18;
@@ -152,7 +153,7 @@
             // UpdateBtn
             // 
             UpdateBtn.Font = new Font("Showcard Gothic", 12F, FontStyle.Regular, GraphicsUnit.Point, 0);
-            UpdateBtn.Location = new Point(188, 396);
+            UpdateBtn.Location = new Point(134, 396);
             UpdateBtn.Name = "UpdateBtn";
             UpdateBtn.Size = new Size(82, 42);
             UpdateBtn.TabIndex = 17;
@@ -183,7 +184,7 @@
             // 
             WorkerSkillsLbl.AutoSize = true;
             WorkerSkillsLbl.Font = new Font("Showcard Gothic", 12F, FontStyle.Italic, GraphicsUnit.Point, 0);
-            WorkerSkillsLbl.Location = new Point(628, 227);
+            WorkerSkillsLbl.Location = new Point(621, 198);
             WorkerSkillsLbl.Name = "WorkerSkillsLbl";
             WorkerSkillsLbl.Size = new Size(136, 20);
             WorkerSkillsLbl.TabIndex = 30;
@@ -194,16 +195,28 @@
             // 
             Skillsclb.CheckOnClick = true;
             Skillsclb.FormattingEnabled = true;
-            Skillsclb.Location = new Point(623, 251);
+            Skillsclb.Location = new Point(621, 221);
             Skillsclb.Name = "Skillsclb";
             Skillsclb.Size = new Size(147, 130);
             Skillsclb.TabIndex = 32;
+            // 
+            // WorkerWorkingHoursBtn
+            // 
+            WorkerWorkingHoursBtn.Font = new Font("Showcard Gothic", 9.75F, FontStyle.Regular, GraphicsUnit.Point, 0);
+            WorkerWorkingHoursBtn.Location = new Point(478, 396);
+            WorkerWorkingHoursBtn.Name = "WorkerWorkingHoursBtn";
+            WorkerWorkingHoursBtn.Size = new Size(107, 42);
+            WorkerWorkingHoursBtn.TabIndex = 33;
+            WorkerWorkingHoursBtn.Text = "Working Hours";
+            WorkerWorkingHoursBtn.UseVisualStyleBackColor = true;
+            WorkerWorkingHoursBtn.Click += WorkerWorkingHoursBtn_Click;
             // 
             // WorkerDashboard
             // 
             AutoScaleDimensions = new SizeF(7F, 15F);
             AutoScaleMode = AutoScaleMode.Font;
             ClientSize = new Size(800, 450);
+            Controls.Add(WorkerWorkingHoursBtn);
             Controls.Add(Skillsclb);
             Controls.Add(WorkerSkillsLbl);
             Controls.Add(WorkerLbl);
@@ -246,5 +259,6 @@
         private DataGridView DataGridViewWorker;
         private Label WorkerSkillsLbl;
         private CheckedListBox Skillsclb;
+        private Button WorkerWorkingHoursBtn;
     }
 }

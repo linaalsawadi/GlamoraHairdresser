@@ -367,22 +367,35 @@ namespace GlamoraHairdresser.Data
             model.Entity<WorkerWorkingHour>().ToTable("WorkerWorkingHours");
             model.Entity<WorkerWorkingHour>().HasKey(w => w.Id);
 
+            // العلاقة مع العامل
             model.Entity<WorkerWorkingHour>()
                 .HasOne(w => w.Worker)
                 .WithMany()
                 .HasForeignKey(w => w.WorkerId)
                 .OnDelete(DeleteBehavior.Cascade);
 
+            // فهرس فريد (عامل، يوم)
             model.Entity<WorkerWorkingHour>()
                 .HasIndex(w => new { w.WorkerId, w.DayOfWeek })
                 .IsUnique();
 
+            // القيد المنطقي الصحيح: 
+            // إذا اليوم مفتوح، لازم Open < Close 
+            // إذا اليوم مغلق، نسمح يكونوا متساويين
             model.Entity<WorkerWorkingHour>()
                 .ToTable(t => t.HasCheckConstraint(
                     "CK_WorkerWorkingHour_Times",
-                    "[OpenTime] < [CloseTime]"
+                    "([IsOpen] = 0 AND [OpenTime] = [CloseTime]) OR ([IsOpen] = 1 AND [OpenTime] < [CloseTime])"
+                ));
+
+            // قيد اليوم (0 إلى 6)
+            model.Entity<WorkerWorkingHour>()
+                .ToTable(t => t.HasCheckConstraint(
+                    "CK_WorkerWorkingHour_Day",
+                    "[DayOfWeek] BETWEEN 0 AND 6"
                 ));
         }
+
 
         private static void ConfigureWorkerSpecialWorkingHours(ModelBuilder model)
         {

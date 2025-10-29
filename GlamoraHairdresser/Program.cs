@@ -75,7 +75,6 @@ namespace GlamoraHairdresser
                         Email = "admin@glamora.com",
                         PasswordHash = auth.HashPassword("admin123"), // ???? byte[]
                         Permissions = "FullAccess",
-                        CreatedAt = DateTime.UtcNow,
                     };
 
                     db.Admins.Add(admin);
