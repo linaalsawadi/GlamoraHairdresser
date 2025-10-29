@@ -91,8 +91,28 @@ namespace GlamoraHairdresser.WinForms.Forms.AdminForms
 
                 if (!isOpen)
                 {
-                    if (existing != null)
-                        _db.WorkingHours.Remove(existing);
+                    if (existing == null)
+                    {
+                        // ➕ إضافة سجل جديد حتى لو مغلق
+                        var closedDay = new WorkingHour
+                        {
+                            SalonId = salonId,
+                            DayOfWeek = day,
+                            IsOpen = false,
+                            OpenTime = new TimeOnly(0, 0),
+                            CloseTime = new TimeOnly(0, 0),
+                            CreatedAt = DateTime.UtcNow
+                        };
+                        _db.WorkingHours.Add(closedDay);
+                    }
+                    else
+                    {
+                        // ✏️ تحديث السجل الموجود ليصبح مغلق
+                        existing.IsOpen = false;
+                        existing.OpenTime = new TimeOnly(0, 0);
+                        existing.CloseTime = new TimeOnly(0, 0);
+                    }
+
                     continue;
                 }
 

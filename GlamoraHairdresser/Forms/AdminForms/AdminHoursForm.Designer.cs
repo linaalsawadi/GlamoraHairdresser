@@ -35,7 +35,6 @@
             HoursGrid.Name = "HoursGrid";
             HoursGrid.Size = new Size(546, 250);
             HoursGrid.TabIndex = 1;
-            HoursGrid.CellContentClick += HoursGrid_CellContentClick_1;
             // 
             // Day
             // 

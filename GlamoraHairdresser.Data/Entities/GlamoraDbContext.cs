@@ -142,7 +142,6 @@ namespace GlamoraHairdresser.Data
                  });
         }
 
-
         private static void ConfigureWorkingHours(ModelBuilder model)
         {
             model.Entity<WorkingHour>().ToTable("WorkingHours");
@@ -167,12 +166,18 @@ namespace GlamoraHairdresser.Data
                  .HasIndex(w => new { w.SalonId, w.DayOfWeek })
                  .IsUnique();
 
-            // قيود منطقية مفيدة
+            // ✅ قيود منطقية محدثة
             model.Entity<WorkingHour>()
                  .ToTable(t =>
                  {
+                     // السماح بالأيام من 0 إلى 6
                      t.HasCheckConstraint("CK_WorkingHour_Day", "[DayOfWeek] BETWEEN 0 AND 6");
-                     t.HasCheckConstraint("CK_WorkingHour_Time", "[OpenTime] < [CloseTime]");
+
+                     // ✅ السماح بحالة IsOpen = 0 حتى لو الأوقات متساوية
+                     t.HasCheckConstraint(
+                         "CK_WorkingHour_Time",
+                         "([IsOpen] = 0) OR ([OpenTime] < [CloseTime])"
+                     );
                  });
         }
 
