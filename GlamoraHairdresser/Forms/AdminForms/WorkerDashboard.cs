@@ -435,5 +435,6 @@ namespace GlamoraHairdresser.WinForms.Forms.WorkerForms
             var _adminWorkerHoursForm = new AdminWorkerHoursForm(db);
             _adminWorkerHoursForm.ShowDialog();
         }
+
     }
 }
