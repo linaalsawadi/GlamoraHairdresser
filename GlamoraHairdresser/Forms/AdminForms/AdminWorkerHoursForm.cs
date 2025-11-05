@@ -17,7 +17,7 @@ namespace GlamoraHairdresser.WinForms.Forms.AdminForms
     {
         private readonly GlamoraDbContext _db;
 
-        // --- Concurrency guards (avoid concurrent queries on the same DbContext) ---
+        // Concurrency guards
         private readonly SemaphoreSlim _dbGate = new(1, 1);
         private bool _suppressSelectionChanged = false;
         private bool _isLoadingHours = false;
@@ -39,12 +39,12 @@ namespace GlamoraHairdresser.WinForms.Forms.AdminForms
             SaveBtn.Click += SaveBtn_Click;
 
             HoursGrid.CellBeginEdit += HoursGrid_CellBeginEdit;
-            HoursGrid.CellValidating += HoursGrid_CellValidating;
-            HoursGrid.CellParsing += HoursGrid_CellParsing;               // normalize to TimeOnly
+            HoursGrid.CellValidating += HoursGrid_CellValidating;   // لن نمنع الخروج من الخلية هنا
+            HoursGrid.CellParsing += HoursGrid_CellParsing;         // normalize إلى HH:mm
             HoursGrid.CellValueChanged += HoursGrid_CellValueChanged;
             HoursGrid.CurrentCellDirtyStateChanged += HoursGrid_CurrentCellDirtyStateChanged;
             HoursGrid.EditingControlShowing += HoursGrid_EditingControlShowing;
-            HoursGrid.DataError += HoursGrid_DataError;
+            HoursGrid.DataError += (s, e) => e.Cancel = true;       // لا رسائل
             HoursGrid.DataBindingComplete += (_, __) => ApplyRowGuards();
         }
 
@@ -64,24 +64,18 @@ namespace GlamoraHairdresser.WinForms.Forms.AdminForms
                 time = t;
                 return true;
             }
-
             var s = Convert.ToString(value)?.Trim();
             if (string.IsNullOrWhiteSpace(s)) return false;
 
-            // Try exact formats first
             if (TimeOnly.TryParseExact(s, TimeFormats, CultureInfo.InvariantCulture,
                                        DateTimeStyles.None, out time))
-            {
                 return true;
-            }
 
-            // Fallback: "9" -> 09:00
             if (int.TryParse(s, out var hour) && hour >= 0 && hour <= 23)
             {
                 time = new TimeOnly(hour, 0);
                 return true;
             }
-
             return false;
         }
 
@@ -318,7 +312,7 @@ namespace GlamoraHairdresser.WinForms.Forms.AdminForms
             ApplyRowGuards();
         }
 
-        // ===================== Editing & Validation =====================
+        // ===================== Editing & (light) Validation =====================
         private void HoursGrid_CellBeginEdit(object sender, DataGridViewCellCancelEventArgs e)
         {
             var col = HoursGrid.Columns[e.ColumnIndex].Name;
@@ -327,6 +321,7 @@ namespace GlamoraHairdresser.WinForms.Forms.AdminForms
                 var row = HoursGrid.Rows[e.RowIndex];
                 if (IsSalonClosedCell(row.Cells["SalonHours"].Value))
                 {
+                    // نمنع التحرير هنا فقط لليوم المغلق
                     e.Cancel = true;
                     MessageBox.Show("Salon is closed on this day. You cannot set worker hours.",
                                     "Warning", MessageBoxButtons.OK, MessageBoxIcon.Warning);
@@ -368,14 +363,10 @@ namespace GlamoraHairdresser.WinForms.Forms.AdminForms
 
         private void TimeKeyPressNumericColon(object? sender, KeyPressEventArgs e)
         {
-            // allow digits, backspace, ':', '.'
             if (!char.IsControl(e.KeyChar) && !char.IsDigit(e.KeyChar) && e.KeyChar != ':' && e.KeyChar != '.')
-            {
                 e.Handled = true;
-            }
         }
 
-        // Normalize to HH:mm & validate while leaving cell
         private void HoursGrid_CellParsing(object sender, DataGridViewCellParsingEventArgs e)
         {
             var colName = HoursGrid.Columns[e.ColumnIndex].Name;
@@ -389,28 +380,14 @@ namespace GlamoraHairdresser.WinForms.Forms.AdminForms
             }
         }
 
+        // ملاحظة: لا نمنع الخروج من الخلية، فقط نكتب ErrorText (جمع الأخطاء سيتم عند Save)
         private void HoursGrid_CellValidating(object sender, DataGridViewCellValidatingEventArgs e)
         {
             var grid = (DataGridView)sender;
             var row = grid.Rows[e.RowIndex];
             var colName = grid.Columns[e.ColumnIndex].Name;
+
             row.ErrorText = string.Empty;
-
-            if (colName == "IsOpen")
-            {
-                bool newVal = false;
-                if (e.FormattedValue is bool b) newVal = b;
-                else bool.TryParse(Convert.ToString(e.FormattedValue), out newVal);
-
-                if (IsSalonClosedCell(row.Cells["SalonHours"].Value) && newVal)
-                {
-                    e.Cancel = true;
-                    row.ErrorText = "Salon is closed on this day.";
-                    MessageBox.Show("Cannot enable working hours because the salon is closed.",
-                                    "Error", MessageBoxButtons.OK, MessageBoxIcon.Error);
-                }
-                return;
-            }
 
             if (colName is "OpenTime" or "CloseTime")
             {
@@ -420,37 +397,26 @@ namespace GlamoraHairdresser.WinForms.Forms.AdminForms
                 var openObj = colName == "OpenTime" ? e.FormattedValue : row.Cells["OpenTime"].Value;
                 var closeObj = colName == "CloseTime" ? e.FormattedValue : row.Cells["CloseTime"].Value;
 
-                if (TryParseTime(openObj, out var open) && TryParseTime(closeObj, out var close))
+                if (!TryParseTime(openObj, out var open) || !TryParseTime(closeObj, out var close))
                 {
-                    if (open >= close)
-                    {
-                        e.Cancel = true;
-                        row.ErrorText = "Close time must be after open time.";
-                        MessageBox.Show("Invalid time range: close time must be greater than open time.",
-                                        "Error", MessageBoxButtons.OK, MessageBoxIcon.Error);
-                    }
-                    else
-                    {
-                        if (colName == "OpenTime") row.Cells["OpenTime"].Value = ToHHmm(open);
-                        if (colName == "CloseTime") row.Cells["CloseTime"].Value = ToHHmm(close);
-                    }
+                    row.ErrorText = "Time must be in HH:mm (e.g., 09:00).";
+                    return;
+                }
+
+                if (open >= close)
+                {
+                    row.ErrorText = "Close time must be after open time.";
+                    // بلا e.Cancel، بلا MessageBox
                 }
                 else
                 {
-                    e.Cancel = true;
-                    row.ErrorText = "Time must be in HH:mm (e.g., 09:00 or 15:30).";
+                    if (colName == "OpenTime") row.Cells["OpenTime"].Value = ToHHmm(open);
+                    if (colName == "CloseTime") row.Cells["CloseTime"].Value = ToHHmm(close);
                 }
             }
         }
 
-        private void HoursGrid_DataError(object sender, DataGridViewDataErrorEventArgs e)
-        {
-            e.Cancel = true;
-            MessageBox.Show("Invalid value. Use time format HH:mm (e.g., 09:00).",
-                            "Input Error", MessageBoxButtons.OK, MessageBoxIcon.Warning);
-        }
-
-        // ===================== Save =====================
+        // ===================== Save (collect all errors) =====================
         private async void SaveBtn_Click(object sender, EventArgs e)
         {
             if (_isLoadingHours || _isSaving) return;
@@ -458,7 +424,6 @@ namespace GlamoraHairdresser.WinForms.Forms.AdminForms
 
             try
             {
-                // ensure latest edit is committed
                 HoursGrid.CommitEdit(DataGridViewDataErrorContexts.Commit);
                 HoursGrid.EndEdit();
 
@@ -490,51 +455,99 @@ namespace GlamoraHairdresser.WinForms.Forms.AdminForms
                         .Where(h => h.SalonId == worker.SalonId)
                         .ToListAsync();
 
+                    // --------- Final validation for ALL rows ----------
+                    var errors = new List<string>();
+                    DataGridViewRow? firstBadRow = null;
+
                     foreach (DataGridViewRow row in HoursGrid.Rows)
                     {
-                        if (row.IsNewRow) continue;
-                        if (row.Cells["Day"].Value == null) continue;
+                        if (row.IsNewRow || row.Cells["Day"].Value == null) continue;
+
+                        row.ErrorText = string.Empty;
+
+                        int day = Convert.ToInt32(row.Cells["Day"].Value);
+                        string dayName = Convert.ToString(row.Cells["DayName"].Value) ?? "?";
+                        bool isOpen = Convert.ToBoolean(row.Cells["IsOpen"].Value ?? false);
+
+                        var salonDay = salonHours.FirstOrDefault(h => h.DayOfWeek == day);
+                        bool salonClosed = salonDay == null || !salonDay.IsOpen;
+
+                        if (salonClosed && isOpen)
+                        {
+                            var msg = $"• {dayName}: Salon is closed; worker hours cannot be enabled.";
+                            errors.Add(msg);
+                            row.ErrorText = msg;
+                            firstBadRow ??= row;
+                            continue;
+                        }
+
+                        if (!isOpen) continue;
+
+                        var openStr = row.Cells["OpenTime"].Value?.ToString() ?? "";
+                        var closeStr = row.Cells["CloseTime"].Value?.ToString() ?? "";
+
+                        if (!TryParseTime(openStr, out var open) || !TryParseTime(closeStr, out var close))
+                        {
+                            var msg = $"• {dayName}: invalid time format (use HH:mm).";
+                            errors.Add(msg);
+                            row.ErrorText = msg;
+                            firstBadRow ??= row;
+                            continue;
+                        }
+
+                        if (open >= close)
+                        {
+                            var msg = $"• {dayName}: Close must be AFTER Open (Open {ToHHmm(open)} ≥ Close {ToHHmm(close)}).";
+                            errors.Add(msg);
+                            row.ErrorText = msg;
+                            firstBadRow ??= row;
+                            continue;
+                        }
+
+                        // must be within salon hours if salon open
+                        if (!salonClosed && (open < salonDay!.OpenTime || close > salonDay.CloseTime))
+                        {
+                            var msg = $"• {dayName}: Worker hours must be within salon hours ({ToHHmm(salonDay.OpenTime)} - {ToHHmm(salonDay.CloseTime)}).";
+                            errors.Add(msg);
+                            row.ErrorText = msg;
+                            firstBadRow ??= row;
+                            continue;
+                        }
+
+                        // normalize
+                        row.Cells["OpenTime"].Value = ToHHmm(open);
+                        row.Cells["CloseTime"].Value = ToHHmm(close);
+                    }
+
+                    if (errors.Count > 0)
+                    {
+                        if (firstBadRow != null)
+                        {
+                            HoursGrid.ClearSelection();
+                            firstBadRow.Selected = true;
+                            HoursGrid.FirstDisplayedScrollingRowIndex = firstBadRow.Index;
+                        }
+
+                        MessageBox.Show(
+                            "Please fix the following before saving:\n\n" + string.Join(Environment.NewLine, errors),
+                            "Validation errors", MessageBoxButtons.OK, MessageBoxIcon.Error
+                        );
+                        return; // لا نُكمل الحفظ
+                    }
+                    // ---------------------------------------------------
+
+                    // Persist
+                    foreach (DataGridViewRow row in HoursGrid.Rows)
+                    {
+                        if (row.IsNewRow || row.Cells["Day"].Value == null) continue;
 
                         int day = Convert.ToInt32(row.Cells["Day"].Value);
                         bool isOpen = Convert.ToBoolean(row.Cells["IsOpen"].Value ?? false);
 
-                        var openStr = row.Cells["OpenTime"].Value?.ToString()?.Trim() ?? "09:00";
-                        var closeStr = row.Cells["CloseTime"].Value?.ToString()?.Trim() ?? "17:00";
-
-                        if (!TryParseTime(openStr, out var open)) open = new TimeOnly(9, 0);
-                        if (!TryParseTime(closeStr, out var close)) close = new TimeOnly(17, 0);
-
-                        var salonDay = salonHours.FirstOrDefault(h => h.DayOfWeek == day);
-
-                        if (salonDay == null || !salonDay.IsOpen)
-                        {
-                            if (isOpen)
-                            {
-                                MessageBox.Show($"[{row.Cells["DayName"].Value}] Salon is closed. You cannot set worker hours.",
-                                                "Error", MessageBoxButtons.OK, MessageBoxIcon.Error);
-                                HoursGrid.CurrentCell = row.Cells["IsOpen"];
-                                return;
-                            }
-                        }
-                        else
-                        {
-                            if (isOpen && open >= close)
-                            {
-                                MessageBox.Show($"[{row.Cells["DayName"].Value}] Invalid time range (close ≤ open).",
-                                                "Error", MessageBoxButtons.OK, MessageBoxIcon.Error);
-                                HoursGrid.CurrentCell = row.Cells["CloseTime"];
-                                return;
-                            }
-
-                            if (isOpen && (open < salonDay.OpenTime || close > salonDay.CloseTime))
-                            {
-                                MessageBox.Show(
-                                    $"[{row.Cells["DayName"].Value}] Worker hours must be within salon hours ({ToHHmm(salonDay.OpenTime)} - {ToHHmm(salonDay.CloseTime)}).",
-                                    "Validation", MessageBoxButtons.OK, MessageBoxIcon.Warning);
-                                HoursGrid.CurrentCell = row.Cells["OpenTime"];
-                                return;
-                            }
-                        }
+                        var openStr = row.Cells["OpenTime"].Value?.ToString()?.Trim() ?? "00:00";
+                        var closeStr = row.Cells["CloseTime"].Value?.ToString()?.Trim() ?? "00:00";
+                        TryParseTime(openStr, out var open);
+                        TryParseTime(closeStr, out var close);
 
                         var existing = await _db.WorkerWorkingHours
                             .FirstOrDefaultAsync(h => h.WorkerId == workerId && h.DayOfWeek == day);

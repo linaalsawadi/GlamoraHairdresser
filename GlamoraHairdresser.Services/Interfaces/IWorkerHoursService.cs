@@ -4,7 +4,7 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 
-namespace GlamoraHairdresser.Services.WorkerHours
+namespace GlamoraHairdresser.Services.Interfaces
 {
     public interface IWorkerHoursService
     {

@@ -34,7 +34,7 @@ namespace GlamoraHairdresser.WinForms.Forms.AdminForms
             SalonComboBox.SelectedIndexChanged += SalonComboBox_SelectedIndexChanged;
 
             // grid events
-            HoursGrid.CellValidating += HoursGrid_CellValidating;
+            HoursGrid.CellValidating += HoursGrid_CellValidating;          // ← لم نلغِه لكن منعنا الإلغاء داخله
             HoursGrid.CellParsing += HoursGrid_CellParsing;
             HoursGrid.EditingControlShowing += HoursGrid_EditingControlShowing;
             HoursGrid.CurrentCellDirtyStateChanged += HoursGrid_CurrentCellDirtyStateChanged;
@@ -277,12 +277,15 @@ namespace GlamoraHairdresser.WinForms.Forms.AdminForms
             }
         }
 
-        // Validate: if open → Close > Open and valid format
+        // NOTE: لم نعد نمنع المستخدم من الخروج من الخلية (e.Cancel = false دائماً).
+        // نضع رسالة على الصف فقط، ونجمع كل التنبيهات عند الحفظ.
         private void HoursGrid_CellValidating(object sender, DataGridViewCellValidatingEventArgs e)
         {
             var grid = (DataGridView)sender;
             var row = grid.Rows[e.RowIndex];
             var col = grid.Columns[e.ColumnIndex].Name;
+
+            // لا نمنع الخروج من الخلية إطلاقاً
             row.ErrorText = string.Empty;
 
             if (col is "OpenTime" or "CloseTime")
@@ -296,17 +299,14 @@ namespace GlamoraHairdresser.WinForms.Forms.AdminForms
                 if (!TryParseFlexibleTime(openObj, out var open) ||
                     !TryParseFlexibleTime(closeObj, out var close))
                 {
-                    e.Cancel = true;
                     row.ErrorText = "Time must be in HH:mm (e.g., 09:00 or 15:30).";
                     return;
                 }
 
                 if (open >= close)
                 {
-                    e.Cancel = true;
                     row.ErrorText = "Close time must be after open time.";
-                    MessageBox.Show("Invalid time range: close time must be greater than open time.",
-                                    "Error", MessageBoxButtons.OK, MessageBoxIcon.Error);
+                    // لا MessageBox هنا ولا e.Cancel
                 }
                 else
                 {
@@ -335,25 +335,64 @@ namespace GlamoraHairdresser.WinForms.Forms.AdminForms
                 HoursGrid.CommitEdit(DataGridViewDataErrorContexts.Commit);
                 HoursGrid.EndEdit();
 
-                // final validation
+                // --------- Final validation for ALL rows ----------
+                var errors = new List<string>();
+                DataGridViewRow? firstBadRow = null;
+
                 foreach (DataGridViewRow row in HoursGrid.Rows)
                 {
+                    row.ErrorText = string.Empty;
                     if (row.IsNewRow || row.Cells["Day"].Value == null) continue;
 
                     bool isOpen = Convert.ToBoolean(row.Cells["IsOpen"].Value ?? false);
                     if (!isOpen) continue;
 
-                    var openStr = row.Cells["OpenTime"].Value?.ToString() ?? "09:00";
-                    var closeStr = row.Cells["CloseTime"].Value?.ToString() ?? "17:00";
+                    string dayName = Convert.ToString(row.Cells["DayName"].Value) ?? "?";
+                    var openStr = row.Cells["OpenTime"].Value?.ToString() ?? "";
+                    var closeStr = row.Cells["CloseTime"].Value?.ToString() ?? "";
 
                     if (!TryParseFlexibleTime(openStr, out var open) ||
-                        !TryParseFlexibleTime(closeStr, out var close) || open >= close)
+                        !TryParseFlexibleTime(closeStr, out var close))
                     {
-                        MessageBox.Show($"[{row.Cells["DayName"].Value}] Check times (HH:mm) and make sure Close > Open.",
-                                        "Error", MessageBoxButtons.OK, MessageBoxIcon.Error);
-                        return;
+                        var msg = $"• {dayName}: invalid time format (use HH:mm).";
+                        errors.Add(msg);
+                        row.ErrorText = msg;
+                        firstBadRow ??= row;
+                        continue;
+                    }
+
+                    if (open >= close)
+                    {
+                        var msg = $"• {dayName}: Close must be AFTER Open (Open {ToHHmm(open)} ≥ Close {ToHHmm(close)}).";
+                        errors.Add(msg);
+                        row.ErrorText = msg;
+                        firstBadRow ??= row;
+                    }
+                    else
+                    {
+                        // normalize back to HH:mm
+                        row.Cells["OpenTime"].Value = ToHHmm(open);
+                        row.Cells["CloseTime"].Value = ToHHmm(close);
                     }
                 }
+
+                if (errors.Count > 0)
+                {
+                    // حدّد أول صف به خطأ ليسهل على المستخدم تعديله
+                    if (firstBadRow != null)
+                    {
+                        HoursGrid.ClearSelection();
+                        firstBadRow.Selected = true;
+                        HoursGrid.FirstDisplayedScrollingRowIndex = firstBadRow.Index;
+                    }
+
+                    MessageBox.Show(
+                        "Please fix the following before saving:\n\n" + string.Join(Environment.NewLine, errors),
+                        "Validation errors", MessageBoxButtons.OK, MessageBoxIcon.Error
+                    );
+                    return; // لا نُكمل الحفظ
+                }
+                // ---------------------------------------------------
 
                 await _dbGate.WaitAsync();
                 try
@@ -441,3 +480,4 @@ namespace GlamoraHairdresser.WinForms.Forms.AdminForms
         }
     }
 }
+

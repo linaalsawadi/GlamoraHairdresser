@@ -2,6 +2,7 @@
 using System.Linq;
 using System.Threading.Tasks;
 using GlamoraHairdresser.Data;
+using GlamoraHairdresser.Services.Interfaces;
 using Microsoft.EntityFrameworkCore;
 
 namespace GlamoraHairdresser.Services.SalonHours
