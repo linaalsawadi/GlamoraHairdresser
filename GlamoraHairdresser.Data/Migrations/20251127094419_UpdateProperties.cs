@@ -5,25 +5,25 @@
 namespace GlamoraHairdresser.Data.Migrations
 {
     /// <inheritdoc />
-    public partial class WorkerWorkingHours : Migration
+    public partial class UpdateProperties : Migration
     {
         /// <inheritdoc />
         protected override void Up(MigrationBuilder migrationBuilder)
         {
-            migrationBuilder.AddColumn<bool>(
-                name: "IsOpen",
-                table: "WorkerWorkingHours",
-                type: "bit",
+            migrationBuilder.AddColumn<string>(
+                name: "Phone",
+                table: "Users",
+                type: "nvarchar(max)",
                 nullable: false,
-                defaultValue: false);
+                defaultValue: "");
         }
 
         /// <inheritdoc />
         protected override void Down(MigrationBuilder migrationBuilder)
         {
             migrationBuilder.DropColumn(
-                name: "IsOpen",
-                table: "WorkerWorkingHours");
+                name: "Phone",
+                table: "Users");
         }
     }
 }

@@ -28,18 +28,20 @@
         /// </summary>
         private void InitializeComponent()
         {
+            System.ComponentModel.ComponentResourceManager resources = new System.ComponentModel.ComponentResourceManager(typeof(CustomerDashboard));
             BookBtn = new Button();
             MyBookingBtn = new Button();
             BookLogoutBtn = new Button();
+            BackBtn = new Button();
             SuspendLayout();
             // 
             // BookBtn
             // 
-            BookBtn.BackColor = SystemColors.ScrollBar;
+            BookBtn.BackColor = Color.RosyBrown;
             BookBtn.Font = new Font("Segoe UI Semibold", 14.25F, FontStyle.Bold | FontStyle.Italic, GraphicsUnit.Point, 0);
-            BookBtn.Location = new Point(370, 124);
+            BookBtn.Location = new Point(320, 124);
             BookBtn.Name = "BookBtn";
-            BookBtn.Size = new Size(118, 56);
+            BookBtn.Size = new Size(231, 56);
             BookBtn.TabIndex = 9;
             BookBtn.Text = "Book NOW";
             BookBtn.UseVisualStyleBackColor = false;
@@ -47,12 +49,12 @@
             // 
             // MyBookingBtn
             // 
-            MyBookingBtn.BackColor = SystemColors.ScrollBar;
+            MyBookingBtn.BackColor = Color.RosyBrown;
             MyBookingBtn.Font = new Font("Segoe UI Semibold", 14.25F, FontStyle.Bold | FontStyle.Italic, GraphicsUnit.Point, 0);
             MyBookingBtn.ForeColor = SystemColors.ActiveCaptionText;
             MyBookingBtn.Location = new Point(320, 186);
             MyBookingBtn.Name = "MyBookingBtn";
-            MyBookingBtn.Size = new Size(231, 52);
+            MyBookingBtn.Size = new Size(231, 56);
             MyBookingBtn.TabIndex = 10;
             MyBookingBtn.Text = "My Booking";
             MyBookingBtn.UseVisualStyleBackColor = false;
@@ -60,8 +62,9 @@
             // 
             // BookLogoutBtn
             // 
-            BookLogoutBtn.BackColor = SystemColors.ButtonShadow;
-            BookLogoutBtn.Font = new Font("Segoe UI Semibold", 14.25F, FontStyle.Bold | FontStyle.Italic, GraphicsUnit.Point, 0);
+            BookLogoutBtn.BackColor = SystemColors.ControlText;
+            BookLogoutBtn.Font = new Font("Berlin Sans FB Demi", 20.25F, FontStyle.Bold | FontStyle.Italic, GraphicsUnit.Point, 0);
+            BookLogoutBtn.ForeColor = Color.Cornsilk;
             BookLogoutBtn.Location = new Point(12, 393);
             BookLogoutBtn.Name = "BookLogoutBtn";
             BookLogoutBtn.Size = new Size(118, 45);
@@ -70,11 +73,26 @@
             BookLogoutBtn.UseVisualStyleBackColor = false;
             BookLogoutBtn.Click += BookLogoutBtn_Click;
             // 
+            // BackBtn
+            // 
+            BackBtn.BackColor = SystemColors.ControlText;
+            BackBtn.Font = new Font("Berlin Sans FB Demi", 20.25F, FontStyle.Bold | FontStyle.Italic, GraphicsUnit.Point, 0);
+            BackBtn.ForeColor = Color.Cornsilk;
+            BackBtn.Location = new Point(136, 393);
+            BackBtn.Name = "BackBtn";
+            BackBtn.Size = new Size(118, 45);
+            BackBtn.TabIndex = 14;
+            BackBtn.Text = "Back";
+            BackBtn.UseVisualStyleBackColor = false;
+            BackBtn.Click += BackBtn_Click;
+            // 
             // CustomerDashboard
             // 
             AutoScaleDimensions = new SizeF(7F, 15F);
             AutoScaleMode = AutoScaleMode.Font;
+            BackgroundImage = (Image)resources.GetObject("$this.BackgroundImage");
             ClientSize = new Size(800, 450);
+            Controls.Add(BackBtn);
             Controls.Add(BookLogoutBtn);
             Controls.Add(MyBookingBtn);
             Controls.Add(BookBtn);
@@ -88,5 +106,6 @@
         private Button BookBtn;
         private Button MyBookingBtn;
         private Button BookLogoutBtn;
+        private Button BackBtn;
     }
 }

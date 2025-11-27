@@ -38,12 +38,15 @@
             RegisterLabel = new Label();
             RegisterBtn = new Button();
             LoginBtn = new Button();
+            ShowPassChkBox = new CheckBox();
             SuspendLayout();
             // 
             // EmailLabel
             // 
             EmailLabel.AutoSize = true;
+            EmailLabel.BackColor = Color.RosyBrown;
             EmailLabel.Font = new Font("Simplified Arabic Fixed", 18F, FontStyle.Bold | FontStyle.Italic, GraphicsUnit.Point, 0);
+            EmailLabel.ForeColor = SystemColors.ControlLightLight;
             EmailLabel.Location = new Point(188, 105);
             EmailLabel.Name = "EmailLabel";
             EmailLabel.Size = new Size(87, 28);
@@ -53,7 +56,9 @@
             // PassLabel
             // 
             PassLabel.AutoSize = true;
+            PassLabel.BackColor = Color.RosyBrown;
             PassLabel.Font = new Font("Simplified Arabic Fixed", 18F, FontStyle.Bold | FontStyle.Italic, GraphicsUnit.Point, 0);
+            PassLabel.ForeColor = SystemColors.ControlLightLight;
             PassLabel.Location = new Point(188, 181);
             PassLabel.Name = "PassLabel";
             PassLabel.Size = new Size(132, 28);
@@ -86,8 +91,9 @@
             // RegisterLabel
             // 
             RegisterLabel.AutoSize = true;
+            RegisterLabel.BackColor = Color.LavenderBlush;
             RegisterLabel.Font = new Font("Simplified Arabic Fixed", 9.75F, FontStyle.Bold | FontStyle.Italic, GraphicsUnit.Point, 0);
-            RegisterLabel.Location = new Point(202, 275);
+            RegisterLabel.Location = new Point(233, 275);
             RegisterLabel.Name = "RegisterLabel";
             RegisterLabel.Size = new Size(314, 18);
             RegisterLabel.TabIndex = 6;
@@ -95,29 +101,49 @@
             // 
             // RegisterBtn
             // 
-            RegisterBtn.Location = new Point(321, 306);
+            RegisterBtn.BackColor = Color.IndianRed;
+            RegisterBtn.Font = new Font("Showcard Gothic", 9F, FontStyle.Regular, GraphicsUnit.Point, 0);
+            RegisterBtn.ForeColor = Color.Cornsilk;
+            RegisterBtn.Location = new Point(295, 307);
             RegisterBtn.Name = "RegisterBtn";
             RegisterBtn.Size = new Size(79, 41);
             RegisterBtn.TabIndex = 7;
             RegisterBtn.Text = "Register";
-            RegisterBtn.UseVisualStyleBackColor = true;
+            RegisterBtn.UseVisualStyleBackColor = false;
             RegisterBtn.Click += RegisterBtn_Click;
             // 
             // LoginBtn
             // 
-            LoginBtn.Location = new Point(579, 138);
+            LoginBtn.BackColor = Color.IndianRed;
+            LoginBtn.Font = new Font("Showcard Gothic", 9F, FontStyle.Regular, GraphicsUnit.Point, 0);
+            LoginBtn.ForeColor = Color.Cornsilk;
+            LoginBtn.Location = new Point(380, 307);
             LoginBtn.Name = "LoginBtn";
-            LoginBtn.Size = new Size(73, 36);
+            LoginBtn.Size = new Size(79, 41);
             LoginBtn.TabIndex = 8;
             LoginBtn.Text = "Login";
-            LoginBtn.UseVisualStyleBackColor = true;
+            LoginBtn.UseVisualStyleBackColor = false;
             LoginBtn.Click += LoginBtn_Click;
+            // 
+            // ShowPassChkBox
+            // 
+            ShowPassChkBox.AutoSize = true;
+            ShowPassChkBox.BackColor = SystemColors.ControlLightLight;
+            ShowPassChkBox.ForeColor = Color.Coral;
+            ShowPassChkBox.Location = new Point(584, 195);
+            ShowPassChkBox.Name = "ShowPassChkBox";
+            ShowPassChkBox.Size = new Size(108, 19);
+            ShowPassChkBox.TabIndex = 9;
+            ShowPassChkBox.Text = "Show Password";
+            ShowPassChkBox.UseVisualStyleBackColor = false;
             // 
             // LoginForm
             // 
             AutoScaleDimensions = new SizeF(7F, 15F);
             AutoScaleMode = AutoScaleMode.Font;
+            BackgroundImage = (Image)resources.GetObject("$this.BackgroundImage");
             ClientSize = new Size(800, 450);
+            Controls.Add(ShowPassChkBox);
             Controls.Add(LoginBtn);
             Controls.Add(RegisterBtn);
             Controls.Add(RegisterLabel);
@@ -141,5 +167,6 @@
         private Label RegisterLabel;
         private Button RegisterBtn;
         private Button LoginBtn;
+        private CheckBox ShowPassChkBox;
     }
 }

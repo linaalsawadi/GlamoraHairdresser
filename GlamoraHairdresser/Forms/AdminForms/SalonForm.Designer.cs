@@ -28,6 +28,7 @@
         /// </summary>
         private void InitializeComponent()
         {
+            System.ComponentModel.ComponentResourceManager resources = new System.ComponentModel.ComponentResourceManager(typeof(SalonForm));
             dataGridViewSalon = new DataGridView();
             AddBtn = new Button();
             UpdateBtn = new Button();
@@ -48,6 +49,7 @@
             // 
             // dataGridViewSalon
             // 
+            dataGridViewSalon.BackgroundColor = Color.FromArgb(255, 192, 192);
             dataGridViewSalon.ColumnHeadersHeightSizeMode = DataGridViewColumnHeadersHeightSizeMode.AutoSize;
             dataGridViewSalon.Location = new Point(21, 12);
             dataGridViewSalon.Name = "dataGridViewSalon";
@@ -56,72 +58,80 @@
             // 
             // AddBtn
             // 
+            AddBtn.BackColor = Color.RosyBrown;
             AddBtn.Font = new Font("Showcard Gothic", 12F, FontStyle.Regular, GraphicsUnit.Point, 0);
+            AddBtn.ForeColor = Color.Cornsilk;
             AddBtn.Location = new Point(21, 396);
             AddBtn.Name = "AddBtn";
             AddBtn.Size = new Size(82, 42);
             AddBtn.TabIndex = 1;
             AddBtn.Text = "Add";
-            AddBtn.UseVisualStyleBackColor = true;
+            AddBtn.UseVisualStyleBackColor = false;
             AddBtn.Click += AddBtn_Click;
             // 
             // UpdateBtn
             // 
+            UpdateBtn.BackColor = Color.RosyBrown;
             UpdateBtn.Font = new Font("Showcard Gothic", 12F, FontStyle.Regular, GraphicsUnit.Point, 0);
+            UpdateBtn.ForeColor = Color.Cornsilk;
             UpdateBtn.Location = new Point(184, 396);
             UpdateBtn.Name = "UpdateBtn";
             UpdateBtn.Size = new Size(82, 42);
             UpdateBtn.TabIndex = 2;
             UpdateBtn.Text = "Update";
-            UpdateBtn.UseVisualStyleBackColor = true;
+            UpdateBtn.UseVisualStyleBackColor = false;
             UpdateBtn.Click += UpdateBtn_Click;
             // 
             // DeleteBtn
             // 
+            DeleteBtn.BackColor = Color.RosyBrown;
             DeleteBtn.Font = new Font("Showcard Gothic", 12F, FontStyle.Regular, GraphicsUnit.Point, 0);
+            DeleteBtn.ForeColor = Color.Cornsilk;
             DeleteBtn.Location = new Point(338, 396);
             DeleteBtn.Name = "DeleteBtn";
             DeleteBtn.Size = new Size(82, 42);
             DeleteBtn.TabIndex = 3;
             DeleteBtn.Text = "Delete";
-            DeleteBtn.UseVisualStyleBackColor = true;
+            DeleteBtn.UseVisualStyleBackColor = false;
             DeleteBtn.Click += DeleteBtn_Click;
             // 
             // ClearBtn
             // 
+            ClearBtn.BackColor = Color.RosyBrown;
             ClearBtn.Font = new Font("Showcard Gothic", 12F, FontStyle.Regular, GraphicsUnit.Point, 0);
+            ClearBtn.ForeColor = Color.Cornsilk;
             ClearBtn.Location = new Point(499, 396);
             ClearBtn.Name = "ClearBtn";
             ClearBtn.Size = new Size(82, 42);
             ClearBtn.TabIndex = 4;
             ClearBtn.Text = "Clear";
-            ClearBtn.UseVisualStyleBackColor = true;
+            ClearBtn.UseVisualStyleBackColor = false;
             ClearBtn.Click += ClearBtn_Click;
             // 
             // SalonIdTxtBox
             // 
-            SalonIdTxtBox.Location = new Point(616, 105);
+            SalonIdTxtBox.Location = new Point(614, 124);
             SalonIdTxtBox.Name = "SalonIdTxtBox";
             SalonIdTxtBox.Size = new Size(136, 23);
             SalonIdTxtBox.TabIndex = 5;
             // 
             // SalonNameTxtBox
             // 
-            SalonNameTxtBox.Location = new Point(616, 174);
+            SalonNameTxtBox.Location = new Point(614, 193);
             SalonNameTxtBox.Name = "SalonNameTxtBox";
             SalonNameTxtBox.Size = new Size(136, 23);
             SalonNameTxtBox.TabIndex = 6;
             // 
             // AddressTxtBox
             // 
-            AddressTxtBox.Location = new Point(616, 246);
+            AddressTxtBox.Location = new Point(614, 265);
             AddressTxtBox.Name = "AddressTxtBox";
             AddressTxtBox.Size = new Size(136, 23);
             AddressTxtBox.TabIndex = 7;
             // 
             // SalonPhoneNumTxtBox
             // 
-            SalonPhoneNumTxtBox.Location = new Point(616, 324);
+            SalonPhoneNumTxtBox.Location = new Point(614, 343);
             SalonPhoneNumTxtBox.Name = "SalonPhoneNumTxtBox";
             SalonPhoneNumTxtBox.Size = new Size(136, 23);
             SalonPhoneNumTxtBox.TabIndex = 8;
@@ -129,8 +139,10 @@
             // IdLbl
             // 
             IdLbl.AutoSize = true;
+            IdLbl.BackColor = Color.IndianRed;
             IdLbl.Font = new Font("Showcard Gothic", 12F, FontStyle.Italic, GraphicsUnit.Point, 0);
-            IdLbl.Location = new Point(673, 81);
+            IdLbl.ForeColor = Color.Cornsilk;
+            IdLbl.Location = new Point(671, 100);
             IdLbl.Name = "IdLbl";
             IdLbl.Size = new Size(27, 20);
             IdLbl.TabIndex = 10;
@@ -140,8 +152,10 @@
             // SalonNameLbl
             // 
             SalonNameLbl.AutoSize = true;
+            SalonNameLbl.BackColor = Color.IndianRed;
             SalonNameLbl.Font = new Font("Showcard Gothic", 12F, FontStyle.Italic, GraphicsUnit.Point, 0);
-            SalonNameLbl.Location = new Point(630, 150);
+            SalonNameLbl.ForeColor = Color.Cornsilk;
+            SalonNameLbl.Location = new Point(628, 169);
             SalonNameLbl.Name = "SalonNameLbl";
             SalonNameLbl.Size = new Size(107, 20);
             SalonNameLbl.TabIndex = 11;
@@ -150,8 +164,10 @@
             // SalonAddressLbl
             // 
             SalonAddressLbl.AutoSize = true;
+            SalonAddressLbl.BackColor = Color.IndianRed;
             SalonAddressLbl.Font = new Font("Showcard Gothic", 12F, FontStyle.Italic, GraphicsUnit.Point, 0);
-            SalonAddressLbl.Location = new Point(646, 222);
+            SalonAddressLbl.ForeColor = Color.Cornsilk;
+            SalonAddressLbl.Location = new Point(644, 241);
             SalonAddressLbl.Name = "SalonAddressLbl";
             SalonAddressLbl.Size = new Size(81, 20);
             SalonAddressLbl.TabIndex = 12;
@@ -160,8 +176,10 @@
             // SalonPhoneNumLbl
             // 
             SalonPhoneNumLbl.AutoSize = true;
+            SalonPhoneNumLbl.BackColor = Color.IndianRed;
             SalonPhoneNumLbl.Font = new Font("Showcard Gothic", 12F, FontStyle.Italic, GraphicsUnit.Point, 0);
-            SalonPhoneNumLbl.Location = new Point(605, 300);
+            SalonPhoneNumLbl.ForeColor = Color.Cornsilk;
+            SalonPhoneNumLbl.Location = new Point(603, 319);
             SalonPhoneNumLbl.Name = "SalonPhoneNumLbl";
             SalonPhoneNumLbl.Size = new Size(157, 20);
             SalonPhoneNumLbl.TabIndex = 13;
@@ -172,7 +190,9 @@
             // SalonLbl
             // 
             SalonLbl.AutoSize = true;
+            SalonLbl.BackColor = Color.IndianRed;
             SalonLbl.Font = new Font("Showcard Gothic", 36F, FontStyle.Regular, GraphicsUnit.Point, 0);
+            SalonLbl.ForeColor = Color.Cornsilk;
             SalonLbl.Location = new Point(594, 21);
             SalonLbl.Name = "SalonLbl";
             SalonLbl.Size = new Size(194, 60);
@@ -181,19 +201,22 @@
             // 
             // WorkingHoursBtn
             // 
+            WorkingHoursBtn.BackColor = Color.RosyBrown;
             WorkingHoursBtn.Font = new Font("Showcard Gothic", 12F, FontStyle.Regular, GraphicsUnit.Point, 0);
+            WorkingHoursBtn.ForeColor = Color.Cornsilk;
             WorkingHoursBtn.Location = new Point(614, 390);
             WorkingHoursBtn.Name = "WorkingHoursBtn";
             WorkingHoursBtn.Size = new Size(138, 54);
             WorkingHoursBtn.TabIndex = 15;
             WorkingHoursBtn.Text = "Working Hours";
-            WorkingHoursBtn.UseVisualStyleBackColor = true;
+            WorkingHoursBtn.UseVisualStyleBackColor = false;
             WorkingHoursBtn.Click += WorkingHoursBtn_Click;
             // 
             // SalonForm
             // 
             AutoScaleDimensions = new SizeF(7F, 15F);
             AutoScaleMode = AutoScaleMode.Font;
+            BackgroundImage = (Image)resources.GetObject("$this.BackgroundImage");
             ClientSize = new Size(800, 450);
             Controls.Add(WorkingHoursBtn);
             Controls.Add(SalonLbl);

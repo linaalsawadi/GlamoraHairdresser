@@ -1,8 +1,9 @@
-﻿using System.Threading.Tasks;
-using Microsoft.EntityFrameworkCore;
-using GlamoraHairdresser.Data;
+﻿using GlamoraHairdresser.Data;
 using GlamoraHairdresser.Data.Entities;
 using GlamoraHairdresser.Services.Interfaces;
+using Microsoft.EntityFrameworkCore;
+using System;
+using System.Threading.Tasks;
 
 namespace GlamoraHairdresser.Services.Auth
 {
@@ -15,22 +16,13 @@ namespace GlamoraHairdresser.Services.Auth
             _db = db;
         }
 
-        // ✅ تشفير كلمة المرور باستخدام BCrypt (لا حاجة لـ salt يدوي)
-        public string HashPassword(string passwordPlain)
-        {
-            return BCrypt.Net.BCrypt.HashPassword(passwordPlain);
-        }
-
-        // ✅ التحقق من صحة كلمة المرور
-        public bool Verify(string passwordPlain, string passwordHash)
-        {
-            return BCrypt.Net.BCrypt.Verify(passwordPlain, passwordHash);
-        }
-
-        // ✅ التحقق من صحة بيانات الدخول (Login)
+        // ============================
+        // LOGIN
+        // ============================
         public async Task<AuthResult> AuthenticateAsync(string email, string passwordPlain)
         {
             var user = await _db.Users.FirstOrDefaultAsync(u => u.Email == email);
+
             if (user == null)
             {
                 return new AuthResult
@@ -40,7 +32,16 @@ namespace GlamoraHairdresser.Services.Auth
                 };
             }
 
-            if (!Verify(passwordPlain, user.PasswordHash))
+            // ---- PBKDF2 Verification ----
+            bool isValid = PasswordHelper.VerifyPassword(
+                passwordPlain,
+                user.PasswordHash,
+                user.Salt,
+                user.IterationCount,
+                user.Prf
+            );
+
+            if (!isValid)
             {
                 return new AuthResult
                 {
@@ -57,13 +58,17 @@ namespace GlamoraHairdresser.Services.Auth
             };
         }
 
-        // ✅ التحقق إذا كان البريد موجود مسبقًا
+        // ============================
+        // EMAIL CHECK
+        // ============================
         public async Task<bool> EmailExistsAsync(string email)
         {
             return await _db.Users.AnyAsync(u => u.Email == email);
         }
 
-        // ✅ تسجيل مستخدم جديد من نوع Customer
+        // ============================
+        // REGISTER CUSTOMER
+        // ============================
         public async Task<AuthResult> RegisterCustomerAsync(string fullName, string email, string passwordPlain)
         {
             if (await EmailExistsAsync(email))
@@ -75,13 +80,16 @@ namespace GlamoraHairdresser.Services.Auth
                 };
             }
 
-            string hash = HashPassword(passwordPlain);
+            var (hash, salt, iteration, prf) = PasswordHelper.HashPassword(passwordPlain);
 
             var customer = new Customer
             {
                 FullName = fullName,
                 Email = email,
                 PasswordHash = hash,
+                Salt = salt,
+                Prf = 1,
+                IterationCount = 100_000,
                 CreatedAt = DateTime.UtcNow
             };
 

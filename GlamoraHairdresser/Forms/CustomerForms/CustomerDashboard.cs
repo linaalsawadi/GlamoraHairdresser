@@ -1,4 +1,5 @@
-﻿using GlamoraHairdresser.WinForms.Forms.ApointmentForm;
+﻿using GlamoraHairdresser.WinForms.Forms.AdminForms;
+using GlamoraHairdresser.WinForms.Forms.ApointmentForm;
 using GlamoraHairdresser.WinForms.Forms.AuthForms;
 using Microsoft.Extensions.DependencyInjection;
 using System;
@@ -35,15 +36,18 @@ namespace GlamoraHairdresser.WinForms.Forms.CustomerForms
 
         }
 
+        private void BackBtn_Click(object sender, EventArgs e)
+        {
+            var adminPage = Program.Services.GetRequiredService<LoginForm>();
+            adminPage.ClearInputs();
+            adminPage.Show();
+            this.Close();
+
+        }
+
         private void BookLogoutBtn_Click(object sender, EventArgs e)
         {
 
-       
-            var login = Program.Services.GetRequiredService<LoginForm>();
-            login.ClearInputs();
-            login.Show();
-
-            this.Close();
         }
     }
 }

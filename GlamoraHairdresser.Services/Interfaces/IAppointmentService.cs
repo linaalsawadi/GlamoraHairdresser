@@ -1,18 +1,15 @@
 ﻿using GlamoraHairdresser.Data.Entities;
-using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
 
 namespace GlamoraHairdresser.Services.Interfaces
 {
     public interface IAppointmentService
     {
-        Task<int> CreateAppointmentAsync(Appointment appt);
-        Task CancelAsync(int appointmentId);
-        Task<bool> HasWorkerOverlapAsync(int workerId, DateTime startUtc, DateTime endUtc, int? ignoreId = null);
-        Task<IReadOnlyList<Appointment>> GetWorkerDayScheduleAsync(int workerId, DateOnly dayLocal, int salonId);
-        Task<(DateTime startUtc, DateTime endUtc)?> FindNextFreeSlotAsync(int salonId, int serviceId, int workerId, DateTime fromLocal);
+        Task<List<ServiceOffering>> GetServicesForSalon(int salonId);
+        Task<List<Worker>> GetWorkersForSalon(int salonId, int serviceId);
+        Task<List<TimeOnly>> GetAvailableSlotsAsync(int workerId, DateOnly date, int serviceDuration);
+        Task<(bool success, string message)> BookAsync(int customerId, int salonId, int workerId,
+                                                       int serviceId, DateTime startUtc);
+        Task<(bool success, string message, DateOnly? nextAvailableDay)>
+            SuggestNextAvailableDay(int workerId, int serviceId, DateOnly date);
     }
 }

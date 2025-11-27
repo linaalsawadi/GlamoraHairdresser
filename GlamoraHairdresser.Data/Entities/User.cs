@@ -6,13 +6,18 @@ namespace GlamoraHairdresser.Data.Entities
     {
         public string FullName { get; set; } = string.Empty;
         public string Email { get; set; } = string.Empty;
-        public string PasswordHash { get; set; } = string.Empty;
+        public string Phone { get; set; }
+
+        // === PBKDF2 Fields ===
+        public byte[] PasswordHash { get; set; } = Array.Empty<byte>();
+        public byte[] Salt { get; set; } = Array.Empty<byte>();
         public int IterationCount { get; set; } = 100_000;
-        public byte Prf { get; set; } = 1; // 1 = HMACSHA256
+        public int Prf { get; set; } = 1;
 
         // TPH discriminator
         public string UserType { get; protected set; } = string.Empty;
     }
+
 
     public class Admin : User
     {

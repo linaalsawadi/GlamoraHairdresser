@@ -252,13 +252,21 @@ namespace GlamoraHairdresser.Data.Migrations
                     b.Property<int>("IterationCount")
                         .HasColumnType("int");
 
-                    b.Property<string>("PasswordHash")
+                    b.Property<byte[]>("PasswordHash")
                         .IsRequired()
                         .HasMaxLength(255)
-                        .HasColumnType("nvarchar(255)");
+                        .HasColumnType("varbinary(255)");
 
-                    b.Property<byte>("Prf")
-                        .HasColumnType("tinyint");
+                    b.Property<string>("Phone")
+                        .IsRequired()
+                        .HasColumnType("nvarchar(max)");
+
+                    b.Property<int>("Prf")
+                        .HasColumnType("int");
+
+                    b.Property<byte[]>("Salt")
+                        .IsRequired()
+                        .HasColumnType("varbinary(max)");
 
                     b.Property<string>("UserType")
                         .IsRequired()

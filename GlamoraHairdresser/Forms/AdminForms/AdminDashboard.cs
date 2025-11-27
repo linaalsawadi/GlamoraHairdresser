@@ -45,7 +45,11 @@ namespace GlamoraHairdresser.WinForms.Forms.AdminForms
 
         private void CustomerBtn_Click(object sender, EventArgs e)
         {
+            using var scope = Program.Services.CreateScope();
+            var db = scope.ServiceProvider.GetRequiredService<GlamoraHairdresser.Data.GlamoraDbContext>();
 
+            var customerForm = new CustomerForm(db);
+            customerForm.ShowDialog();
         }
 
         private void ProfitBtn_Click(object sender, EventArgs e)
@@ -74,6 +78,15 @@ namespace GlamoraHairdresser.WinForms.Forms.AdminForms
 
             var servicesForm = new ServicesDashboard(db);
             servicesForm.ShowDialog();
+        }
+
+        private void AppoBtn_Click(object sender, EventArgs e)
+        {
+            using var scope = Program.Services.CreateScope();
+            var db = scope.ServiceProvider.GetRequiredService<GlamoraHairdresser.Data.GlamoraDbContext>();
+
+            var appointmentForm = new AdminAppointmentForm(db);
+            appointmentForm.ShowDialog();
         }
     }
 }

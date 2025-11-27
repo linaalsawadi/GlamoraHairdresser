@@ -12,8 +12,8 @@ using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 namespace GlamoraHairdresser.Data.Migrations
 {
     [DbContext(typeof(GlamoraDbContext))]
-    [Migration("20251029135055_FixWorkerHourCheck")]
-    partial class FixWorkerHourCheck
+    [Migration("20251126202626_Initiall")]
+    partial class Initiall
     {
         /// <inheritdoc />
         protected override void BuildTargetModel(ModelBuilder modelBuilder)
@@ -255,13 +255,17 @@ namespace GlamoraHairdresser.Data.Migrations
                     b.Property<int>("IterationCount")
                         .HasColumnType("int");
 
-                    b.Property<string>("PasswordHash")
+                    b.Property<byte[]>("PasswordHash")
                         .IsRequired()
                         .HasMaxLength(255)
-                        .HasColumnType("nvarchar(255)");
+                        .HasColumnType("varbinary(255)");
 
-                    b.Property<byte>("Prf")
-                        .HasColumnType("tinyint");
+                    b.Property<int>("Prf")
+                        .HasColumnType("int");
+
+                    b.Property<byte[]>("Salt")
+                        .IsRequired()
+                        .HasColumnType("varbinary(max)");
 
                     b.Property<string>("UserType")
                         .IsRequired()

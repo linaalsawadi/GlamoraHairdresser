@@ -28,6 +28,7 @@
         /// </summary>
         private void InitializeComponent()
         {
+            System.ComponentModel.ComponentResourceManager resources = new System.ComponentModel.ComponentResourceManager(typeof(RegisterForm));
             RegPassLbl = new Label();
             RegEmailLbl = new Label();
             RegEmailTxtBox = new TextBox();
@@ -40,7 +41,9 @@
             // RegPassLbl
             // 
             RegPassLbl.AutoSize = true;
+            RegPassLbl.BackColor = Color.RosyBrown;
             RegPassLbl.Font = new Font("Simplified Arabic Fixed", 18F, FontStyle.Bold | FontStyle.Italic, GraphicsUnit.Point, 0);
+            RegPassLbl.ForeColor = Color.Cornsilk;
             RegPassLbl.Location = new Point(213, 253);
             RegPassLbl.Name = "RegPassLbl";
             RegPassLbl.Size = new Size(132, 28);
@@ -50,7 +53,9 @@
             // RegEmailLbl
             // 
             RegEmailLbl.AutoSize = true;
+            RegEmailLbl.BackColor = Color.RosyBrown;
             RegEmailLbl.Font = new Font("Simplified Arabic Fixed", 18F, FontStyle.Bold | FontStyle.Italic, GraphicsUnit.Point, 0);
+            RegEmailLbl.ForeColor = SystemColors.ButtonHighlight;
             RegEmailLbl.Location = new Point(213, 164);
             RegEmailLbl.Name = "RegEmailLbl";
             RegEmailLbl.Size = new Size(87, 28);
@@ -76,7 +81,9 @@
             // RegNameLbl
             // 
             RegNameLbl.AutoSize = true;
+            RegNameLbl.BackColor = Color.RosyBrown;
             RegNameLbl.Font = new Font("Simplified Arabic Fixed", 18F, FontStyle.Bold | FontStyle.Italic, GraphicsUnit.Point, 0);
+            RegNameLbl.ForeColor = Color.Snow;
             RegNameLbl.Location = new Point(213, 73);
             RegNameLbl.Name = "RegNameLbl";
             RegNameLbl.Size = new Size(72, 28);
@@ -93,18 +100,22 @@
             // 
             // CusRegisterBtn
             // 
-            CusRegisterBtn.Location = new Point(544, 339);
+            CusRegisterBtn.BackColor = Color.IndianRed;
+            CusRegisterBtn.Font = new Font("Showcard Gothic", 9F, FontStyle.Regular, GraphicsUnit.Point, 0);
+            CusRegisterBtn.ForeColor = SystemColors.Control;
+            CusRegisterBtn.Location = new Point(397, 354);
             CusRegisterBtn.Name = "CusRegisterBtn";
             CusRegisterBtn.Size = new Size(79, 41);
             CusRegisterBtn.TabIndex = 9;
             CusRegisterBtn.Text = "Register";
-            CusRegisterBtn.UseVisualStyleBackColor = true;
+            CusRegisterBtn.UseVisualStyleBackColor = false;
             CusRegisterBtn.Click += CusRegisterBtn_Click;
             // 
             // RegisterForm
             // 
             AutoScaleDimensions = new SizeF(7F, 15F);
             AutoScaleMode = AutoScaleMode.Font;
+            BackgroundImage = (Image)resources.GetObject("$this.BackgroundImage");
             ClientSize = new Size(800, 450);
             Controls.Add(CusRegisterBtn);
             Controls.Add(RegNameTxtBox);

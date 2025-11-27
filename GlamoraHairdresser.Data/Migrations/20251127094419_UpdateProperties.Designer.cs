@@ -12,8 +12,8 @@ using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 namespace GlamoraHairdresser.Data.Migrations
 {
     [DbContext(typeof(GlamoraDbContext))]
-    [Migration("20251029131917_WorkerWorkingHours")]
-    partial class WorkerWorkingHours
+    [Migration("20251127094419_UpdateProperties")]
+    partial class UpdateProperties
     {
         /// <inheritdoc />
         protected override void BuildTargetModel(ModelBuilder modelBuilder)
@@ -255,13 +255,21 @@ namespace GlamoraHairdresser.Data.Migrations
                     b.Property<int>("IterationCount")
                         .HasColumnType("int");
 
-                    b.Property<string>("PasswordHash")
+                    b.Property<byte[]>("PasswordHash")
                         .IsRequired()
                         .HasMaxLength(255)
-                        .HasColumnType("nvarchar(255)");
+                        .HasColumnType("varbinary(255)");
 
-                    b.Property<byte>("Prf")
-                        .HasColumnType("tinyint");
+                    b.Property<string>("Phone")
+                        .IsRequired()
+                        .HasColumnType("nvarchar(max)");
+
+                    b.Property<int>("Prf")
+                        .HasColumnType("int");
+
+                    b.Property<byte[]>("Salt")
+                        .IsRequired()
+                        .HasColumnType("varbinary(max)");
 
                     b.Property<string>("UserType")
                         .IsRequired()
@@ -396,7 +404,9 @@ namespace GlamoraHairdresser.Data.Migrations
 
                     b.ToTable("WorkerWorkingHours", null, t =>
                         {
-                            t.HasCheckConstraint("CK_WorkerWorkingHour_Times", "[OpenTime] < [CloseTime]");
+                            t.HasCheckConstraint("CK_WorkerWorkingHour_Day", "[DayOfWeek] BETWEEN 0 AND 6");
+
+                            t.HasCheckConstraint("CK_WorkerWorkingHour_Times", "([IsOpen] = 0 AND [OpenTime] = [CloseTime]) OR ([IsOpen] = 1 AND [OpenTime] < [CloseTime])");
                         });
                 });
 

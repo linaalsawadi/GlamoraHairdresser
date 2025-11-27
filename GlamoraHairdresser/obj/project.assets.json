@@ -5146,9 +5146,9 @@
   "project": {
     "version": "1.0.0",
     "restore": {
-      "projectUniqueName": "C:\\Users\\HP\\Source\\Repos\\GlamoraHairdresser\\GlamoraHairdresser\\GlamoraHairdresser.WinForms.csproj",
+      "projectUniqueName": "C:\\Users\\HP\\source\\repos\\GlamoraHairdresser\\GlamoraHairdresser\\GlamoraHairdresser.WinForms.csproj",
       "projectName": "GlamoraHairdresser.WinForms",
-      "projectPath": "C:\\Users\\HP\\Source\\Repos\\GlamoraHairdresser\\GlamoraHairdresser\\GlamoraHairdresser.WinForms.csproj",
+      "projectPath": "C:\\Users\\HP\\source\\repos\\GlamoraHairdresser\\GlamoraHairdresser\\GlamoraHairdresser.WinForms.csproj",
       "packagesPath": "C:\\Users\\HP\\.nuget\\packages\\",
       "outputPath": "C:\\Users\\HP\\Source\\Repos\\GlamoraHairdresser\\GlamoraHairdresser\\obj\\",
       "projectStyle": "PackageReference",
@@ -5171,11 +5171,11 @@
         "net8.0-windows7.0": {
           "targetAlias": "net8.0-windows",
           "projectReferences": {
-            "C:\\Users\\HP\\Source\\Repos\\GlamoraHairdresser\\GlamoraHairdresser.Data\\GlamoraHairdresser.Data.csproj": {
-              "projectPath": "C:\\Users\\HP\\Source\\Repos\\GlamoraHairdresser\\GlamoraHairdresser.Data\\GlamoraHairdresser.Data.csproj"
+            "C:\\Users\\HP\\source\\repos\\GlamoraHairdresser\\GlamoraHairdresser.Data\\GlamoraHairdresser.Data.csproj": {
+              "projectPath": "C:\\Users\\HP\\source\\repos\\GlamoraHairdresser\\GlamoraHairdresser.Data\\GlamoraHairdresser.Data.csproj"
             },
-            "C:\\Users\\HP\\Source\\Repos\\GlamoraHairdresser\\GlamoraHairdresser.Services\\GlamoraHairdresser.Services.csproj": {
-              "projectPath": "C:\\Users\\HP\\Source\\Repos\\GlamoraHairdresser\\GlamoraHairdresser.Services\\GlamoraHairdresser.Services.csproj"
+            "C:\\Users\\HP\\source\\repos\\GlamoraHairdresser\\GlamoraHairdresser.Services\\GlamoraHairdresser.Services.csproj": {
+              "projectPath": "C:\\Users\\HP\\source\\repos\\GlamoraHairdresser\\GlamoraHairdresser.Services\\GlamoraHairdresser.Services.csproj"
             }
           }
         }

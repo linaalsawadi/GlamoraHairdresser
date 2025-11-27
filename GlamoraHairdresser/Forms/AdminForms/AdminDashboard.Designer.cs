@@ -28,21 +28,23 @@
         /// </summary>
         private void InitializeComponent()
         {
+            System.ComponentModel.ComponentResourceManager resources = new System.ComponentModel.ComponentResourceManager(typeof(AdminDashboard));
             SalonBtn = new Button();
             WorkerBtn = new Button();
             ProfitBtn = new Button();
             CustomerBtn = new Button();
             LogoutBtn = new Button();
             ServiceBtn = new Button();
+            AppoBtn = new Button();
             SuspendLayout();
             // 
             // SalonBtn
             // 
             SalonBtn.BackColor = SystemColors.Info;
             SalonBtn.Font = new Font("Showcard Gothic", 36F, FontStyle.Bold | FontStyle.Italic, GraphicsUnit.Point, 0);
-            SalonBtn.Location = new Point(238, 52);
+            SalonBtn.Location = new Point(239, 4);
             SalonBtn.Name = "SalonBtn";
-            SalonBtn.Size = new Size(318, 68);
+            SalonBtn.Size = new Size(422, 68);
             SalonBtn.TabIndex = 8;
             SalonBtn.Text = "Salon";
             SalonBtn.UseVisualStyleBackColor = false;
@@ -52,9 +54,9 @@
             // 
             WorkerBtn.BackColor = Color.DarkOrange;
             WorkerBtn.Font = new Font("Showcard Gothic", 36F, FontStyle.Bold | FontStyle.Italic, GraphicsUnit.Point, 0);
-            WorkerBtn.Location = new Point(238, 200);
+            WorkerBtn.Location = new Point(239, 152);
             WorkerBtn.Name = "WorkerBtn";
-            WorkerBtn.Size = new Size(318, 68);
+            WorkerBtn.Size = new Size(422, 68);
             WorkerBtn.TabIndex = 9;
             WorkerBtn.Text = "Worker";
             WorkerBtn.UseVisualStyleBackColor = false;
@@ -64,9 +66,9 @@
             // 
             ProfitBtn.BackColor = Color.IndianRed;
             ProfitBtn.Font = new Font("Showcard Gothic", 36F, FontStyle.Bold | FontStyle.Italic, GraphicsUnit.Point, 0);
-            ProfitBtn.Location = new Point(238, 350);
+            ProfitBtn.Location = new Point(239, 302);
             ProfitBtn.Name = "ProfitBtn";
-            ProfitBtn.Size = new Size(318, 68);
+            ProfitBtn.Size = new Size(422, 68);
             ProfitBtn.TabIndex = 10;
             ProfitBtn.Text = "Profit";
             ProfitBtn.UseVisualStyleBackColor = false;
@@ -76,9 +78,9 @@
             // 
             CustomerBtn.BackColor = Color.Crimson;
             CustomerBtn.Font = new Font("Showcard Gothic", 36F, FontStyle.Bold | FontStyle.Italic, GraphicsUnit.Point, 0);
-            CustomerBtn.Location = new Point(238, 274);
+            CustomerBtn.Location = new Point(239, 226);
             CustomerBtn.Name = "CustomerBtn";
-            CustomerBtn.Size = new Size(318, 68);
+            CustomerBtn.Size = new Size(422, 68);
             CustomerBtn.TabIndex = 11;
             CustomerBtn.Text = "Customer";
             CustomerBtn.UseVisualStyleBackColor = false;
@@ -101,19 +103,33 @@
             // 
             ServiceBtn.BackColor = Color.FromArgb(255, 192, 128);
             ServiceBtn.Font = new Font("Showcard Gothic", 36F, FontStyle.Bold | FontStyle.Italic, GraphicsUnit.Point, 0);
-            ServiceBtn.Location = new Point(238, 126);
+            ServiceBtn.Location = new Point(239, 78);
             ServiceBtn.Name = "ServiceBtn";
-            ServiceBtn.Size = new Size(318, 68);
+            ServiceBtn.Size = new Size(422, 68);
             ServiceBtn.TabIndex = 14;
             ServiceBtn.Text = "Services";
             ServiceBtn.UseVisualStyleBackColor = false;
             ServiceBtn.Click += ServiceBtn_Click;
             // 
+            // AppoBtn
+            // 
+            AppoBtn.BackColor = Color.LightCoral;
+            AppoBtn.Font = new Font("Showcard Gothic", 36F, FontStyle.Bold | FontStyle.Italic, GraphicsUnit.Point, 0);
+            AppoBtn.Location = new Point(239, 376);
+            AppoBtn.Name = "AppoBtn";
+            AppoBtn.Size = new Size(422, 68);
+            AppoBtn.TabIndex = 15;
+            AppoBtn.Text = "APPOINTMENTS";
+            AppoBtn.UseVisualStyleBackColor = false;
+            AppoBtn.Click += AppoBtn_Click;
+            // 
             // AdminDashboard
             // 
             AutoScaleDimensions = new SizeF(7F, 15F);
             AutoScaleMode = AutoScaleMode.Font;
+            BackgroundImage = (Image)resources.GetObject("$this.BackgroundImage");
             ClientSize = new Size(800, 450);
+            Controls.Add(AppoBtn);
             Controls.Add(ServiceBtn);
             Controls.Add(LogoutBtn);
             Controls.Add(CustomerBtn);
@@ -132,5 +148,6 @@
         private Button CustomerBtn;
         private Button LogoutBtn;
         private Button ServiceBtn;
+        private Button AppoBtn;
     }
 }

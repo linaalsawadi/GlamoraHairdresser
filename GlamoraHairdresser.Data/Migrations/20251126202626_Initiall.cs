@@ -6,7 +6,7 @@ using Microsoft.EntityFrameworkCore.Migrations;
 namespace GlamoraHairdresser.Data.Migrations
 {
     /// <inheritdoc />
-    public partial class InitialCreate : Migration
+    public partial class Initiall : Migration
     {
         /// <inheritdoc />
         protected override void Up(MigrationBuilder migrationBuilder)
@@ -87,9 +87,10 @@ namespace GlamoraHairdresser.Data.Migrations
                         .Annotation("SqlServer:Identity", "1, 1"),
                     FullName = table.Column<string>(type: "nvarchar(max)", nullable: false),
                     Email = table.Column<string>(type: "nvarchar(450)", maxLength: 450, nullable: false),
-                    PasswordHash = table.Column<string>(type: "nvarchar(255)", maxLength: 255, nullable: false),
+                    PasswordHash = table.Column<byte[]>(type: "varbinary(255)", maxLength: 255, nullable: false),
+                    Salt = table.Column<byte[]>(type: "varbinary(max)", nullable: false),
                     IterationCount = table.Column<int>(type: "int", nullable: false),
-                    Prf = table.Column<byte>(type: "tinyint", nullable: false),
+                    Prf = table.Column<int>(type: "int", nullable: false),
                     UserType = table.Column<string>(type: "nvarchar(32)", maxLength: 32, nullable: false),
                     Permissions = table.Column<string>(type: "nvarchar(max)", nullable: true),
                     SalonId = table.Column<int>(type: "int", nullable: true),
@@ -125,7 +126,7 @@ namespace GlamoraHairdresser.Data.Migrations
                 {
                     table.PrimaryKey("PK_WorkingHours", x => x.Id);
                     table.CheckConstraint("CK_WorkingHour_Day", "[DayOfWeek] BETWEEN 0 AND 6");
-                    table.CheckConstraint("CK_WorkingHour_Time", "[OpenTime] < [CloseTime]");
+                    table.CheckConstraint("CK_WorkingHour_Time", "([IsOpen] = 0) OR ([OpenTime] < [CloseTime])");
                     table.ForeignKey(
                         name: "FK_WorkingHours_Salons_SalonId",
                         column: x => x.SalonId,
@@ -267,13 +268,15 @@ namespace GlamoraHairdresser.Data.Migrations
                         .Annotation("SqlServer:Identity", "1, 1"),
                     WorkerId = table.Column<int>(type: "int", nullable: false),
                     DayOfWeek = table.Column<int>(type: "int", nullable: false),
+                    IsOpen = table.Column<bool>(type: "bit", nullable: false),
                     OpenTime = table.Column<TimeOnly>(type: "time", nullable: false),
                     CloseTime = table.Column<TimeOnly>(type: "time", nullable: false)
                 },
                 constraints: table =>
                 {
                     table.PrimaryKey("PK_WorkerWorkingHours", x => x.Id);
-                    table.CheckConstraint("CK_WorkerWorkingHour_Times", "[OpenTime] < [CloseTime]");
+                    table.CheckConstraint("CK_WorkerWorkingHour_Day", "[DayOfWeek] BETWEEN 0 AND 6");
+                    table.CheckConstraint("CK_WorkerWorkingHour_Times", "([IsOpen] = 0 AND [OpenTime] = [CloseTime]) OR ([IsOpen] = 1 AND [OpenTime] < [CloseTime])");
                     table.ForeignKey(
                         name: "FK_WorkerWorkingHours_Users_WorkerId",
                         column: x => x.WorkerId,

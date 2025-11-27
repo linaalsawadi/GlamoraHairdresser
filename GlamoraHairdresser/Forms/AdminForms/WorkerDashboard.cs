@@ -1,5 +1,6 @@
 ﻿using GlamoraHairdresser.Data;
 using GlamoraHairdresser.Data.Entities;
+using GlamoraHairdresser.Services.Auth;
 using GlamoraHairdresser.WinForms.Forms.AdminForms;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.Extensions.DependencyInjection;
@@ -274,20 +275,34 @@ namespace GlamoraHairdresser.WinForms.Forms.WorkerForms
                 return;
             }
 
-            // 2) منع تكرار البريد (عدّلي حسب نموذج بياناتك)
-            var email = WorkerEmailTxtBox.Text.Trim();
-            if (_db.Users.Any(u => u.Email == email)) // أو _db.Workers.Any(w => w.Email == email)
+            // 2) التحقق من كلمة المرور
+            if (string.IsNullOrWhiteSpace(PasstxtBox.Text))
             {
-                MessageBox.Show("Email already exists.", "Duplicate", MessageBoxButtons.OK, MessageBoxIcon.Warning);
+                MessageBox.Show("Password is required for the worker.",
+                    "Validation", MessageBoxButtons.OK, MessageBoxIcon.Warning);
                 return;
             }
 
-            // 3) إنشاء العامل
+            // 3) منع تكرار البريد
+            var email = WorkerEmailTxtBox.Text.Trim();
+            if (_db.Users.Any(u => u.Email == email))
+            {
+                MessageBox.Show("Email already exists.", "Duplicate",
+                    MessageBoxButtons.OK, MessageBoxIcon.Warning);
+                return;
+            }
+
+            // 4) تشفير الباسورد
+            var (hash, salt, iteration, prf) = PasswordHelper.HashPassword(PasstxtBox.Text);
+
+            // 5) إنشاء العامل
             var worker = new Worker
             {
                 FullName = WorkerNameTxtBox.Text.Trim(),
                 Email = email,
                 SalonId = salonId,
+                PasswordHash = hash,
+                Salt = salt,
                 CreatedAt = DateTime.UtcNow
             };
 
@@ -297,7 +312,7 @@ namespace GlamoraHairdresser.WinForms.Forms.WorkerForms
             {
                 _db.SaveChanges(); // للحصول على Id
 
-                // 4) ربط المهارات المختارة (IDs فقط؛ لا ننشئ خدمات جديدة هنا)
+                // 6) ربط المهارات المختارة
                 var selectedIds = Skillsclb.CheckedItems
                     .Cast<object>()
                     .Select(o =>
@@ -318,9 +333,11 @@ namespace GlamoraHairdresser.WinForms.Forms.WorkerForms
                         AssignedDate = DateTime.UtcNow
                     });
                 }
-                if (selectedIds.Count > 0) _db.SaveChanges();
 
-                // 5) تحديث الواجهة
+                if (selectedIds.Count > 0)
+                    _db.SaveChanges();
+
+                // 7) تحديث الواجهة
                 LoadData();
                 var idx = _db.Workers.Local.ToList().FindIndex(x => x.Id == worker.Id);
                 if (idx >= 0 && idx < DataGridViewWorker.Rows.Count)
@@ -328,8 +345,9 @@ namespace GlamoraHairdresser.WinForms.Forms.WorkerForms
 
                 FillFormFromSelection();
 
-                MessageBox.Show("Worker added" + (selectedIds.Count > 0 ? " with skills." : "."),
-                    "OK", MessageBoxButtons.OK, MessageBoxIcon.Information);
+                MessageBox.Show(
+                    "Worker added successfully" + (selectedIds.Count > 0 ? " with skills." : "."),
+                    "Success", MessageBoxButtons.OK, MessageBoxIcon.Information);
             }
             catch (DbUpdateException ex)
             {
@@ -337,6 +355,7 @@ namespace GlamoraHairdresser.WinForms.Forms.WorkerForms
                     MessageBoxButtons.OK, MessageBoxIcon.Error);
             }
         }
+
 
         private void UpdateBtn_Click(object? sender, EventArgs e)
         {
@@ -347,6 +366,7 @@ namespace GlamoraHairdresser.WinForms.Forms.WorkerForms
                 return;
             }
 
+            // 1) Validate inputs
             if (!ValidateInputs(out var msg, out var salonId))
             {
                 MessageBox.Show(msg, "Validation",
@@ -354,6 +374,7 @@ namespace GlamoraHairdresser.WinForms.Forms.WorkerForms
                 return;
             }
 
+            // 2) Prevent duplicate email for other users
             var email = WorkerEmailTxtBox.Text.Trim();
             if (_db.Users.Any(u => u.Email == email && u.Id != current.Id))
             {
@@ -362,19 +383,43 @@ namespace GlamoraHairdresser.WinForms.Forms.WorkerForms
                 return;
             }
 
+            // 3) Update worker basic fields
             current.FullName = WorkerNameTxtBox.Text.Trim();
             current.Email = email;
             current.SalonId = salonId;
 
+            // 4) Update password only if admin typed something
+            // 4) Update password only if admin typed something
+            if (!string.IsNullOrWhiteSpace(PasstxtBox.Text))
+            {
+                var (newHash, newSalt, newIteration, newPrf)
+                    = PasswordHelper.HashPassword(PasstxtBox.Text);
+
+                current.PasswordHash = newHash;
+                current.Salt = newSalt;
+                current.IterationCount = newIteration;
+                current.Prf = newPrf;
+            }
+
+
             try
             {
+                // Save worker information
                 _db.SaveChanges();
-                SaveSkillsSelection(current.Id);   // يحفظ المهارات الحالية
+
+                // Save updated skills
+                SaveSkillsSelection(current.Id);
+
+                // Refresh UI
                 _bs.ResetBindings(false);
                 FillFormFromSelection();
 
-                MessageBox.Show("Worker & skills updated.", "OK",
-                    MessageBoxButtons.OK, MessageBoxIcon.Information);
+                MessageBox.Show(
+                    string.IsNullOrWhiteSpace(PasstxtBox.Text)
+                    ? "Worker updated successfully."
+                    : "Worker updated successfully (password changed).",
+                    "OK", MessageBoxButtons.OK, MessageBoxIcon.Information
+                );
             }
             catch (DbUpdateException ex)
             {
@@ -382,6 +427,7 @@ namespace GlamoraHairdresser.WinForms.Forms.WorkerForms
                     MessageBoxButtons.OK, MessageBoxIcon.Error);
             }
         }
+
 
         private void DeleteBtn_Click(object sender, EventArgs e)
         {

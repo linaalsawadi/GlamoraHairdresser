@@ -37,6 +37,7 @@
 
         private void InitializeComponent()
         {
+            System.ComponentModel.ComponentResourceManager resources = new System.ComponentModel.ComponentResourceManager(typeof(ServicesDashboard));
             SalonCombo = new ComboBox();
             ServiceNameCmb = new ComboBox();
             PriceTxt = new TextBox();
@@ -92,6 +93,7 @@
             ServicesGrid.AllowUserToAddRows = false;
             ServicesGrid.AllowUserToDeleteRows = false;
             ServicesGrid.AutoSizeColumnsMode = DataGridViewAutoSizeColumnsMode.Fill;
+            ServicesGrid.BackgroundColor = Color.FromArgb(255, 192, 192);
             ServicesGrid.Location = new Point(1, 0);
             ServicesGrid.MultiSelect = false;
             ServicesGrid.Name = "ServicesGrid";
@@ -103,44 +105,54 @@
             // 
             // AddBtn
             // 
+            AddBtn.BackColor = Color.RosyBrown;
+            AddBtn.Font = new Font("Showcard Gothic", 9F);
             AddBtn.Location = new Point(530, 530);
             AddBtn.Name = "AddBtn";
             AddBtn.Size = new Size(90, 49);
             AddBtn.TabIndex = 8;
             AddBtn.Text = "Add";
-            AddBtn.UseVisualStyleBackColor = true;
+            AddBtn.UseVisualStyleBackColor = false;
             // 
             // UpdateBtn
             // 
+            UpdateBtn.BackColor = Color.RosyBrown;
+            UpdateBtn.Font = new Font("Showcard Gothic", 9F);
             UpdateBtn.Location = new Point(652, 530);
             UpdateBtn.Name = "UpdateBtn";
             UpdateBtn.Size = new Size(90, 49);
             UpdateBtn.TabIndex = 9;
             UpdateBtn.Text = "Update";
-            UpdateBtn.UseVisualStyleBackColor = true;
+            UpdateBtn.UseVisualStyleBackColor = false;
             // 
             // DeleteBtn
             // 
+            DeleteBtn.BackColor = Color.RosyBrown;
+            DeleteBtn.Font = new Font("Showcard Gothic", 9F);
             DeleteBtn.Location = new Point(775, 530);
             DeleteBtn.Name = "DeleteBtn";
             DeleteBtn.Size = new Size(90, 49);
             DeleteBtn.TabIndex = 10;
             DeleteBtn.Text = "Delete";
-            DeleteBtn.UseVisualStyleBackColor = true;
+            DeleteBtn.UseVisualStyleBackColor = false;
             // 
             // CleanBtn
             // 
+            CleanBtn.BackColor = Color.RosyBrown;
+            CleanBtn.Font = new Font("Showcard Gothic", 9F);
             CleanBtn.Location = new Point(897, 530);
             CleanBtn.Name = "CleanBtn";
             CleanBtn.Size = new Size(100, 49);
             CleanBtn.TabIndex = 11;
             CleanBtn.Text = "Clear";
-            CleanBtn.UseVisualStyleBackColor = true;
+            CleanBtn.UseVisualStyleBackColor = false;
             // 
             // lblSalon
             // 
             lblSalon.AutoSize = true;
+            lblSalon.BackColor = Color.IndianRed;
             lblSalon.Font = new Font("Showcard Gothic", 12F, FontStyle.Regular, GraphicsUnit.Point, 0);
+            lblSalon.ForeColor = Color.Cornsilk;
             lblSalon.Location = new Point(527, 200);
             lblSalon.Name = "lblSalon";
             lblSalon.Size = new Size(64, 20);
@@ -150,7 +162,9 @@
             // lblService
             // 
             lblService.AutoSize = true;
+            lblService.BackColor = Color.IndianRed;
             lblService.Font = new Font("Showcard Gothic", 12F, FontStyle.Regular, GraphicsUnit.Point, 0);
+            lblService.ForeColor = Color.Cornsilk;
             lblService.Location = new Point(527, 262);
             lblService.Name = "lblService";
             lblService.Size = new Size(79, 20);
@@ -160,7 +174,9 @@
             // lblPrice
             // 
             lblPrice.AutoSize = true;
+            lblPrice.BackColor = Color.IndianRed;
             lblPrice.Font = new Font("Showcard Gothic", 12F, FontStyle.Regular, GraphicsUnit.Point, 0);
+            lblPrice.ForeColor = Color.Cornsilk;
             lblPrice.Location = new Point(530, 328);
             lblPrice.Name = "lblPrice";
             lblPrice.Size = new Size(61, 20);
@@ -170,7 +186,9 @@
             // lblDuration
             // 
             lblDuration.AutoSize = true;
+            lblDuration.BackColor = Color.IndianRed;
             lblDuration.Font = new Font("Showcard Gothic", 12F, FontStyle.Regular, GraphicsUnit.Point, 0);
+            lblDuration.ForeColor = Color.Cornsilk;
             lblDuration.Location = new Point(530, 398);
             lblDuration.Name = "lblDuration";
             lblDuration.Size = new Size(153, 20);
@@ -180,7 +198,9 @@
             // ServicesLbl
             // 
             ServicesLbl.AutoSize = true;
+            ServicesLbl.BackColor = Color.IndianRed;
             ServicesLbl.Font = new Font("Showcard Gothic", 48F, FontStyle.Regular, GraphicsUnit.Point, 0);
+            ServicesLbl.ForeColor = Color.Cornsilk;
             ServicesLbl.Location = new Point(607, 25);
             ServicesLbl.Name = "ServicesLbl";
             ServicesLbl.Size = new Size(319, 79);
@@ -191,6 +211,7 @@
             // 
             AutoScaleDimensions = new SizeF(7F, 15F);
             AutoScaleMode = AutoScaleMode.Font;
+            BackgroundImage = (Image)resources.GetObject("$this.BackgroundImage");
             ClientSize = new Size(1000, 650);
             Controls.Add(ServicesLbl);
             Controls.Add(lblSalon);

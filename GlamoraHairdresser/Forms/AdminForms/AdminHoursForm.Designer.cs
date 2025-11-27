@@ -22,7 +22,7 @@
             // 
             // SalonComboBox
             // 
-            SalonComboBox.Location = new Point(30, 30);
+            SalonComboBox.Location = new Point(81, 29);
             SalonComboBox.Name = "SalonComboBox";
             SalonComboBox.Size = new Size(121, 23);
             SalonComboBox.TabIndex = 0;
@@ -31,9 +31,9 @@
             // HoursGrid
             // 
             HoursGrid.Columns.AddRange(new DataGridViewColumn[] { Day, DayName, IsOpen, OpenTime, CloseTime });
-            HoursGrid.Location = new Point(30, 79);
+            HoursGrid.Location = new Point(81, 94);
             HoursGrid.Name = "HoursGrid";
-            HoursGrid.Size = new Size(546, 250);
+            HoursGrid.Size = new Size(544, 250);
             HoursGrid.TabIndex = 1;
             // 
             // Day
@@ -63,7 +63,7 @@
             // 
             // SaveBtn
             // 
-            SaveBtn.Location = new Point(250, 350);
+            SaveBtn.Location = new Point(307, 366);
             SaveBtn.Name = "SaveBtn";
             SaveBtn.Size = new Size(75, 23);
             SaveBtn.TabIndex = 2;
