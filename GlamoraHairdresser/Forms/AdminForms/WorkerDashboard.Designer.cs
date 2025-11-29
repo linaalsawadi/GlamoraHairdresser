@@ -48,6 +48,8 @@
             WorkerWorkingHoursBtn = new Button();
             label1 = new Label();
             PasstxtBox = new TextBox();
+            label2 = new Label();
+            WorkerPhoneTxtBox = new TextBox();
             ((System.ComponentModel.ISupportInitialize)DataGridViewWorker).BeginInit();
             SuspendLayout();
             // 
@@ -57,7 +59,7 @@
             WorkerLbl.BackColor = Color.IndianRed;
             WorkerLbl.Font = new Font("Showcard Gothic", 27.75F, FontStyle.Regular, GraphicsUnit.Point, 0);
             WorkerLbl.ForeColor = Color.Cornsilk;
-            WorkerLbl.Location = new Point(591, -2);
+            WorkerLbl.Location = new Point(612, 1);
             WorkerLbl.Name = "WorkerLbl";
             WorkerLbl.Size = new Size(201, 46);
             WorkerLbl.TabIndex = 28;
@@ -69,7 +71,7 @@
             WorkerSalonLbl.BackColor = Color.IndianRed;
             WorkerSalonLbl.Font = new Font("Showcard Gothic", 12F, FontStyle.Italic, GraphicsUnit.Point, 0);
             WorkerSalonLbl.ForeColor = Color.Cornsilk;
-            WorkerSalonLbl.Location = new Point(640, 196);
+            WorkerSalonLbl.Location = new Point(661, 199);
             WorkerSalonLbl.Name = "WorkerSalonLbl";
             WorkerSalonLbl.Size = new Size(107, 20);
             WorkerSalonLbl.TabIndex = 27;
@@ -82,7 +84,7 @@
             WorkerEmailLbl.BackColor = Color.IndianRed;
             WorkerEmailLbl.Font = new Font("Showcard Gothic", 12F, FontStyle.Italic, GraphicsUnit.Point, 0);
             WorkerEmailLbl.ForeColor = Color.Cornsilk;
-            WorkerEmailLbl.Location = new Point(626, 147);
+            WorkerEmailLbl.Location = new Point(647, 150);
             WorkerEmailLbl.Name = "WorkerEmailLbl";
             WorkerEmailLbl.Size = new Size(132, 20);
             WorkerEmailLbl.TabIndex = 26;
@@ -94,7 +96,7 @@
             WorkerNameLbl.BackColor = Color.IndianRed;
             WorkerNameLbl.Font = new Font("Showcard Gothic", 12F, FontStyle.Italic, GraphicsUnit.Point, 0);
             WorkerNameLbl.ForeColor = Color.Cornsilk;
-            WorkerNameLbl.Location = new Point(629, 98);
+            WorkerNameLbl.Location = new Point(650, 101);
             WorkerNameLbl.Name = "WorkerNameLbl";
             WorkerNameLbl.Size = new Size(129, 20);
             WorkerNameLbl.TabIndex = 25;
@@ -106,7 +108,7 @@
             IdLbl.BackColor = Color.IndianRed;
             IdLbl.Font = new Font("Showcard Gothic", 12F, FontStyle.Italic, GraphicsUnit.Point, 0);
             IdLbl.ForeColor = Color.Cornsilk;
-            IdLbl.Location = new Point(678, 49);
+            IdLbl.Location = new Point(699, 52);
             IdLbl.Name = "IdLbl";
             IdLbl.Size = new Size(27, 20);
             IdLbl.TabIndex = 24;
@@ -115,28 +117,28 @@
             // 
             // WorkerSalonTxtBox
             // 
-            WorkerSalonTxtBox.Location = new Point(622, 220);
+            WorkerSalonTxtBox.Location = new Point(643, 223);
             WorkerSalonTxtBox.Name = "WorkerSalonTxtBox";
             WorkerSalonTxtBox.Size = new Size(147, 23);
             WorkerSalonTxtBox.TabIndex = 23;
             // 
             // WorkerEmailTxtBox
             // 
-            WorkerEmailTxtBox.Location = new Point(622, 170);
+            WorkerEmailTxtBox.Location = new Point(643, 173);
             WorkerEmailTxtBox.Name = "WorkerEmailTxtBox";
             WorkerEmailTxtBox.Size = new Size(147, 23);
             WorkerEmailTxtBox.TabIndex = 22;
             // 
             // WorkerNameTxtBox
             // 
-            WorkerNameTxtBox.Location = new Point(622, 121);
+            WorkerNameTxtBox.Location = new Point(643, 124);
             WorkerNameTxtBox.Name = "WorkerNameTxtBox";
             WorkerNameTxtBox.Size = new Size(147, 23);
             WorkerNameTxtBox.TabIndex = 21;
             // 
             // WorkerIdTxtBox
             // 
-            WorkerIdTxtBox.Location = new Point(622, 72);
+            WorkerIdTxtBox.Location = new Point(643, 75);
             WorkerIdTxtBox.Name = "WorkerIdTxtBox";
             WorkerIdTxtBox.Size = new Size(147, 23);
             WorkerIdTxtBox.TabIndex = 20;
@@ -146,7 +148,7 @@
             ClearBtn.BackColor = Color.RosyBrown;
             ClearBtn.Font = new Font("Showcard Gothic", 12F, FontStyle.Regular, GraphicsUnit.Point, 0);
             ClearBtn.ForeColor = Color.Cornsilk;
-            ClearBtn.Location = new Point(351, 393);
+            ClearBtn.Location = new Point(351, 439);
             ClearBtn.Name = "ClearBtn";
             ClearBtn.Size = new Size(82, 42);
             ClearBtn.TabIndex = 19;
@@ -159,7 +161,7 @@
             DeleteBtn.BackColor = Color.RosyBrown;
             DeleteBtn.Font = new Font("Showcard Gothic", 12F, FontStyle.Regular, GraphicsUnit.Point, 0);
             DeleteBtn.ForeColor = Color.Cornsilk;
-            DeleteBtn.Location = new Point(234, 393);
+            DeleteBtn.Location = new Point(234, 439);
             DeleteBtn.Name = "DeleteBtn";
             DeleteBtn.Size = new Size(82, 42);
             DeleteBtn.TabIndex = 18;
@@ -172,7 +174,7 @@
             UpdateBtn.BackColor = Color.RosyBrown;
             UpdateBtn.Font = new Font("Showcard Gothic", 12F, FontStyle.Regular, GraphicsUnit.Point, 0);
             UpdateBtn.ForeColor = Color.Cornsilk;
-            UpdateBtn.Location = new Point(122, 393);
+            UpdateBtn.Location = new Point(122, 439);
             UpdateBtn.Name = "UpdateBtn";
             UpdateBtn.Size = new Size(82, 42);
             UpdateBtn.TabIndex = 17;
@@ -185,7 +187,7 @@
             AddBtn.BackColor = Color.RosyBrown;
             AddBtn.Font = new Font("Showcard Gothic", 12F, FontStyle.Regular, GraphicsUnit.Point, 0);
             AddBtn.ForeColor = Color.Cornsilk;
-            AddBtn.Location = new Point(13, 393);
+            AddBtn.Location = new Point(13, 439);
             AddBtn.Name = "AddBtn";
             AddBtn.Size = new Size(82, 42);
             AddBtn.TabIndex = 16;
@@ -199,7 +201,7 @@
             DataGridViewWorker.ColumnHeadersHeightSizeMode = DataGridViewColumnHeadersHeightSizeMode.AutoSize;
             DataGridViewWorker.Location = new Point(0, -2);
             DataGridViewWorker.Name = "DataGridViewWorker";
-            DataGridViewWorker.Size = new Size(585, 392);
+            DataGridViewWorker.Size = new Size(585, 435);
             DataGridViewWorker.TabIndex = 15;
             // 
             // WorkerSkillsLbl
@@ -208,7 +210,7 @@
             WorkerSkillsLbl.BackColor = Color.IndianRed;
             WorkerSkillsLbl.Font = new Font("Showcard Gothic", 12F, FontStyle.Italic, GraphicsUnit.Point, 0);
             WorkerSkillsLbl.ForeColor = Color.Cornsilk;
-            WorkerSkillsLbl.Location = new Point(622, 246);
+            WorkerSkillsLbl.Location = new Point(643, 249);
             WorkerSkillsLbl.Name = "WorkerSkillsLbl";
             WorkerSkillsLbl.Size = new Size(136, 20);
             WorkerSkillsLbl.TabIndex = 30;
@@ -219,7 +221,7 @@
             // 
             Skillsclb.CheckOnClick = true;
             Skillsclb.FormattingEnabled = true;
-            Skillsclb.Location = new Point(622, 269);
+            Skillsclb.Location = new Point(643, 272);
             Skillsclb.Name = "Skillsclb";
             Skillsclb.Size = new Size(147, 130);
             Skillsclb.TabIndex = 32;
@@ -229,7 +231,7 @@
             WorkerWorkingHoursBtn.BackColor = Color.RosyBrown;
             WorkerWorkingHoursBtn.Font = new Font("Showcard Gothic", 9.75F, FontStyle.Regular, GraphicsUnit.Point, 0);
             WorkerWorkingHoursBtn.ForeColor = Color.Cornsilk;
-            WorkerWorkingHoursBtn.Location = new Point(466, 393);
+            WorkerWorkingHoursBtn.Location = new Point(466, 439);
             WorkerWorkingHoursBtn.Name = "WorkerWorkingHoursBtn";
             WorkerWorkingHoursBtn.Size = new Size(107, 42);
             WorkerWorkingHoursBtn.TabIndex = 33;
@@ -243,7 +245,7 @@
             label1.BackColor = Color.IndianRed;
             label1.Font = new Font("Showcard Gothic", 12F, FontStyle.Italic, GraphicsUnit.Point, 0);
             label1.ForeColor = Color.Cornsilk;
-            label1.Location = new Point(633, 403);
+            label1.Location = new Point(654, 406);
             label1.Name = "label1";
             label1.Size = new Size(123, 20);
             label1.TabIndex = 35;
@@ -252,17 +254,39 @@
             // 
             // PasstxtBox
             // 
-            PasstxtBox.Location = new Point(622, 426);
+            PasstxtBox.Location = new Point(643, 429);
             PasstxtBox.Name = "PasstxtBox";
             PasstxtBox.Size = new Size(147, 23);
             PasstxtBox.TabIndex = 34;
+            // 
+            // label2
+            // 
+            label2.AutoSize = true;
+            label2.BackColor = Color.IndianRed;
+            label2.Font = new Font("Showcard Gothic", 12F, FontStyle.Italic, GraphicsUnit.Point, 0);
+            label2.ForeColor = Color.Cornsilk;
+            label2.Location = new Point(647, 455);
+            label2.Name = "label2";
+            label2.Size = new Size(139, 20);
+            label2.TabIndex = 37;
+            label2.Text = "Worker Phone";
+            label2.TextAlign = ContentAlignment.MiddleCenter;
+            // 
+            // WorkerPhoneTxtBox
+            // 
+            WorkerPhoneTxtBox.Location = new Point(645, 478);
+            WorkerPhoneTxtBox.Name = "WorkerPhoneTxtBox";
+            WorkerPhoneTxtBox.Size = new Size(147, 23);
+            WorkerPhoneTxtBox.TabIndex = 36;
             // 
             // WorkerDashboard
             // 
             AutoScaleDimensions = new SizeF(7F, 15F);
             AutoScaleMode = AutoScaleMode.Font;
             BackgroundImage = (Image)resources.GetObject("$this.BackgroundImage");
-            ClientSize = new Size(800, 450);
+            ClientSize = new Size(836, 509);
+            Controls.Add(label2);
+            Controls.Add(WorkerPhoneTxtBox);
             Controls.Add(label1);
             Controls.Add(PasstxtBox);
             Controls.Add(WorkerWorkingHoursBtn);
@@ -311,5 +335,7 @@
         private Button WorkerWorkingHoursBtn;
         private Label label1;
         private TextBox PasstxtBox;
+        private Label label2;
+        private TextBox WorkerPhoneTxtBox;
     }
 }

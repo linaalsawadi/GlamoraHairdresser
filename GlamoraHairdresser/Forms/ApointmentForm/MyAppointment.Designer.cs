@@ -28,6 +28,7 @@
         /// </summary>
         private void InitializeComponent()
         {
+            System.ComponentModel.ComponentResourceManager resources = new System.ComponentModel.ComponentResourceManager(typeof(MyAppointment));
             dgvMyAppointments = new DataGridView();
             btnRefresh = new Button();
             btnClose = new Button();
@@ -39,30 +40,37 @@
             // 
             // dgvMyAppointments
             // 
+            dgvMyAppointments.BackgroundColor = Color.FromArgb(255, 192, 192);
             dgvMyAppointments.ColumnHeadersHeightSizeMode = DataGridViewColumnHeadersHeightSizeMode.AutoSize;
             dgvMyAppointments.Location = new Point(12, 12);
             dgvMyAppointments.Name = "dgvMyAppointments";
-            dgvMyAppointments.Size = new Size(776, 250);
+            dgvMyAppointments.Size = new Size(776, 375);
             dgvMyAppointments.TabIndex = 0;
             // 
             // btnRefresh
             // 
-            btnRefresh.Location = new Point(66, 308);
+            btnRefresh.BackColor = Color.RosyBrown;
+            btnRefresh.Font = new Font("Showcard Gothic", 9F);
+            btnRefresh.ForeColor = Color.Cornsilk;
+            btnRefresh.Location = new Point(706, 393);
             btnRefresh.Name = "btnRefresh";
-            btnRefresh.Size = new Size(75, 23);
+            btnRefresh.Size = new Size(82, 42);
             btnRefresh.TabIndex = 1;
             btnRefresh.Text = "Refresh";
-            btnRefresh.UseVisualStyleBackColor = true;
+            btnRefresh.UseVisualStyleBackColor = false;
             btnRefresh.Click += btnRefresh_Click_1;
             // 
             // btnClose
             // 
-            btnClose.Location = new Point(66, 362);
+            btnClose.BackColor = Color.RosyBrown;
+            btnClose.Font = new Font("Showcard Gothic", 9F);
+            btnClose.ForeColor = Color.Cornsilk;
+            btnClose.Location = new Point(607, 393);
             btnClose.Name = "btnClose";
-            btnClose.Size = new Size(75, 23);
+            btnClose.Size = new Size(82, 42);
             btnClose.TabIndex = 2;
             btnClose.Text = "Close";
-            btnClose.UseVisualStyleBackColor = true;
+            btnClose.UseVisualStyleBackColor = false;
             // 
             // lblMessage
             // 
@@ -102,6 +110,7 @@
             // 
             AutoScaleDimensions = new SizeF(7F, 15F);
             AutoScaleMode = AutoScaleMode.Font;
+            BackgroundImage = (Image)resources.GetObject("$this.BackgroundImage");
             ClientSize = new Size(800, 450);
             Controls.Add(BackBtn);
             Controls.Add(LogoutBtn);

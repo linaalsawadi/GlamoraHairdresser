@@ -69,16 +69,10 @@ namespace GlamoraHairdresser.Services.Auth
         // ============================
         // REGISTER CUSTOMER
         // ============================
-        public async Task<AuthResult> RegisterCustomerAsync(string fullName, string email, string passwordPlain)
+        public async Task<AuthResult> RegisterCustomerAsync(string fullName, string email, string passwordPlain, string phone)
         {
             if (await EmailExistsAsync(email))
-            {
-                return new AuthResult
-                {
-                    Success = false,
-                    Message = "Email already exists."
-                };
-            }
+                return new AuthResult { Success = false, Message = "Email already exists." };
 
             var (hash, salt, iteration, prf) = PasswordHelper.HashPassword(passwordPlain);
 
@@ -86,22 +80,19 @@ namespace GlamoraHairdresser.Services.Auth
             {
                 FullName = fullName,
                 Email = email,
+                Phone = phone,
                 PasswordHash = hash,
                 Salt = salt,
-                Prf = 1,
-                IterationCount = 100_000,
+                IterationCount = iteration,
+                Prf = prf,
                 CreatedAt = DateTime.UtcNow
             };
 
             _db.Customers.Add(customer);
             await _db.SaveChangesAsync();
 
-            return new AuthResult
-            {
-                Success = true,
-                Message = "Customer registered successfully.",
-                User = customer
-            };
+            return new AuthResult { Success = true, User = customer };
         }
+
     }
 }

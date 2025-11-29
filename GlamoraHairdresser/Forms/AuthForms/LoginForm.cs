@@ -20,22 +20,20 @@ namespace GlamoraHairdresser.WinForms.Forms.AuthForms
             InitializeComponent();
             _auth = auth;
 
-            // UI improvements
             SetupPlaceholders();
             SetupPasswordVisibility();
 
-            // Enter key triggers Login
             this.KeyPreview = true;
             this.KeyDown += LoginForm_KeyDown;
         }
 
         // ===========================
-        // UI Improvements
+        // UI Placeholders
         // ===========================
 
         private void SetupPlaceholders()
         {
-            // Email Placeholder
+            // Email
             EmailTxtBox.ForeColor = Color.Gray;
             EmailTxtBox.Text = "Enter email...";
 
@@ -57,10 +55,10 @@ namespace GlamoraHairdresser.WinForms.Forms.AuthForms
                 }
             };
 
-            // Password Placeholder
-            PassTxtBox.Text = "Enter password...";
+            // Password
             PassTxtBox.ForeColor = Color.Gray;
             PassTxtBox.PasswordChar = '\0';
+            PassTxtBox.Text = "Enter password...";
 
             PassTxtBox.GotFocus += (s, e) =>
             {
@@ -94,7 +92,7 @@ namespace GlamoraHairdresser.WinForms.Forms.AuthForms
             };
         }
 
-        // Press ENTER to login
+        // Press ENTER to Login
         private void LoginForm_KeyDown(object? sender, KeyEventArgs e)
         {
             if (e.KeyCode == Keys.Enter)
@@ -115,8 +113,9 @@ namespace GlamoraHairdresser.WinForms.Forms.AuthForms
         }
 
         // ===========================
-        // REGISTER (small button)
+        // Mini REGISTER button
         // ===========================
+
         private async void btnRegister_Click(object sender, EventArgs e)
         {
             string email = EmailTxtBox.Text.Trim();
@@ -125,33 +124,45 @@ namespace GlamoraHairdresser.WinForms.Forms.AuthForms
             if (email == "Enter email..." || password == "Enter password..." ||
                 string.IsNullOrWhiteSpace(email) || string.IsNullOrWhiteSpace(password))
             {
-                MessageBox.Show("Please fill all fields.", "Warning",
-                    MessageBoxButtons.OK, MessageBoxIcon.Warning);
+                MessageBox.Show("Please fill both email & password to register quickly.",
+                    "Warning", MessageBoxButtons.OK, MessageBoxIcon.Warning);
                 return;
             }
 
             if (await _auth.EmailExistsAsync(email))
             {
-                MessageBox.Show("This email is already registered. Try logging in.",
-                    "Already Exists", MessageBoxButtons.OK, MessageBoxIcon.Warning);
+                MessageBox.Show("This email already exists. Try logging in.",
+                    "Exists", MessageBoxButtons.OK, MessageBoxIcon.Warning);
                 return;
             }
 
+            // Ask for name
             string name = Microsoft.VisualBasic.Interaction.InputBox(
-                "Enter your full name:", "Register", "");
+                "Enter your full name:", "Name Required", "");
 
             if (string.IsNullOrWhiteSpace(name))
             {
-                MessageBox.Show("Name cannot be empty.", "Error",
-                    MessageBoxButtons.OK, MessageBoxIcon.Error);
+                MessageBox.Show("Name cannot be empty.",
+                    "Error", MessageBoxButtons.OK, MessageBoxIcon.Error);
                 return;
             }
 
-            var result = await _auth.RegisterCustomerAsync(name, email, password);
+            // Ask for phone
+            string phone = Microsoft.VisualBasic.Interaction.InputBox(
+                "Enter your phone number:", "Phone Required", "");
+
+            if (string.IsNullOrWhiteSpace(phone))
+            {
+                MessageBox.Show("Phone number is required.",
+                    "Error", MessageBoxButtons.OK, MessageBoxIcon.Error);
+                return;
+            }
+
+            var result = await _auth.RegisterCustomerAsync(name, email, password, phone);
 
             if (result.Success)
             {
-                MessageBox.Show("Registration successful! Please log in.",
+                MessageBox.Show("Registration successful! Please login.",
                     "Success", MessageBoxButtons.OK, MessageBoxIcon.Information);
 
                 ClearInputs();
@@ -166,6 +177,7 @@ namespace GlamoraHairdresser.WinForms.Forms.AuthForms
         // ===========================
         // LOGIN button
         // ===========================
+
         private async void LoginBtn_Click(object sender, EventArgs e)
         {
             string email = EmailTxtBox.Text.Trim();
@@ -190,35 +202,32 @@ namespace GlamoraHairdresser.WinForms.Forms.AuthForms
                     return;
                 }
 
-                // Save user to session
                 SessionManager.SetUser(result.User!);
 
-                MessageBox.Show($"✅ Welcome {result.User.FullName}!",
-                    "Login Successful", MessageBoxButtons.OK, MessageBoxIcon.Information);
+                MessageBox.Show($"Welcome {result.User.FullName}!",
+                    "Success", MessageBoxButtons.OK, MessageBoxIcon.Information);
 
-                string type = result.User.UserType;
+                switch (result.User.UserType)
+                {
+                    case "Admin":
+                        Program.Services.GetRequiredService<AdminDashboard>().Show();
+                        break;
 
-                // Navigate
-                if (type == "Admin")
-                {
-                    Program.Services.GetRequiredService<AdminDashboard>().Show();
-                    this.Hide();
+                    case "Customer":
+                        Program.Services.GetRequiredService<CustomerDashboard>().Show();
+                        break;
+
+                    case "Worker":
+                        Program.Services.GetRequiredService<WorkerForm>().Show();
+                        break;
+
+                    default:
+                        MessageBox.Show("Unknown user type!", "Error",
+                            MessageBoxButtons.OK, MessageBoxIcon.Error);
+                        return;
                 }
-                else if (type == "Customer")
-                {
-                    Program.Services.GetRequiredService<CustomerDashboard>().Show();
-                    this.Hide();
-                }
-                else if (type == "Worker")
-                {
-                    Program.Services.GetRequiredService<WorkerForm>().Show();
-                    this.Hide();
-                }
-                else
-                {
-                    MessageBox.Show("Unknown user type!", "Error",
-                        MessageBoxButtons.OK, MessageBoxIcon.Error);
-                }
+
+                this.Hide();
             }
             catch (Exception ex)
             {
@@ -228,7 +237,7 @@ namespace GlamoraHairdresser.WinForms.Forms.AuthForms
         }
 
         // ===========================
-        // Full Registration Form
+        // Go to Full Register Form
         // ===========================
         private void RegisterBtn_Click(object sender, EventArgs e)
         {

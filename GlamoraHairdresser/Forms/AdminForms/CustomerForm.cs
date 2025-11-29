@@ -209,5 +209,10 @@ namespace GlamoraHairdresser.WinForms.Forms.AdminForms
         {
             this.Close();
         }
+
+        private void CustomerForm_Load(object sender, EventArgs e)
+        {
+
+        }
     }
 }

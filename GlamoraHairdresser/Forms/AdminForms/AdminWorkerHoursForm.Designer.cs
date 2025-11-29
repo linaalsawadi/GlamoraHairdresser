@@ -23,6 +23,7 @@
 
         private void InitializeComponent()
         {
+            System.ComponentModel.ComponentResourceManager resources = new System.ComponentModel.ComponentResourceManager(typeof(AdminWorkerHoursForm));
             TitleLabel = new Label();
             label1 = new Label();
             WorkerComboBox = new ComboBox();
@@ -40,30 +41,34 @@
             // TitleLabel
             // 
             TitleLabel.AutoSize = true;
-            TitleLabel.Font = new Font("Segoe UI Semibold", 18F, FontStyle.Bold);
-            TitleLabel.ForeColor = Color.MediumSlateBlue;
-            TitleLabel.Location = new Point(25, 20);
+            TitleLabel.BackColor = Color.IndianRed;
+            TitleLabel.Font = new Font("Cooper Black", 24F, FontStyle.Regular, GraphicsUnit.Point, 0);
+            TitleLabel.ForeColor = Color.White;
+            TitleLabel.Location = new Point(41, 9);
             TitleLabel.Name = "TitleLabel";
-            TitleLabel.Size = new Size(402, 32);
+            TitleLabel.Size = new Size(528, 36);
             TitleLabel.TabIndex = 0;
-            TitleLabel.Text = "🕒 Manage Worker Working Hours";
+            TitleLabel.Text = "Manage Worker Working Hours";
             // 
             // label1
             // 
-            label1.AutoSize = true;
-            label1.Font = new Font("Segoe UI", 10F);
-            label1.Location = new Point(30, 75);
+            label1.BackColor = Color.IndianRed;
+            label1.Font = new Font("Showcard Gothic", 9.75F, FontStyle.Regular, GraphicsUnit.Point, 0);
+            label1.ForeColor = Color.Cornsilk;
+            label1.Location = new Point(41, 75);
             label1.Name = "label1";
-            label1.Size = new Size(95, 19);
+            label1.Size = new Size(157, 25);
             label1.TabIndex = 1;
             label1.Text = "Select Worker:";
             // 
             // WorkerComboBox
             // 
+            WorkerComboBox.BackColor = Color.FromArgb(255, 192, 192);
             WorkerComboBox.DropDownStyle = ComboBoxStyle.DropDownList;
             WorkerComboBox.Font = new Font("Segoe UI", 10F);
+            WorkerComboBox.ForeColor = Color.Ivory;
             WorkerComboBox.FormattingEnabled = true;
-            WorkerComboBox.Location = new Point(140, 72);
+            WorkerComboBox.Location = new Point(219, 75);
             WorkerComboBox.Name = "WorkerComboBox";
             WorkerComboBox.Size = new Size(300, 25);
             WorkerComboBox.TabIndex = 2;
@@ -73,7 +78,7 @@
             // 
             HoursGrid.AllowUserToAddRows = false;
             HoursGrid.AllowUserToDeleteRows = false;
-            HoursGrid.BackgroundColor = Color.WhiteSmoke;
+            HoursGrid.BackgroundColor = Color.FromArgb(255, 192, 192);
             HoursGrid.BorderStyle = BorderStyle.None;
             HoursGrid.ColumnHeadersHeightSizeMode = DataGridViewColumnHeadersHeightSizeMode.AutoSize;
             HoursGrid.Columns.AddRange(new DataGridViewColumn[] { Day, DayName, SalonHours, IsOpen, OpenTime, CloseTime });
@@ -123,7 +128,7 @@
             // 
             // SaveBtn
             // 
-            SaveBtn.BackColor = Color.MediumSlateBlue;
+            SaveBtn.BackColor = Color.RosyBrown;
             SaveBtn.FlatAppearance.BorderSize = 0;
             SaveBtn.FlatStyle = FlatStyle.Flat;
             SaveBtn.Font = new Font("Segoe UI Semibold", 11F, FontStyle.Bold);
@@ -141,6 +146,7 @@
             AutoScaleDimensions = new SizeF(7F, 15F);
             AutoScaleMode = AutoScaleMode.Font;
             BackColor = Color.White;
+            BackgroundImage = (Image)resources.GetObject("$this.BackgroundImage");
             ClientSize = new Size(800, 500);
             Controls.Add(SaveBtn);
             Controls.Add(HoursGrid);

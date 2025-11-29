@@ -19,6 +19,7 @@ namespace GlamoraHairdresser.Services.Interfaces
         Task<bool> EmailExistsAsync(string email);
 
         // 🆕 تسجيل مستخدم جديد من نوع Customer
-        Task<AuthResult> RegisterCustomerAsync(string fullName, string email, string passwordPlain);
+        Task<AuthResult> RegisterCustomerAsync(string fullName, string email, string passwordPlain, string phone);
+
     }
 }

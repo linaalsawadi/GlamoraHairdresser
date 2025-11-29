@@ -36,6 +36,8 @@
             RegNameLbl = new Label();
             RegNameTxtBox = new TextBox();
             CusRegisterBtn = new Button();
+            RegPhoneTxtBox = new TextBox();
+            label1 = new Label();
             SuspendLayout();
             // 
             // RegPassLbl
@@ -44,7 +46,7 @@
             RegPassLbl.BackColor = Color.RosyBrown;
             RegPassLbl.Font = new Font("Simplified Arabic Fixed", 18F, FontStyle.Bold | FontStyle.Italic, GraphicsUnit.Point, 0);
             RegPassLbl.ForeColor = Color.Cornsilk;
-            RegPassLbl.Location = new Point(213, 253);
+            RegPassLbl.Location = new Point(91, 228);
             RegPassLbl.Name = "RegPassLbl";
             RegPassLbl.Size = new Size(132, 28);
             RegPassLbl.TabIndex = 4;
@@ -56,7 +58,7 @@
             RegEmailLbl.BackColor = Color.RosyBrown;
             RegEmailLbl.Font = new Font("Simplified Arabic Fixed", 18F, FontStyle.Bold | FontStyle.Italic, GraphicsUnit.Point, 0);
             RegEmailLbl.ForeColor = SystemColors.ButtonHighlight;
-            RegEmailLbl.Location = new Point(213, 164);
+            RegEmailLbl.Location = new Point(91, 139);
             RegEmailLbl.Name = "RegEmailLbl";
             RegEmailLbl.Size = new Size(87, 28);
             RegEmailLbl.TabIndex = 3;
@@ -64,7 +66,7 @@
             // 
             // RegEmailTxtBox
             // 
-            RegEmailTxtBox.Location = new Point(397, 151);
+            RegEmailTxtBox.Location = new Point(374, 126);
             RegEmailTxtBox.Multiline = true;
             RegEmailTxtBox.Name = "RegEmailTxtBox";
             RegEmailTxtBox.Size = new Size(226, 41);
@@ -72,7 +74,7 @@
             // 
             // RegPassTxtBox
             // 
-            RegPassTxtBox.Location = new Point(397, 240);
+            RegPassTxtBox.Location = new Point(374, 215);
             RegPassTxtBox.Multiline = true;
             RegPassTxtBox.Name = "RegPassTxtBox";
             RegPassTxtBox.Size = new Size(226, 41);
@@ -84,7 +86,7 @@
             RegNameLbl.BackColor = Color.RosyBrown;
             RegNameLbl.Font = new Font("Simplified Arabic Fixed", 18F, FontStyle.Bold | FontStyle.Italic, GraphicsUnit.Point, 0);
             RegNameLbl.ForeColor = Color.Snow;
-            RegNameLbl.Location = new Point(213, 73);
+            RegNameLbl.Location = new Point(91, 48);
             RegNameLbl.Name = "RegNameLbl";
             RegNameLbl.Size = new Size(72, 28);
             RegNameLbl.TabIndex = 7;
@@ -92,7 +94,7 @@
             // 
             // RegNameTxtBox
             // 
-            RegNameTxtBox.Location = new Point(397, 60);
+            RegNameTxtBox.Location = new Point(374, 35);
             RegNameTxtBox.Multiline = true;
             RegNameTxtBox.Name = "RegNameTxtBox";
             RegNameTxtBox.Size = new Size(226, 41);
@@ -103,7 +105,7 @@
             CusRegisterBtn.BackColor = Color.IndianRed;
             CusRegisterBtn.Font = new Font("Showcard Gothic", 9F, FontStyle.Regular, GraphicsUnit.Point, 0);
             CusRegisterBtn.ForeColor = SystemColors.Control;
-            CusRegisterBtn.Location = new Point(397, 354);
+            CusRegisterBtn.Location = new Point(374, 397);
             CusRegisterBtn.Name = "CusRegisterBtn";
             CusRegisterBtn.Size = new Size(79, 41);
             CusRegisterBtn.TabIndex = 9;
@@ -111,12 +113,34 @@
             CusRegisterBtn.UseVisualStyleBackColor = false;
             CusRegisterBtn.Click += CusRegisterBtn_Click;
             // 
+            // RegPhoneTxtBox
+            // 
+            RegPhoneTxtBox.Location = new Point(374, 293);
+            RegPhoneTxtBox.Multiline = true;
+            RegPhoneTxtBox.Name = "RegPhoneTxtBox";
+            RegPhoneTxtBox.Size = new Size(226, 41);
+            RegPhoneTxtBox.TabIndex = 11;
+            // 
+            // label1
+            // 
+            label1.AutoSize = true;
+            label1.BackColor = Color.RosyBrown;
+            label1.Font = new Font("Simplified Arabic Fixed", 18F, FontStyle.Bold | FontStyle.Italic, GraphicsUnit.Point, 0);
+            label1.ForeColor = Color.Cornsilk;
+            label1.Location = new Point(91, 306);
+            label1.Name = "label1";
+            label1.Size = new Size(192, 28);
+            label1.TabIndex = 10;
+            label1.Text = "Phone Number";
+            // 
             // RegisterForm
             // 
             AutoScaleDimensions = new SizeF(7F, 15F);
             AutoScaleMode = AutoScaleMode.Font;
             BackgroundImage = (Image)resources.GetObject("$this.BackgroundImage");
             ClientSize = new Size(800, 450);
+            Controls.Add(RegPhoneTxtBox);
+            Controls.Add(label1);
             Controls.Add(CusRegisterBtn);
             Controls.Add(RegNameTxtBox);
             Controls.Add(RegNameLbl);
@@ -138,5 +162,7 @@
         private Label RegNameLbl;
         private TextBox RegNameTxtBox;
         private Button CusRegisterBtn;
+        private TextBox RegPhoneTxtBox;
+        private Label label1;
     }
 }
