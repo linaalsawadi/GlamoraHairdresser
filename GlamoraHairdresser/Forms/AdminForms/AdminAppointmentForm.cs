@@ -84,8 +84,9 @@ namespace GlamoraHairdresser.WinForms.Forms.AdminForms
 
         private void btnBack_Click(object sender, EventArgs e)
         {
-            var adminPage = Program.Services.GetRequiredService<AdminDashboard>();
-            adminPage.Show();
+            var adminDashboardPage = Program.Services.GetRequiredService<AdminDashboard>();
+            adminDashboardPage.Show();
+            this.Close();
         }
 
         private void btnRefresh_Click_1(object sender, EventArgs e)

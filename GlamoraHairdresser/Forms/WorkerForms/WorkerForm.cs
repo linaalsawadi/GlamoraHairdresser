@@ -166,6 +166,14 @@ namespace GlamoraHairdresser.WinForms.Forms.WorkerForms
         {
             var adminPage = Program.Services.GetRequiredService<LoginForm>();
             adminPage.Show();
+            this.Hide();
+        }
+
+        private void LogoutBtn_Click(object sender, EventArgs e)
+        {
+            var adminPage = Program.Services.GetRequiredService<LoginForm>();
+            adminPage.Show();
+            this.Close();
         }
     }
 }

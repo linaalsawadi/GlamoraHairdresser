@@ -165,17 +165,53 @@ namespace GlamoraHairdresser.WinForms.Forms.ApointmentForm
             DateTime day = datePicker.Value.Date;
             string time = timeSlotsList.SelectedItem.ToString();
 
-            DateTime start = DateTime.Parse($"{day:yyyy-MM-dd} {time}");
+            DateTime startLocal = DateTime.Parse($"{day:yyyy-MM-dd} {time}");
+            DateTime startUtc = startLocal.ToUniversalTime();
+
             var service = _db.ServiceOfferings.Find(_selectedServiceId);
 
+
+            // =======================================================
+            // 🔥 منع حجز نفس الخدمة بنفس الوقت و بنفس اليوم لنفس الزبون
+            //    حتى لو عند عامل مختلف أو صالون مختلف
+            // =======================================================
+            var existing = _db.Appointments
+                .Where(a => a.CustomerId == SessionManager.CurrentUser.Id)
+                .Where(a => a.ServiceOfferingId == _selectedServiceId)
+                .Where(a => a.StartUtc == startUtc)
+                .FirstOrDefault();
+
+            if (existing != null)
+            {
+                var worker = _db.Workers.Find(existing.WorkerId);
+                var salon = _db.Salons.Find(existing.SalonId);
+
+                string workerName = worker?.FullName ?? "Unknown worker";
+                string salonName = salon?.Name ?? "Unknown salon";
+
+                MessageBox.Show(
+                    $"You already have this service booked at the same date and time.\n\n" +
+                    $"Salon: {salonName}\nWorker: {workerName}",
+                    "Duplicate booking",
+                    MessageBoxButtons.OK,
+                    MessageBoxIcon.Warning
+                );
+
+                return; // ⛔ إلغاء الحجز
+            }
+            // =======================================================
+
+
+
+            // ------- إنشاء الحجز إذا لم يوجد تكرار -------
             var appointment = new Appointment
             {
                 CustomerId = SessionManager.CurrentUser.Id,
                 SalonId = _selectedSalonId,
                 ServiceOfferingId = _selectedServiceId,
                 WorkerId = _selectedWorkerId,
-                StartUtc = start.ToUniversalTime(),
-                EndUtc = start.AddMinutes(service.DurationMinutes).ToUniversalTime(),
+                StartUtc = startUtc,
+                EndUtc = startLocal.AddMinutes(service.DurationMinutes).ToUniversalTime(),
                 Status = AppointmentStatus.Pending,
                 PriceAtBooking = service.Price
             };
@@ -184,21 +220,21 @@ namespace GlamoraHairdresser.WinForms.Forms.ApointmentForm
             _db.SaveChanges();
 
             MessageBox.Show("Appointment booked! Waiting for worker confirmation.");
-
-            this.Close();
         }
+
 
         private void BackBtn_Click(object sender, EventArgs e)
         {
-            var adminPage = Program.Services.GetRequiredService<CustomerDashboard>();
-            adminPage.Show();
-            this.Close();
+            var customerPage = Program.Services.GetRequiredService<CustomerDashboard>();
+            customerPage.Show();
+            this.Hide();
         }
 
         private void BookLogoutBtn_Click(object sender, EventArgs e)
         {
-            var adminPage = Program.Services.GetRequiredService<CustomerDashboard>();
+            var adminPage = Program.Services.GetRequiredService<LoginForm>();
             adminPage.Show();
+            this.Close();
         }
     }
 }

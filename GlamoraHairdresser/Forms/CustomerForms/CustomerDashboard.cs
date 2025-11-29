@@ -47,6 +47,10 @@ namespace GlamoraHairdresser.WinForms.Forms.CustomerForms
 
         private void BookLogoutBtn_Click(object sender, EventArgs e)
         {
+            var adminPage = Program.Services.GetRequiredService<LoginForm>();
+            adminPage.ClearInputs();
+            adminPage.Show();
+            this.Close();
 
         }
     }

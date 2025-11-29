@@ -39,7 +39,7 @@ namespace GlamoraHairdresser.Data
             if (!optionsBuilder.IsConfigured)
             {
                 optionsBuilder.UseSqlServer(
-                    "Server=DESKTOP-DHABHQ9\\SQLEXPRESS05;" +
+                    "Server=DEEMAZAINELDEEN\\SQLEXPRESS;" +
                     "Database=GlamoraDb;" +
                     "Trusted_Connection=True;MultipleActiveResultSets=true;TrustServerCertificate=True");
             }

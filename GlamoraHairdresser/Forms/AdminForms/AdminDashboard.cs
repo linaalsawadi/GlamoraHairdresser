@@ -87,6 +87,7 @@ namespace GlamoraHairdresser.WinForms.Forms.AdminForms
 
             var appointmentForm = new AdminAppointmentForm(db);
             appointmentForm.ShowDialog();
+            this.Close();
         }
     }
 }

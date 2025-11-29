@@ -1,6 +1,7 @@
 ﻿using GlamoraHairdresser.Data;
 using GlamoraHairdresser.Data.Entities;
 using GlamoraHairdresser.Services.Auth;
+using GlamoraHairdresser.WinForms.Forms.AuthForms;
 using GlamoraHairdresser.WinForms.Forms.CustomerForms;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.Extensions.DependencyInjection;
@@ -108,13 +109,17 @@ namespace GlamoraHairdresser.WinForms.Forms.ApointmentForm
 
         private void BackBtn_Click(object sender, EventArgs e)
         {
-            var adminPage = Program.Services.GetRequiredService<CustomerDashboard>();
-            adminPage.Show();
-            this.Close();
+            var CustomerPage = Program.Services.GetRequiredService<CustomerDashboard>();
+            CustomerPage.Show();
+            this.Hide();
         }
 
         private void LogoutBtn_Click(object sender, EventArgs e)
         {
+            var adminPage = Program.Services.GetRequiredService<LoginForm>();
+            adminPage.ClearInputs();
+            adminPage.Show();
+            this.Close();
 
         }
     }

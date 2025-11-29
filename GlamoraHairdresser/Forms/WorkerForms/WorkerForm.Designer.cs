@@ -146,6 +146,7 @@
             LogoutBtn.TabIndex = 13;
             LogoutBtn.Text = "Logout";
             LogoutBtn.UseVisualStyleBackColor = false;
+            LogoutBtn.Click += LogoutBtn_Click;
             // 
             // BackBtn
             // 
