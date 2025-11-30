@@ -5140,19 +5140,24 @@
     ]
   },
   "packageFolders": {
-    "C:\\Users\\zaine\\.nuget\\packages\\": {}
+    "C:\\Users\\HP\\.nuget\\packages\\": {},
+    "C:\\Program Files (x86)\\Microsoft Visual Studio\\Shared\\NuGetPackages": {}
   },
   "project": {
     "version": "1.0.0",
     "restore": {
-      "projectUniqueName": "C:\\Users\\zaine\\Source\\Repos\\GlamoraHairdresser\\GlamoraHairdresser\\GlamoraHairdresser.WinForms.csproj",
+      "projectUniqueName": "C:\\Users\\HP\\Source\\Repos\\GlamoraHairdresser\\GlamoraHairdresser\\GlamoraHairdresser.WinForms.csproj",
       "projectName": "GlamoraHairdresser.WinForms",
-      "projectPath": "C:\\Users\\zaine\\Source\\Repos\\GlamoraHairdresser\\GlamoraHairdresser\\GlamoraHairdresser.WinForms.csproj",
-      "packagesPath": "C:\\Users\\zaine\\.nuget\\packages\\",
-      "outputPath": "C:\\Users\\zaine\\Source\\Repos\\GlamoraHairdresser\\GlamoraHairdresser\\obj\\",
+      "projectPath": "C:\\Users\\HP\\Source\\Repos\\GlamoraHairdresser\\GlamoraHairdresser\\GlamoraHairdresser.WinForms.csproj",
+      "packagesPath": "C:\\Users\\HP\\.nuget\\packages\\",
+      "outputPath": "C:\\Users\\HP\\Source\\Repos\\GlamoraHairdresser\\GlamoraHairdresser\\obj\\",
       "projectStyle": "PackageReference",
+      "fallbackFolders": [
+        "C:\\Program Files (x86)\\Microsoft Visual Studio\\Shared\\NuGetPackages"
+      ],
       "configFilePaths": [
-        "C:\\Users\\zaine\\AppData\\Roaming\\NuGet\\NuGet.Config",
+        "C:\\Users\\HP\\AppData\\Roaming\\NuGet\\NuGet.Config",
+        "C:\\Program Files (x86)\\NuGet\\Config\\Microsoft.VisualStudio.FallbackLocation.config",
         "C:\\Program Files (x86)\\NuGet\\Config\\Microsoft.VisualStudio.Offline.config"
       ],
       "originalTargetFrameworks": [
@@ -5166,11 +5171,11 @@
         "net8.0-windows7.0": {
           "targetAlias": "net8.0-windows",
           "projectReferences": {
-            "C:\\Users\\zaine\\Source\\Repos\\GlamoraHairdresser\\GlamoraHairdresser.Data\\GlamoraHairdresser.Data.csproj": {
-              "projectPath": "C:\\Users\\zaine\\Source\\Repos\\GlamoraHairdresser\\GlamoraHairdresser.Data\\GlamoraHairdresser.Data.csproj"
+            "C:\\Users\\HP\\Source\\Repos\\GlamoraHairdresser\\GlamoraHairdresser.Data\\GlamoraHairdresser.Data.csproj": {
+              "projectPath": "C:\\Users\\HP\\Source\\Repos\\GlamoraHairdresser\\GlamoraHairdresser.Data\\GlamoraHairdresser.Data.csproj"
             },
-            "C:\\Users\\zaine\\Source\\Repos\\GlamoraHairdresser\\GlamoraHairdresser.Services\\GlamoraHairdresser.Services.csproj": {
-              "projectPath": "C:\\Users\\zaine\\Source\\Repos\\GlamoraHairdresser\\GlamoraHairdresser.Services\\GlamoraHairdresser.Services.csproj"
+            "C:\\Users\\HP\\Source\\Repos\\GlamoraHairdresser\\GlamoraHairdresser.Services\\GlamoraHairdresser.Services.csproj": {
+              "projectPath": "C:\\Users\\HP\\Source\\Repos\\GlamoraHairdresser\\GlamoraHairdresser.Services\\GlamoraHairdresser.Services.csproj"
             }
           }
         }
@@ -5185,7 +5190,7 @@
         "auditLevel": "low",
         "auditMode": "direct"
       },
-      "SdkAnalysisLevel": "9.0.300"
+      "SdkAnalysisLevel": "9.0.200"
     },
     "frameworks": {
       "net8.0-windows7.0": {
@@ -5227,7 +5232,7 @@
             "privateAssets": "none"
           }
         },
-        "runtimeIdentifierGraphPath": "C:\\Program Files\\dotnet\\sdk\\9.0.305/PortableRuntimeIdentifierGraph.json"
+        "runtimeIdentifierGraphPath": "C:\\Program Files\\dotnet\\sdk\\9.0.200/PortableRuntimeIdentifierGraph.json"
       }
     }
   }
