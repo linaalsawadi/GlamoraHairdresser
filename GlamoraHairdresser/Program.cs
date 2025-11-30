@@ -34,7 +34,7 @@ namespace GlamoraHairdresser
             // ============================
             sc.AddDbContext<GlamoraDbContext>(opt =>
                 opt.UseSqlServer(
-                    "Server=DEEMAZAINELDEEN\\SQLEXPRESS;" +
+                    "Server=DESKTOP-DHABHQ9\\SQLEXPRESS05;" +
                     "Database=GlamoraDb;" +
                     "Trusted_Connection=True;" +
                     "MultipleActiveResultSets=true;" +

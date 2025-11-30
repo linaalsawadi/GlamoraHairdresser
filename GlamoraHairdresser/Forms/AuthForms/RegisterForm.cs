@@ -82,5 +82,14 @@ namespace GlamoraHairdresser.WinForms.Forms.AuthForms
                     "Error", MessageBoxButtons.OK, MessageBoxIcon.Error);
             }
         }
+
+        private void backBtn_Click(object sender, EventArgs e)
+        {
+            var adminPage = Program.Services.GetRequiredService<LoginForm>();
+            adminPage.ClearInputs();
+            adminPage.Show();
+            this.Close();
+
+        }
     }
 }

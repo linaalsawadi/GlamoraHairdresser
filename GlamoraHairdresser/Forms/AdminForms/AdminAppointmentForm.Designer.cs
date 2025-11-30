@@ -28,6 +28,7 @@
         /// </summary>
         private void InitializeComponent()
         {
+            System.ComponentModel.ComponentResourceManager resources = new System.ComponentModel.ComponentResourceManager(typeof(AdminAppointmentForm));
             dgvAppointments = new DataGridView();
             btnRefresh = new Button();
             btnBack = new Button();
@@ -36,6 +37,7 @@
             // 
             // dgvAppointments
             // 
+            dgvAppointments.BackgroundColor = Color.FromArgb(255, 192, 192);
             dgvAppointments.ColumnHeadersHeightSizeMode = DataGridViewColumnHeadersHeightSizeMode.AutoSize;
             dgvAppointments.Location = new Point(2, 2);
             dgvAppointments.Name = "dgvAppointments";
@@ -66,6 +68,7 @@
             // 
             AutoScaleDimensions = new SizeF(7F, 15F);
             AutoScaleMode = AutoScaleMode.Font;
+            BackgroundImage = (Image)resources.GetObject("$this.BackgroundImage");
             ClientSize = new Size(800, 450);
             Controls.Add(btnBack);
             Controls.Add(btnRefresh);

@@ -9,6 +9,7 @@
 
         private void InitializeComponent()
         {
+            System.ComponentModel.ComponentResourceManager resources = new System.ComponentModel.ComponentResourceManager(typeof(AdminHoursForm));
             SalonComboBox = new ComboBox();
             HoursGrid = new DataGridView();
             Day = new DataGridViewTextBoxColumn();
@@ -22,6 +23,7 @@
             // 
             // SalonComboBox
             // 
+            SalonComboBox.ForeColor = Color.FromArgb(255, 192, 192);
             SalonComboBox.Location = new Point(81, 29);
             SalonComboBox.Name = "SalonComboBox";
             SalonComboBox.Size = new Size(121, 23);
@@ -30,6 +32,7 @@
             // 
             // HoursGrid
             // 
+            HoursGrid.BackgroundColor = Color.FromArgb(255, 192, 192);
             HoursGrid.Columns.AddRange(new DataGridViewColumn[] { Day, DayName, IsOpen, OpenTime, CloseTime });
             HoursGrid.Location = new Point(81, 94);
             HoursGrid.Name = "HoursGrid";
@@ -72,6 +75,7 @@
             // 
             // AdminHoursForm
             // 
+            BackgroundImage = (Image)resources.GetObject("$this.BackgroundImage");
             ClientSize = new Size(700, 420);
             Controls.Add(SalonComboBox);
             Controls.Add(HoursGrid);

@@ -38,6 +38,7 @@
             CusRegisterBtn = new Button();
             RegPhoneTxtBox = new TextBox();
             label1 = new Label();
+            backBtn = new Button();
             SuspendLayout();
             // 
             // RegPassLbl
@@ -105,7 +106,7 @@
             CusRegisterBtn.BackColor = Color.IndianRed;
             CusRegisterBtn.Font = new Font("Showcard Gothic", 9F, FontStyle.Regular, GraphicsUnit.Point, 0);
             CusRegisterBtn.ForeColor = SystemColors.Control;
-            CusRegisterBtn.Location = new Point(374, 397);
+            CusRegisterBtn.Location = new Point(431, 397);
             CusRegisterBtn.Name = "CusRegisterBtn";
             CusRegisterBtn.Size = new Size(79, 41);
             CusRegisterBtn.TabIndex = 9;
@@ -133,12 +134,26 @@
             label1.TabIndex = 10;
             label1.Text = "Phone Number";
             // 
+            // backBtn
+            // 
+            backBtn.BackColor = Color.IndianRed;
+            backBtn.Font = new Font("Showcard Gothic", 9F, FontStyle.Regular, GraphicsUnit.Point, 0);
+            backBtn.ForeColor = SystemColors.Control;
+            backBtn.Location = new Point(335, 397);
+            backBtn.Name = "backBtn";
+            backBtn.Size = new Size(79, 41);
+            backBtn.TabIndex = 12;
+            backBtn.Text = "Back";
+            backBtn.UseVisualStyleBackColor = false;
+            backBtn.Click += backBtn_Click;
+            // 
             // RegisterForm
             // 
             AutoScaleDimensions = new SizeF(7F, 15F);
             AutoScaleMode = AutoScaleMode.Font;
             BackgroundImage = (Image)resources.GetObject("$this.BackgroundImage");
             ClientSize = new Size(800, 450);
+            Controls.Add(backBtn);
             Controls.Add(RegPhoneTxtBox);
             Controls.Add(label1);
             Controls.Add(CusRegisterBtn);
@@ -164,5 +179,6 @@
         private Button CusRegisterBtn;
         private TextBox RegPhoneTxtBox;
         private Label label1;
+        private Button backBtn;
     }
 }

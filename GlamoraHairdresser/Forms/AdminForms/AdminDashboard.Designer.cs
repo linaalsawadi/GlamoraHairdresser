@@ -31,7 +31,6 @@
             System.ComponentModel.ComponentResourceManager resources = new System.ComponentModel.ComponentResourceManager(typeof(AdminDashboard));
             SalonBtn = new Button();
             WorkerBtn = new Button();
-            ProfitBtn = new Button();
             CustomerBtn = new Button();
             LogoutBtn = new Button();
             ServiceBtn = new Button();
@@ -42,7 +41,7 @@
             // 
             SalonBtn.BackColor = SystemColors.Info;
             SalonBtn.Font = new Font("Showcard Gothic", 36F, FontStyle.Bold | FontStyle.Italic, GraphicsUnit.Point, 0);
-            SalonBtn.Location = new Point(239, 4);
+            SalonBtn.Location = new Point(212, 51);
             SalonBtn.Name = "SalonBtn";
             SalonBtn.Size = new Size(422, 68);
             SalonBtn.TabIndex = 8;
@@ -54,7 +53,7 @@
             // 
             WorkerBtn.BackColor = Color.DarkOrange;
             WorkerBtn.Font = new Font("Showcard Gothic", 36F, FontStyle.Bold | FontStyle.Italic, GraphicsUnit.Point, 0);
-            WorkerBtn.Location = new Point(239, 152);
+            WorkerBtn.Location = new Point(212, 199);
             WorkerBtn.Name = "WorkerBtn";
             WorkerBtn.Size = new Size(422, 68);
             WorkerBtn.TabIndex = 9;
@@ -62,23 +61,11 @@
             WorkerBtn.UseVisualStyleBackColor = false;
             WorkerBtn.Click += WorkerBtn_Click;
             // 
-            // ProfitBtn
-            // 
-            ProfitBtn.BackColor = Color.IndianRed;
-            ProfitBtn.Font = new Font("Showcard Gothic", 36F, FontStyle.Bold | FontStyle.Italic, GraphicsUnit.Point, 0);
-            ProfitBtn.Location = new Point(239, 302);
-            ProfitBtn.Name = "ProfitBtn";
-            ProfitBtn.Size = new Size(422, 68);
-            ProfitBtn.TabIndex = 10;
-            ProfitBtn.Text = "Profit";
-            ProfitBtn.UseVisualStyleBackColor = false;
-            ProfitBtn.Click += ProfitBtn_Click;
-            // 
             // CustomerBtn
             // 
             CustomerBtn.BackColor = Color.Crimson;
             CustomerBtn.Font = new Font("Showcard Gothic", 36F, FontStyle.Bold | FontStyle.Italic, GraphicsUnit.Point, 0);
-            CustomerBtn.Location = new Point(239, 226);
+            CustomerBtn.Location = new Point(212, 273);
             CustomerBtn.Name = "CustomerBtn";
             CustomerBtn.Size = new Size(422, 68);
             CustomerBtn.TabIndex = 11;
@@ -103,7 +90,7 @@
             // 
             ServiceBtn.BackColor = Color.FromArgb(255, 192, 128);
             ServiceBtn.Font = new Font("Showcard Gothic", 36F, FontStyle.Bold | FontStyle.Italic, GraphicsUnit.Point, 0);
-            ServiceBtn.Location = new Point(239, 78);
+            ServiceBtn.Location = new Point(212, 125);
             ServiceBtn.Name = "ServiceBtn";
             ServiceBtn.Size = new Size(422, 68);
             ServiceBtn.TabIndex = 14;
@@ -115,7 +102,7 @@
             // 
             AppoBtn.BackColor = Color.LightCoral;
             AppoBtn.Font = new Font("Showcard Gothic", 36F, FontStyle.Bold | FontStyle.Italic, GraphicsUnit.Point, 0);
-            AppoBtn.Location = new Point(239, 376);
+            AppoBtn.Location = new Point(212, 347);
             AppoBtn.Name = "AppoBtn";
             AppoBtn.Size = new Size(422, 68);
             AppoBtn.TabIndex = 15;
@@ -133,7 +120,6 @@
             Controls.Add(ServiceBtn);
             Controls.Add(LogoutBtn);
             Controls.Add(CustomerBtn);
-            Controls.Add(ProfitBtn);
             Controls.Add(WorkerBtn);
             Controls.Add(SalonBtn);
             Name = "AdminDashboard";
@@ -144,7 +130,6 @@
         #endregion
         private Button SalonBtn;
         private Button WorkerBtn;
-        private Button ProfitBtn;
         private Button CustomerBtn;
         private Button LogoutBtn;
         private Button ServiceBtn;

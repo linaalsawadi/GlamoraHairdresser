@@ -52,10 +52,7 @@ namespace GlamoraHairdresser.WinForms.Forms.AdminForms
             customerForm.ShowDialog();
         }
 
-        private void ProfitBtn_Click(object sender, EventArgs e)
-        {
-
-        }
+        
 
         private void LogoutBtn_Click(object sender, EventArgs e)
         {
