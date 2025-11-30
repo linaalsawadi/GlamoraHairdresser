@@ -123,7 +123,8 @@ namespace GlamoraHairdresser.WinForms.Forms.ApointmentForm
             int duration = service.DurationMinutes;
 
             var existing = _db.Appointments
-                .Where(a => a.WorkerId == wid && a.StartUtc.Date == selectedDay)
+                .Where(a => a.WorkerId == wid && a.StartUtc.Date == selectedDay &&
+                a.Status != AppointmentStatus.Canceled)
                 .Select(a => new
                 {
                     Start = a.StartUtc.ToLocalTime(),
@@ -175,6 +176,9 @@ namespace GlamoraHairdresser.WinForms.Forms.ApointmentForm
             // 🔥 منع حجز نفس الخدمة بنفس الوقت و بنفس اليوم لنفس الزبون
             //    حتى لو عند عامل مختلف أو صالون مختلف
             // =======================================================
+            // =======================================================
+            // CHECK IF CUSTOMER HAD THIS APPOINTMENT BEFORE
+            // =======================================================
             var existing = _db.Appointments
                 .Where(a => a.CustomerId == SessionManager.CurrentUser.Id)
                 .Where(a => a.ServiceOfferingId == _selectedServiceId)
@@ -189,16 +193,40 @@ namespace GlamoraHairdresser.WinForms.Forms.ApointmentForm
                 string workerName = worker?.FullName ?? "Unknown worker";
                 string salonName = salon?.Name ?? "Unknown salon";
 
-                MessageBox.Show(
-                    $"You already have this service booked at the same date and time.\n\n" +
-                    $"Salon: {salonName}\nWorker: {workerName}",
-                    "Duplicate booking",
-                    MessageBoxButtons.OK,
-                    MessageBoxIcon.Warning
-                );
+                // --- CASE 1: USER CANCELED THIS APPOINTMENT BEFORE ---
+                if (existing.Status == AppointmentStatus.Canceled)
+                {
+                    var result = MessageBox.Show(
+                        $"You canceled this appointment before.\n\n" +
+                        $"Do you want to book it again?\n\n" +
+                        $"Salon: {salonName}\nWorker: {workerName}",
+                        "Re-book Appointment?",
+                        MessageBoxButtons.YesNo,
+                        MessageBoxIcon.Question
+                    );
 
-                return; // ⛔ إلغاء الحجز
+                    if (result == DialogResult.No)
+                        return; // ❌ user canceled re-booking
+
+                    _db.Appointments.Remove(existing);
+                    _db.SaveChanges();
+
+                    // ✔️ user agreed → create new appointment
+                }
+                else
+                {
+                    // --- CASE 2: appointment exists and NOT canceled → duplicate booking ---
+                    MessageBox.Show(
+                        $"You already have this service booked at the same date and time.\n\n" +
+                        $"Salon: {salonName}\nWorker: {workerName}",
+                        "Duplicate booking",
+                        MessageBoxButtons.OK,
+                        MessageBoxIcon.Warning
+                    );
+                    return;
+                }
             }
+
             // =======================================================
 
 

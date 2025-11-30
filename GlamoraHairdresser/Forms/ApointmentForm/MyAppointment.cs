@@ -41,7 +41,7 @@ namespace GlamoraHairdresser.WinForms.Forms.ApointmentForm
                     .Include(a => a.Worker)
                     .Where(a =>
                         a.CustomerId == _customerId &&
-                        a.Status == AppointmentStatus.Approved) // Only approved
+                        a.Status == AppointmentStatus.Approved)   // ← هنا بالضبط
                     .OrderBy(a => a.StartUtc)
                     .Select(a => new
                     {
@@ -56,18 +56,7 @@ namespace GlamoraHairdresser.WinForms.Forms.ApointmentForm
                     .ToList();
 
                 dgvMyAppointments.DataSource = list;
-
                 FormatGrid();
-
-                // If nothing appears, notify the user
-                if (list.Count == 0)
-                {
-                    lblMessage.Text = "No approved appointments yet.";
-                }
-                else
-                {
-                    lblMessage.Text = "";
-                }
             }
             catch (Exception ex)
             {
@@ -75,6 +64,7 @@ namespace GlamoraHairdresser.WinForms.Forms.ApointmentForm
                     "Error", MessageBoxButtons.OK, MessageBoxIcon.Error);
             }
         }
+
 
         // ===============================================================
         // FORMAT GRID
@@ -122,5 +112,55 @@ namespace GlamoraHairdresser.WinForms.Forms.ApointmentForm
             this.Close();
 
         }
+
+        private void btnCancel_Click(object sender, EventArgs e)
+        {
+            if (dgvMyAppointments.SelectedRows.Count == 0)
+            {
+                MessageBox.Show("Please select an appointment to cancel.",
+                    "Warning", MessageBoxButtons.OK, MessageBoxIcon.Warning);
+                return;
+            }
+
+            int appointmentId = (int)dgvMyAppointments.SelectedRows[0].Cells["Id"].Value;
+
+            var appt = _db.Appointments
+                .FirstOrDefault(a => a.Id == appointmentId && a.CustomerId == _customerId);
+
+            if (appt == null)
+            {
+                MessageBox.Show("Appointment not found.", "Error",
+                    MessageBoxButtons.OK, MessageBoxIcon.Error);
+                return;
+            }
+
+            // تأكيد الإلغاء
+            var result = MessageBox.Show(
+                "Are you sure you want to cancel this appointment?",
+                "Confirm Cancel",
+                MessageBoxButtons.YesNo,
+                MessageBoxIcon.Question
+            );
+
+            if (result == DialogResult.No)
+                return;
+
+            // تغيير الحالة إلى Canceled
+            appt.Status = AppointmentStatus.Canceled;
+
+            // وقت الإلغاء
+            appt.Notes = "Canceled by customer";
+            appt.DurationMinutes = null;
+            appt.PriceAtBooking = null;
+
+            _db.SaveChanges();
+
+            MessageBox.Show("Appointment canceled successfully!",
+                "Canceled", MessageBoxButtons.OK, MessageBoxIcon.Information);
+
+            // إعادة تحميل البيانات
+            LoadApprovedAppointments();
+        }
+
     }
 }

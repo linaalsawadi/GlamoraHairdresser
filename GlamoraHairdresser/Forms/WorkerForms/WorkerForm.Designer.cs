@@ -40,6 +40,7 @@
             lblDateTimeInfo = new Label();
             LogoutBtn = new Button();
             BackBtn = new Button();
+            btnDailySchedule = new Button();
             ((System.ComponentModel.ISupportInitialize)appointmentsGrid).BeginInit();
             SuspendLayout();
             // 
@@ -160,6 +161,16 @@
             BackBtn.Text = "Back";
             BackBtn.UseVisualStyleBackColor = false;
             BackBtn.Click += BackBtn_Click;
+
+            
+            btnDailySchedule.Text = "Daily Schedule";
+            btnDailySchedule.Location = new Point(500, 410);
+            btnDailySchedule.Width = 100;
+            btnDailySchedule.BackColor = Color.RosyBrown;
+            btnDailySchedule.ForeColor = Color.White;
+            btnDailySchedule.Click += btnDailySchedule_Click;
+            Controls.Add(btnDailySchedule);
+
             // 
             // WorkerForm
             // 
@@ -197,5 +208,6 @@
         private Label lblDateTimeInfo;
         private Button LogoutBtn;
         private Button BackBtn;
+        private Button btnDailySchedule;
     }
 }

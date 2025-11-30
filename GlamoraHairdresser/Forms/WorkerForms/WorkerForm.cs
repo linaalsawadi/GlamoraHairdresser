@@ -175,5 +175,10 @@ namespace GlamoraHairdresser.WinForms.Forms.WorkerForms
             adminPage.Show();
             this.Close();
         }
+        private void btnDailySchedule_Click(object sender, EventArgs e)
+        {
+            var form = new WorkerDailyScheduleForm(_db);
+            form.Show();
+        }
     }
 }

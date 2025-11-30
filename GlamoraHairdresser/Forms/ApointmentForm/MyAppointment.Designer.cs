@@ -10,7 +10,6 @@
         /// <summary>
         /// Clean up any resources being used.
         /// </summary>
-        /// <param name="disposing">true if managed resources should be disposed; otherwise, false.</param>
         protected override void Dispose(bool disposing)
         {
             if (disposing && (components != null))
@@ -22,33 +21,31 @@
 
         #region Windows Form Designer generated code
 
-        /// <summary>
-        /// Required method for Designer support - do not modify
-        /// the contents of this method with the code editor.
-        /// </summary>
         private void InitializeComponent()
         {
-            System.ComponentModel.ComponentResourceManager resources = new System.ComponentModel.ComponentResourceManager(typeof(MyAppointment));
+            System.ComponentModel.ComponentResourceManager resources =
+                new System.ComponentModel.ComponentResourceManager(typeof(MyAppointment));
+
             dgvMyAppointments = new DataGridView();
             btnRefresh = new Button();
             btnClose = new Button();
             lblMessage = new Label();
             BackBtn = new Button();
             LogoutBtn = new Button();
+            btnCancel = new Button();   // ← زر الإلغاء
+
             ((System.ComponentModel.ISupportInitialize)dgvMyAppointments).BeginInit();
             SuspendLayout();
-            // 
-            // dgvMyAppointments
-            // 
+
+            // ===================== DATAGRID =====================
             dgvMyAppointments.BackgroundColor = Color.FromArgb(255, 192, 192);
             dgvMyAppointments.ColumnHeadersHeightSizeMode = DataGridViewColumnHeadersHeightSizeMode.AutoSize;
             dgvMyAppointments.Location = new Point(12, 12);
             dgvMyAppointments.Name = "dgvMyAppointments";
             dgvMyAppointments.Size = new Size(776, 375);
             dgvMyAppointments.TabIndex = 0;
-            // 
-            // btnRefresh
-            // 
+
+            // ===================== REFRESH =====================
             btnRefresh.BackColor = Color.RosyBrown;
             btnRefresh.Font = new Font("Showcard Gothic", 9F);
             btnRefresh.ForeColor = Color.Cornsilk;
@@ -59,9 +56,8 @@
             btnRefresh.Text = "Refresh";
             btnRefresh.UseVisualStyleBackColor = false;
             btnRefresh.Click += btnRefresh_Click_1;
-            // 
-            // btnClose
-            // 
+
+            // ===================== CLOSE =====================
             btnClose.BackColor = Color.RosyBrown;
             btnClose.Font = new Font("Showcard Gothic", 9F);
             btnClose.ForeColor = Color.Cornsilk;
@@ -71,17 +67,28 @@
             btnClose.TabIndex = 2;
             btnClose.Text = "Close";
             btnClose.UseVisualStyleBackColor = false;
-            // 
-            // lblMessage
-            // 
+            btnClose.Click += btnClose_Click_1;
+
+            // ===================== CANCEL BUTTON =====================
+            btnCancel.BackColor = Color.DarkRed;
+            btnCancel.ForeColor = Color.White;
+            btnCancel.Font = new Font("Segoe UI", 10F, FontStyle.Bold);
+            btnCancel.Location = new Point(500, 393);
+            btnCancel.Name = "btnCancel";
+            btnCancel.Size = new Size(95, 42);
+            btnCancel.TabIndex = 4;
+            btnCancel.Text = "Cancel";
+            btnCancel.UseVisualStyleBackColor = false;
+            btnCancel.Click += btnCancel_Click;   // ← مهم لا تنساه
+
+            // ===================== MESSAGE LABEL =====================
             lblMessage.AutoSize = true;
             lblMessage.Location = new Point(598, 339);
             lblMessage.Name = "lblMessage";
             lblMessage.Size = new Size(0, 15);
             lblMessage.TabIndex = 3;
-            // 
-            // BackBtn
-            // 
+
+            // ===================== BACK =====================
             BackBtn.BackColor = SystemColors.ControlText;
             BackBtn.Font = new Font("Berlin Sans FB Demi", 20.25F, FontStyle.Bold | FontStyle.Italic, GraphicsUnit.Point, 0);
             BackBtn.ForeColor = Color.Cornsilk;
@@ -92,9 +99,8 @@
             BackBtn.Text = "Back";
             BackBtn.UseVisualStyleBackColor = false;
             BackBtn.Click += BackBtn_Click;
-            // 
-            // LogoutBtn
-            // 
+
+            // ===================== LOGOUT =====================
             LogoutBtn.BackColor = SystemColors.ControlText;
             LogoutBtn.Font = new Font("Berlin Sans FB Demi", 20.25F, FontStyle.Bold | FontStyle.Italic, GraphicsUnit.Point, 0);
             LogoutBtn.ForeColor = Color.Cornsilk;
@@ -105,13 +111,13 @@
             LogoutBtn.Text = "Logout";
             LogoutBtn.UseVisualStyleBackColor = false;
             LogoutBtn.Click += LogoutBtn_Click;
-            // 
-            // MyAppointment
-            // 
+
+            // ===================== FORM =====================
             AutoScaleDimensions = new SizeF(7F, 15F);
             AutoScaleMode = AutoScaleMode.Font;
             BackgroundImage = (Image)resources.GetObject("$this.BackgroundImage");
             ClientSize = new Size(800, 450);
+            Controls.Add(btnCancel);
             Controls.Add(BackBtn);
             Controls.Add(LogoutBtn);
             Controls.Add(lblMessage);
@@ -120,6 +126,7 @@
             Controls.Add(dgvMyAppointments);
             Name = "MyAppointment";
             Text = "MyAppointment";
+
             ((System.ComponentModel.ISupportInitialize)dgvMyAppointments).EndInit();
             ResumeLayout(false);
             PerformLayout();
@@ -133,5 +140,6 @@
         private Label lblMessage;
         private Button BackBtn;
         private Button LogoutBtn;
+        private Button btnCancel;
     }
 }
